@@ -9,9 +9,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="frontPageAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1239.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.searchController">
+<AnchorPane fx:id="frontPageAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="759.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.searchController">
    <children>
-      <VBox layoutX="25.0" layoutY="113.0" prefHeight="530.0" prefWidth="381.0">
+       <fx:include fx:id="mailList" source="MailList.fxml" />
+      <VBox layoutX="25.0" layoutY="79.0" prefHeight="413.0" prefWidth="381.0">
          <children>
             <Label prefHeight="95.0" prefWidth="381.0" text="Find a hotel!" textAlignment="CENTER">
                <font>
@@ -39,13 +40,13 @@
             <HBox prefHeight="68.0" prefWidth="381.0">
                <children>
                   <Label prefHeight="60.0" prefWidth="222.0" text="Price range" />
-                  <ComboBox fx:id="pricechoice" prefHeight="51.0" prefWidth="298.0" />
+                  <ComboBox fx:id="pricechoice" prefHeight="51.0" prefWidth="301.0" />
                </children>
             </HBox>
             <HBox prefHeight="87.0" prefWidth="381.0">
                <children>
                   <Label prefHeight="60.0" prefWidth="226.0" text="Number of guests" />
-                  <ComboBox fx:id="guestnumber" prefHeight="51.0" prefWidth="298.0" />
+                  <ComboBox fx:id="guestnumber" prefHeight="51.0" prefWidth="303.0" />
                </children>
             </HBox>
             <FlowPane prefHeight="57.0" prefWidth="381.0">
@@ -55,22 +56,24 @@
             </FlowPane>
          </children>
       </VBox>
-      <VBox layoutX="55.0" layoutY="651.0" prefHeight="199.0" prefWidth="469.0">
+      <VBox layoutX="25.0" layoutY="527.0" prefHeight="137.0" prefWidth="362.0">
          <children>
-            <Label prefHeight="51.0" prefWidth="384.0" text="Want to be updated on special offers?">
+            <Label prefHeight="51.0" prefWidth="384.0" text="Sign up your email for our latest offers">
                <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label prefHeight="50.0" prefWidth="416.0" text="Register for our mail list!" />
-            <Button fx:id="mailListButton" mnemonicParsing="false" onAction="#mailListDialogHandler" prefHeight="72.0" prefWidth="197.0" text="Check it out" />
+                  <Font size="19.0" />
+               </font></Label>
+            <TextField prefHeight="39.0" prefWidth="294.0" promptText="Something@example.com" />
+            <Button fx:id="mailListButton" mnemonicParsing="false" onAction="#mailListDialogHandler" prefHeight="36.0" prefWidth="149.0" text="Register!" />
          </children>
       </VBox>
-      <Pane fx:id="resultPane" layoutX="524.0" layoutY="125.0" prefHeight="734.0" prefWidth="638.0">
+      <Pane fx:id="resultPane" layoutX="524.0" layoutY="79.0" prefHeight="734.0" prefWidth="638.0">
          <children>
-            <ScrollPane layoutX="8.0" layoutY="61.0" prefHeight="442.0" prefWidth="426.0">
+            <ScrollPane fx:id="resultboxScroll" layoutX="8.0" layoutY="61.0" prefHeight="442.0" prefWidth="426.0">
                <content>
-                  <VBox prefHeight="627.0" prefWidth="429.0" />
+                  <VBox fx:id="resultboxPlane" prefHeight="627.0" prefWidth="429.0">
+                     <children>
+                        <ListView fx:id="resultList" prefHeight="420.0" prefWidth="429.0" />
+                     </children></VBox>
                </content>
             </ScrollPane>
             <Label layoutX="8.0" layoutY="8.0" prefHeight="50.0" prefWidth="426.0" text="Search Results">
