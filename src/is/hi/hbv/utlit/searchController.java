@@ -13,69 +13,71 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 
 public class searchController implements Initializable {
     @FXML
-    public DatePicker arrivalchoice;
+    public DatePicker arrivalchoice; //Val á komudegi
     @FXML
-    public DatePicker departurechoice;
+    public DatePicker departurechoice; //Val á brottfarardegi
     @FXML
-    public ComboBox areachoice;
+    public ComboBox areachoice; // Val á landsvæði
     @FXML
-    public ComboBox pricechoice;
+    public ComboBox pricechoice; // Val á verðbili
     @FXML
-    public ComboBox guestnumber;
+    public ComboBox guestnumber; // Val á gestafjölda
     @FXML
-    public Button searchButton;
+    public Button searchButton; // Takki til að hefja leit
     @FXML
-    public Button mailListButton;
+    public Button mailListButton; // Takki til að skrá sig á póstlista
     @FXML
-    public AnchorPane frontPageAnchor;
+    public AnchorPane frontPageAnchor;  // Pane utan um alla forsíðuna
     @FXML
-    public ScrollPane resultboxScroll;
+    public ScrollPane resultboxScroll;  // Skrollbox fyrir niðurstöður
     @FXML
-    public VBox resultboxPlane;
+    public VBox resultboxPlane; // Annað box fyrir niðurstöður, spurning hvort þurfi
     @FXML
-    public ToggleGroup sorting;
+    public ToggleGroup sorting; // Til að geta bara valið eitt sorting skilyrði í einu
     @FXML
-    public AnchorPane mailList;
+    public AnchorPane mailList; // hmmm
     @FXML
-    public ListView resultList;
+    public ListView resultList; // Listinn fyrir niðurstöður
     @FXML
-    private MailListController mailListController;
+    private MailListController mailListController; // Tilvik fyrir póstlista dialog controller - vesen
 
+    // Listar fyrir mismunandi svæði, verð og gestafjölda sem er hægt að velja í drop down listum
     private ObservableList<String> areaList = FXCollections.observableArrayList("Capital area", "North", "South", "East", "West", "All areas");
 
     private ObservableList<String> priceList = FXCollections.observableArrayList("Less than 3000 ISK", "3000-6000 ISK", "6000-10000 ISK", "10000-15000 ISK", "15000-20000 ISK", "More than 20000 ISK", "Doesn't matter");
 
     private ObservableList<String> guestList = FXCollections.observableArrayList("1", "2", "3 or more");
 
-    private int areachoicevalue;
-    private int pricechoicevalue;
-    private int guestnumbervalue;
-    private LocalDate arrivalchoicevalue;
-    private LocalDate departurechoicevalue;
+    private int areachoicevalue;    // Gildi fyrir valið svæði
+    private int pricechoicevalue;   // Gildi fyrir valið verðbil
+    private int guestnumbervalue;   // Gildi fyrir valinn gestafjölda
+    private LocalDate arrivalchoicevalue; // Gildi fyrir valinn komudag
+    private LocalDate departurechoicevalue; // Gildir fyrir valinn brottfarardag
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Dropdown val-listarnir frumstilltir
         areachoice.setValue("Choose an area...");
         areachoice.setItems(areaList);
         pricechoice.setValue("Price per night");
         pricechoice.setItems(priceList);
         guestnumber.setValue("Choose number of guests...");
         guestnumber.setItems(guestList);
+        // Frumstillum handlera fyrir þá
         areaChoiceHandler();
         priceChoiceHandler();
         guestNumberHandler();
         // mailController = new MailListController(); // Spurning
         // mailController.initSearch(this); // var að taka
     }
-
+    /*
+    * Það sem gerist þegar ýtt er á leita takkann - ýmislegt í boði.
+     */
     public void hotelsearchHandler(ActionEvent actionEvent) {
         // Notum value sem við fáum úr comboboxunum til að ákvarða hvað birtist í leitarniðurstöðunum.
         // Hér er test sem nær í gögn úr gagnagrunninum :)
