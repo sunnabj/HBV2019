@@ -3,15 +3,13 @@ package is.hi.hbv.vinnsla;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static java.sql.JDBCType.INTEGER;
-
-public class HotelsDAO {
+public class RoomsDAO {
 
     private Connection conn;
     private Statement stmt;
     private ResultSet r;
 
-    public HotelsDAO() {
+    public RoomsDAO() {
         try {
             Class.forName("org.sqlite.JDBC");
             // db parameters
@@ -32,21 +30,6 @@ public class HotelsDAO {
     // eða jafnvel til að update-a eitthvað í gagnagrunninum.
     // Getum svo unnið með niðurstöðurnar einhvern veginn til að birta þær.
 
-    public ArrayList<String> getHotelNames() {
-        ArrayList<String> hotels = new ArrayList<String>();
-
-        try {
-            stmt = conn.createStatement();
-            r = stmt.executeQuery("select name from Hotel");
-
-            while (r.next()) {
-                hotels.add(r.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return hotels;
-    }
 
     public ArrayList<String> getHotelRooms() {
         ArrayList<String> rooms = new ArrayList<String>();
@@ -121,6 +104,6 @@ public class HotelsDAO {
     }
 
     public static void main(String[] args) {
-        HotelsDAO hotel = new HotelsDAO();
+        RoomsDAO room = new RoomsDAO();
     }
 }
