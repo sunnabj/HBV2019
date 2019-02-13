@@ -1,6 +1,7 @@
 package is.hi.hbv.utlit;
 
 import is.hi.hbv.vinnsla.HotelsDAO;
+import is.hi.hbv.vinnsla.RoomsDAO;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ public class searchController implements Initializable {
     public AnchorPane mailList; // hmmm
     @FXML
     public ListView resultList; // Listinn fyrir niðurstöður
+    @FXML
+    public Button chooseButton; // Takki til að velja hótel í niðurstöðum
     @FXML
     private MailListController mailListController; // Tilvik fyrir póstlista dialog controller - vesen
 
@@ -89,15 +92,18 @@ public class searchController implements Initializable {
         System.out.println(hotelResults);
         // Hér birtum við annað hvort á listanum
         resultList.setItems(hotelResults);
+
+        RoomsDAO databaseb = new RoomsDAO();
         // Svona náum við í dagsetningarnar úr datepickers - uppfærum tilviksbreyturnar
         arrivalchoicevalue = arrivalchoice.getValue();
         System.out.println(arrivalchoicevalue);
         departurechoicevalue = departurechoice.getValue();
         System.out.println(departurechoicevalue);
         // Hér getum við valið og birt herbergi eftir verði. Hægt að útvíkka þetta!
-        ObservableList<String> roomsbyPrice = FXCollections.observableArrayList(database.getRoomsbyPrice(pricechoicevalue));
+        ObservableList<String> roomsbyPrice = FXCollections.observableArrayList(databaseb.getRoomsbyPrice(pricechoicevalue));
         resultList.setItems(roomsbyPrice);
         System.out.println(roomsbyPrice);
+        // Neðstu þrjár teknar út - test
     }
 
     public void mailListDialogHandler(ActionEvent actionEvent) {
@@ -193,5 +199,7 @@ public class searchController implements Initializable {
     }
 
 
+    public void chooseHotelHandler(ActionEvent actionEvent) {
 
+    }
 }
