@@ -16,20 +16,11 @@ public class MailListController implements Initializable {
     @FXML
     private AnchorPane nmailDialog;
 
-    //private searchController searchController;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-/*
-    public void initSearch(searchController search) {
-        System.out.println("search í maillistcontroller " + search);
-        System.out.println("this.searchController í maillistcontroller " + this.searchController);
-        this.searchController = search;
 
-    }
-*/
     public void mailDialog() {
         // Innihald dialogs búið til
         DialogPane p = new DialogPane();
@@ -44,7 +35,7 @@ public class MailListController implements Initializable {
         // og innihaldið sett í umgjörðina
         d.setDialogPane(p);
         // Haus og titill
-        d.setTitle("Registration to a mail list");
+        d.setTitle("Thank you for registering!");
 
         // Hnappur til að loka glugga búinn til og bætt við
         ButtonType close = new ButtonType("Close",

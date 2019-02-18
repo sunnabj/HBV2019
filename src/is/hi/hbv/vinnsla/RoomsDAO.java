@@ -17,7 +17,7 @@ public class RoomsDAO {
             // create a connection to the database
             conn = DriverManager.getConnection(url);
 
-            // System.out.println("Connection to SQLite has been established.");
+            System.out.println("Connection to SQLite has been established.");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -47,16 +47,17 @@ public class RoomsDAO {
         return rooms;
     }
 
-    public ArrayList<String> getRoomsbyPrice(int i) {
+    public ArrayList<String> getRoomsbyPrice(int high, int low) {
         ArrayList<String> rooms = new ArrayList<String>();
         // Þessu má breyta í stærri query með líka ? fyrir area og ? fyrir fjölda gesta og kannski ? fyrir date
         // Svo tekur maður bara fleiri parametra inn, einn fyrir hvert leitarskilyrði.
         // Þá er hægt að nota bara þetta fall fyrir leitina
         try {
             stmt = conn.createStatement();
-            // Hér má annað hvort breyta yfir í Rate > ? && Rate < ?, eða breyta viðmótinu yfir í alltaf
-            // bara minna en 3000, minna en 6000 o.s.frv.
-            PreparedStatement p = conn.prepareStatement("SELECT * FROM Room WHERE Rate < ?");
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM Room WHERE Rate <= ? AND Rate > ?");
+            p.setInt(1, high);
+            p.setInt(2, low);
+            /*
             if (i == 0) {
                 p.setInt(1, 3000);
             }
@@ -78,6 +79,7 @@ public class RoomsDAO {
             else {
                 p.setInt(1, 1000000000);
             }
+            */
             r = p.executeQuery();
 
             while (r.next()) {

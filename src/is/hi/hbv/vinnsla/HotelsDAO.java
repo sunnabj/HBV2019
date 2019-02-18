@@ -19,7 +19,7 @@ public class HotelsDAO {
             // create a connection to the database
             conn = DriverManager.getConnection(url);
 
-            // System.out.println("Connection to SQLite has been established.");
+            System.out.println("Connection to SQLite has been established.");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -64,46 +64,26 @@ public class HotelsDAO {
         return rooms;
     }
 
-    public ArrayList<String> getRoomsbyPrice(int i) {
-        ArrayList<String> rooms = new ArrayList<String>();
+    public ArrayList<String> getHotelsbyPrice(int low, int high) {
+        ArrayList<String> hotels = new ArrayList<String>();
         // Þessu má breyta í stærri query með líka ? fyrir area og ? fyrir fjölda gesta og kannski ? fyrir date
         // Svo tekur maður bara fleiri parametra inn, einn fyrir hvert leitarskilyrði.
         // Þá er hægt að nota bara þetta fall fyrir leitina
         try {
             stmt = conn.createStatement();
-            // Hér má annað hvort breyta yfir í Rate > ? && Rate < ?, eða breyta viðmótinu yfir í alltaf
-            // bara minna en 3000, minna en 6000 o.s.frv.
-            PreparedStatement p = conn.prepareStatement("SELECT * FROM Room WHERE Rate < ?");
-            if (i == 0) {
-                p.setInt(1, 3000);
-            }
-            else if (i == 1) {
-                p.setInt(1,6000);
-            }
-            else if (i == 2) {
-                p.setInt(1, 10000);
-            }
-            else if (i == 3) {
-                p.setInt(1, 15000);
-            }
-            else if (i == 4) {
-                p.setInt(1, 20000);
-            }
-            else if (i == 5) {
-                p = conn.prepareStatement("SELECT * FROM Room WHERE Rate >= 20000");
-            }
-            else {
-                p.setInt(1, 1000000000);
-            }
+            PreparedStatement p = conn.prepareStatement("SELECT DISTINCT Name FROM Hotel, Room WHERE Rate <= ? AND Rate > ?" +
+                    "AND Hotel.HotelID = Room.HotelID");
+            p.setInt(1, high);
+            p.setInt(2, low);
             r = p.executeQuery();
 
             while (r.next()) {
-                rooms.add(r.getString(1));
+                hotels.add(r.getString(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rooms;
+        return hotels;
     }
 
 

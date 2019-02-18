@@ -2,16 +2,23 @@ package is.hi.hbv.utlit;
 
 import is.hi.hbv.vinnsla.HotelsDAO;
 import is.hi.hbv.vinnsla.RoomsDAO;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.VBox;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -49,16 +56,21 @@ public class searchController implements Initializable {
     @FXML
     private MailListController mailListController; // Tilvik fyrir póstlista dialog controller - vesen
 
+    int hotelindex = 0; //Núverandi index í result lista
+
+    String hotelName; // Nafn valins hótels í lista.
+
     // Listar fyrir mismunandi svæði, verð og gestafjölda sem er hægt að velja í drop down listum
     private ObservableList<String> areaList = FXCollections.observableArrayList("Capital area", "North", "South", "East", "West", "All areas");
 
-    private ObservableList<String> priceList = FXCollections.observableArrayList("Less than 3000 ISK", "3000-6000 ISK", "6000-10000 ISK", "10000-15000 ISK", "15000-20000 ISK", "More than 20000 ISK", "Doesn't matter");
+    private ObservableList<String> priceList = FXCollections.observableArrayList("3000 ISK or less", "3000-6000 ISK", "6000-10000 ISK", "10000-15000 ISK", "15000-20000 ISK", "More than 20000 ISK", "Doesn't matter");
 
     private ObservableList<String> guestList = FXCollections.observableArrayList("1", "2", "3 or more");
 
-    private int areachoicevalue;    // Gildi fyrir valið svæði
-    private int pricechoicevalue;   // Gildi fyrir valið verðbil
-    private int guestnumbervalue;   // Gildi fyrir valinn gestafjölda
+    private String areachoicevalue;    // Gildi fyrir valið svæði
+    private int maxpricevalue;         // Gildi fyrir hærri mörk verðbils
+    private int minpricevalue;         // Gildi fyrir lægri mörk verðbils
+    private int guestnumbervalue;      // Gildi fyrir valinn gestafjölda
     private LocalDate arrivalchoicevalue; // Gildi fyrir valinn komudag
     private LocalDate departurechoicevalue; // Gildir fyrir valinn brottfarardag
 
@@ -75,45 +87,43 @@ public class searchController implements Initializable {
         areaChoiceHandler();
         priceChoiceHandler();
         guestNumberHandler();
-        // mailController = new MailListController(); // Spurning
-        // mailController.initSearch(this); // var að taka
+
+        MultipleSelectionModel<String> lsm = resultList.getSelectionModel();
+        lsm.selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Indexinn í listanum.
+                hotelindex = lsm.getSelectedIndex();
+            }
+        });
     }
     /*
     * Það sem gerist þegar ýtt er á leita takkann - ýmislegt í boði.
      */
     public void hotelsearchHandler(ActionEvent actionEvent) {
         // Notum value sem við fáum úr comboboxunum til að ákvarða hvað birtist í leitarniðurstöðunum.
-        // Hér er test sem nær í gögn úr gagnagrunninum :)
+        // Náum í hótelherbergi eftir verði sem við veljum í search
         HotelsDAO database = new HotelsDAO();
-        // Með næstu skipun koma inn bara öll hótel
-        // ObservableList<String> hotelResults = FXCollections.observableArrayList(database.getHotelNames());
-        // Hér hins vegar náum við í hótelherbergi
-        ObservableList<String> hotelResults = FXCollections.observableArrayList(database.getHotelRooms());
-        System.out.println(hotelResults);
-        // Hér birtum við annað hvort á listanum
+        ObservableList<String> hotelResults = FXCollections.observableArrayList(database.getHotelsbyPrice(minpricevalue, maxpricevalue));
+        // Birtum þá svo á listanum fyrir leitarniðurstöður
         resultList.setItems(hotelResults);
+        // Eftir að útvíkka þetta fyrir fleiri leitarmöguleika.
 
-        RoomsDAO databaseb = new RoomsDAO();
+        // RoomsDAO databaseb = new RoomsDAO();
         // Svona náum við í dagsetningarnar úr datepickers - uppfærum tilviksbreyturnar
         arrivalchoicevalue = arrivalchoice.getValue();
         System.out.println(arrivalchoicevalue);
         departurechoicevalue = departurechoice.getValue();
         System.out.println(departurechoicevalue);
-        // Hér getum við valið og birt herbergi eftir verði. Hægt að útvíkka þetta!
-        ObservableList<String> roomsbyPrice = FXCollections.observableArrayList(databaseb.getRoomsbyPrice(pricechoicevalue));
-        resultList.setItems(roomsbyPrice);
-        System.out.println(roomsbyPrice);
-        // Neðstu þrjár teknar út - test
+
     }
 
     public void mailListDialogHandler(ActionEvent actionEvent) {
-        // Helvítis vesen á þessu! mailListController alltaf null.
-        System.out.println(mailListController);
         mailListController.mailDialog();
     }
 
     /*
-    * Fylgist með breyttum gildum á vali á landsvæði - skilar int gildi inn í tilsvarandi tilviksbreytu
+    * Fylgist með breyttum gildum á vali á landsvæði - skilar nafni landsvæðis inn í tilsvarandi tilviksbreytu
      */
     private void areaChoiceHandler() {
         areachoice.getSelectionModel()
@@ -122,23 +132,26 @@ public class searchController implements Initializable {
                     if (newValue == null) {
                         return;
                     }
+                    areachoicevalue = newValue;
+                    /*
                     if (newValue.equals("Capital area"))  {
-                        areachoicevalue = 0;
+                        areachoicevalue = "Capital";
                     } else if (newValue.equals("North")) {
-                        areachoicevalue = 1;
+                        areachoicevalue = "North";
                     }
                     else if (newValue.equals("South")) {
-                        areachoicevalue = 2;
+                        areachoicevalue = "South";
                     }
                     else if (newValue.equals("East")) {
-                        areachoicevalue = 3;
+                        areachoicevalue = "East";
                     }
                     else if (newValue.equals("West")) {
-                        areachoicevalue = 4;
+                        areachoicevalue = "West";
                     }
                     else if (newValue.equals("All areas")) {
-                        areachoicevalue = 5;
+                        areachoicevalue = "All"; // Spurning
                     }
+                    */
                     System.out.println(areachoicevalue);
                 });
     }
@@ -153,26 +166,32 @@ public class searchController implements Initializable {
                         return;
                     }
                     if (newValue.equals("Less than 3000ISK"))  {
-                        pricechoicevalue = 0;
+                        minpricevalue = 0;
+                        maxpricevalue = 3000;
                     } else if (newValue.equals("3000-6000 ISK")) {
-                        pricechoicevalue = 1;
+                        minpricevalue = 3000;
+                        maxpricevalue = 6000;
                     }
                     else if (newValue.equals("6000-10000 ISK")) {
-                        pricechoicevalue = 2;
+                        minpricevalue = 6000;
+                        maxpricevalue = 10000;
                     }
                     else if (newValue.equals("10000-15000 ISK")) {
-                        pricechoicevalue = 3;
+                        minpricevalue = 10000;
+                        maxpricevalue = 15000;
                     }
                     else if (newValue.equals("15000-20000 ISK")) {
-                        pricechoicevalue = 4;
+                        minpricevalue = 15000;
+                        maxpricevalue = 20000;
                     }
                     else if (newValue.equals("More than 20000 ISK")) {
-                        pricechoicevalue = 5;
+                        minpricevalue = 20000;
+                        maxpricevalue = 1000000000;
                     }
                     else if (newValue.equals("Doesn't matter")) {
-                        pricechoicevalue = 6;
+                        minpricevalue = 0;
+                        maxpricevalue = 1000000000;
                     }
-                    System.out.println(pricechoicevalue);
                 });
     }
     /*
@@ -198,8 +217,25 @@ public class searchController implements Initializable {
                 });
     }
 
+    /*
+    * Handler fyrir að velja hótel úr leitarniðurstöðum.
+    * Nafnið á hótelinu sem er valið í listanum að því sinni er vistað og herbergi.fxml er birt.
+    * Hægt að ná í hótelnafnið með getHotelName() hér fyrir neðan.
+     */
+    public void chooseHotelHandler(ActionEvent actionEvent) throws IOException {
+        if (hotelindex != -1) {
+            hotelName = String.valueOf(resultList.getItems().get(hotelindex));
+            System.out.println("Nafnið á völdu hóteli: " + hotelName);
+        }
+        Parent herbergi_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
+        Scene herbergi_scene = new Scene(herbergi_parent);
+        Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        main_stage.setScene(herbergi_scene);
+        main_stage.show();
 
-    public void chooseHotelHandler(ActionEvent actionEvent) {
+    }
 
+    public String getHotelName() {
+        return hotelName;
     }
 }
