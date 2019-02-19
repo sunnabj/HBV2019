@@ -32,6 +32,9 @@ public class HotelsDAO {
     // eða jafnvel til að update-a eitthvað í gagnagrunninum.
     // Getum svo unnið með niðurstöðurnar einhvern veginn til að birta þær.
 
+    /*
+    * Test
+     */
     public ArrayList<String> getHotelNames() {
         ArrayList<String> hotels = new ArrayList<String>();
 
@@ -48,6 +51,9 @@ public class HotelsDAO {
         return hotels;
     }
 
+    /*
+    * Test
+     */
     public ArrayList<String> getHotelRooms() {
         ArrayList<String> rooms = new ArrayList<String>();
 
@@ -63,22 +69,61 @@ public class HotelsDAO {
         }
         return rooms;
     }
-
-    public ArrayList<String> getHotelsbyPrice(int low, int high) {
+    /*
+    * Version 1: Fall sem leitar að hótelum eftir leitarskilyrðum - skilar strenglista með nöfnum hótela
+     */
+    public ArrayList<String> getHotelsSearch(int low, int high, String area, int guests) {
         ArrayList<String> hotels = new ArrayList<String>();
-        // Þessu má breyta í stærri query með líka ? fyrir area og ? fyrir fjölda gesta og kannski ? fyrir date
-        // Svo tekur maður bara fleiri parametra inn, einn fyrir hvert leitarskilyrði.
-        // Þá er hægt að nota bara þetta fall fyrir leitina
         try {
             stmt = conn.createStatement();
-            PreparedStatement p = conn.prepareStatement("SELECT DISTINCT Name FROM Hotel, Room WHERE Rate <= ? AND Rate > ?" +
-                    "AND Hotel.HotelID = Room.HotelID");
+            PreparedStatement p = conn.prepareStatement("SELECT DISTINCT Hotel.Name, Room.Rate FROM Hotel, Room WHERE Rate <= ? AND Rate > ?" +
+                    "AND area = ? AND GuestNumber = ? AND Hotel.HotelID = Room.HotelID");
             p.setInt(1, high);
             p.setInt(2, low);
+            if (area.equals("North")) p.setString(3, "Norðurland");
+            else if (area.equals("South")) p.setString(3, "Suðurland");
+            else if (area.equals("West")) p.setString(3, "Vesturland");
+            else if (area.equals("East")) p.setString(3, "Austurland");
+            else if (area.equals("Capital area")) p.setString(3, "Höfuðborgarsvæðið");
+            p.setInt(4, guests);
             r = p.executeQuery();
 
             while (r.next()) {
+                System.out.println(r);
                 hotels.add(r.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hotels;
+    }
+    /*
+    * Version 2 - Aðal!!!
+    * Fall sem leitar að hótelum eftir leitarskilyrðum - skilar object lista af hótel objects
+    * Þeir eru samt eiginlega herbergi, innihalda verð og Room number
+     */
+    public ArrayList<Object> getHotelsSearchA(int low, int high, String area, int guests) {
+        ArrayList<Object> hotels = new ArrayList<Object>();
+
+        try {
+            stmt = conn.createStatement();
+            PreparedStatement p = conn.prepareStatement("SELECT Hotel.Name, Room.Rate, Hotel.Stars, Hotel.ReviewID, Room.RoomNumber" +
+                    " FROM Hotel, Room WHERE Rate <= ? AND Rate > ?" +
+                    "AND area = ? AND GuestNumber = ? AND Hotel.HotelID = Room.HotelID");
+            p.setInt(1, high);
+            p.setInt(2, low);
+            if (area.equals("North")) p.setString(3, "Norðurland");
+            else if (area.equals("South")) p.setString(3, "Suðurland");
+            else if (area.equals("West")) p.setString(3, "Vesturland");
+            else if (area.equals("East")) p.setString(3, "Austurland");
+            else if (area.equals("Capital area")) p.setString(3, "Höfuðborgarsvæðið");
+            p.setInt(4, guests);
+            r = p.executeQuery();
+
+            // Fyrir hverja niðurstöðu í query er búið til nýtt "hótel" - því bætt á lista sem er svo skilað
+            while (r.next()) {
+                Hotel hotel = new Hotel(r.getString(1), r.getInt(2), r.getInt(3), r.getInt(4), r.getInt(5));
+                hotels.add(hotel);
             }
         } catch (SQLException e) {
             e.printStackTrace();

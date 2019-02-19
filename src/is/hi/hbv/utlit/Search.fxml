@@ -81,17 +81,17 @@
                   <Font size="32.0" />
                </font>
             </Label>
-            <RadioButton layoutX="449.0" layoutY="132.0" mnemonicParsing="false" text="Price">
+            <RadioButton id="1" fx:id="priceRadio" layoutX="449.0" layoutY="132.0" mnemonicParsing="false" onAction="#sortingHandler" text="Price">
                <toggleGroup>
                   <ToggleGroup fx:id="sorting" />
                </toggleGroup></RadioButton>
-            <RadioButton layoutX="449.0" layoutY="171.0" mnemonicParsing="false" text="Number of reviews" toggleGroup="$sorting" />
+            <RadioButton id="2" fx:id="reviewRadio" layoutX="449.0" layoutY="171.0" mnemonicParsing="false" onAction="#sortingHandler" text="Number of reviews" toggleGroup="$sorting" />
             <Label layoutX="449.0" layoutY="68.0" prefHeight="44.0" prefWidth="153.0" text="Sort by">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <RadioButton layoutX="449.0" layoutY="211.0" mnemonicParsing="false" text="Number of stars" toggleGroup="$sorting" />
+            <RadioButton id="3" fx:id="starRadio" layoutX="449.0" layoutY="211.0" mnemonicParsing="false" onAction="#sortingHandler" text="Number of stars" toggleGroup="$sorting" />
             <Button fx:id="chooseButton" layoutX="470.0" layoutY="503.0" mnemonicParsing="false" onAction="#chooseHotelHandler" prefHeight="60.0" prefWidth="122.0" text="Choose" />
          </children>
       </Pane>
