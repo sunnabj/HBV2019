@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="root_vbox" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.maplistController">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <Label text="Zoom">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#zoomOut" text="-">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Slider fx:id="zoom_slider">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Slider>
+            <Button mnemonicParsing="false" onAction="#zoomIn" text="+" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Visuals">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <ToggleButton fx:id="contrast_togglebutton" mnemonicParsing="false" onAction="#stylingContrast" text="Hi Contast">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="size_togglebutton" mnemonicParsing="false" onAction="#stylingSizing" text="Large UI">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </ToggleButton>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <SplitPane dividerPositions="0.3076923076923077" prefHeight="480.0" prefWidth="643.0" VBox.vgrow="ALWAYS">
+         <items>
+            <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="200.0" prefWidth="200.0" />
+            <ScrollPane fx:id="map_scrollpane" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <Pane>
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@img/Roomimage/island.png" />
+                           </image>
+                        </ImageView>
+                        <MenuButton fx:id="map_pin" layoutX="110.0" layoutY="100.0" mnemonicParsing="false" styleClass="map-pin">
+                          <items>
+                            <MenuItem fx:id="pin_info" mnemonicParsing="false" text="Action 1" />
+                          </items>
+                        </MenuButton>
+                     </children>
+                  </Pane>
+               </content>
+            </ScrollPane>
+         </items>
+      </SplitPane>
+   </children>
+</VBox>
