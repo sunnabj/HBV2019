@@ -20,9 +20,9 @@
             <Image url="@img/Roomimage/hotel1.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="599.0" layoutY="307.0" mnemonicParsing="false" text="Fleiri mynd" />
-      <Button layoutX="437.0" layoutY="625.0" mnemonicParsing="false" text="Til baka" />
-      <Button layoutX="740.0" layoutY="625.0" mnemonicParsing="false" text="Áfram" />
+      <Button layoutX="599.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="Fleiri mynd" />
+      <Button layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Til baka" />
+      <Button layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Áfram" />
       <VBox layoutX="423.0" layoutY="342.0">
          <children>
             <HBox alignment="CENTER_LEFT">
@@ -45,24 +45,31 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </HBox>
-            <ScrollPane layoutX="423.0" layoutY="342.0" prefHeight="230.0" prefWidth="411.0">
-               <content>
-                  <Pane>
-                     <children>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/Roomimage/map.png" />
-                           </image>
-                        </ImageView>
-                        <MenuButton layoutX="548.0" layoutY="240.0" mnemonicParsing="false" styleClass="map-pin" stylesheets="@style.css">
-                           <items>
-                              <MenuItem fx:id="pin_info" mnemonicParsing="false" text="Unspecified Action" />
-                           </items>
-                        </MenuButton>
-                     </children>
-                  </Pane>
-               </content>
-            </ScrollPane>
+            <SplitPane prefHeight="240.0" prefWidth="410.0" VBox.vgrow="ALWAYS">
+               <items>
+                  <ScrollPane fx:id="map_scrollpane">
+                     <content>
+                        <Pane>
+                           <children>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/Roomimage/map.png" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                              <MenuButton fx:id="map_pin" layoutX="94.0" layoutY="14.0" mnemonicParsing="false" styleClass="map-pin" stylesheets="@style.css">
+                                 <items>
+                                    <MenuItem fx:id="pin_info" mnemonicParsing="false" />
+                                 </items>
+                              </MenuButton>
+                           </children>
+                        </Pane>
+                     </content>
+                  </ScrollPane>
+               </items>
+            </SplitPane>
          </children>
       </VBox>
    </children>
