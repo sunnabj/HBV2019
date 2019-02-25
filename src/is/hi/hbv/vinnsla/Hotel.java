@@ -1,47 +1,65 @@
 package is.hi.hbv.vinnsla;
 
 /*
-* Klasi sem heldur utan um hótel hluti. Þetta er samt eiginlega herbergi eins og er.
+* Klasi sem heldur utan um hótel hluti.
  */
+
+import java.util.ArrayList;
 
 public class Hotel {
 
     private int stars;
-    private int price;
+    private int minprice;
     private int reviewID;
     private String name;
-    private int roomNr;
+    private int hotelID;
+    private String hotelInfo; // Eftir að bæta við í gagnagrunninn
+    private String hotelAddress;
+    private String phoneNr;
 
-    public Hotel(String namevalue, int pricevalue, int starvalue, int reviews, int room) {
+    //Name, HotelID, Stars, ReviewID, minPrice
+
+    public Hotel(String namevalue, int hotelIdent, int starvalue, int reviews, int pricevalue, String address, String phone) {
         name = namevalue;
+        hotelID = hotelIdent;
         stars = starvalue;
-        price = pricevalue;
+        minprice = pricevalue;
         reviewID = reviews;
-        roomNr = room;
+        // hotelInfo = info; // Mun bætast við. Líka sem inntak.
+        hotelAddress = address;
+        phoneNr = phone;
     }
 
     public int getStars() {
         return stars;
     }
     public int getPrice() {
-        return price;
+        return minprice;
     }
     public int getReviewID() {
         return reviewID;
     }
+    public int getHotelID() {
+        return hotelID;
+    }
+    // Ekki komið inn
+    public String getHotelInfo() {
+        return hotelInfo;
+    }
+    public String getHotelAddress() {
+        return hotelAddress;
+    }
+    public String getPhoneNr() {
+        return phoneNr;
+    }
+
+    public ArrayList<Object> getRooms() {
+        HotelsDAO db = new HotelsDAO();
+        return db.getRoomsInHotel(hotelID);
+    }
 
     public String toString() {
-        return name + " - room number " + roomNr + " - Price: " + price;
+        return name + " - Price from: " + minprice + " - Stars: " + stars;
     }
-/*
-    public void setStars(int starvalue) {
-        stars = starvalue;
-    }
-    public void setPrice(int pricevalue) {
-        price = pricevalue;
-    }
-    public void setReviewID(int reviews) {
-        reviewID = reviews;
-    }
-*/
+
 }

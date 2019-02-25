@@ -92,7 +92,7 @@
                </font>
             </Label>
             <RadioButton id="3" fx:id="starRadio" layoutX="449.0" layoutY="211.0" mnemonicParsing="false" onAction="#sortingHandler" text="Number of stars" toggleGroup="$sorting" />
-            <Button fx:id="chooseButton" layoutX="470.0" layoutY="503.0" mnemonicParsing="false" onAction="#chooseHotelHandler" prefHeight="60.0" prefWidth="122.0" text="Choose" />
+            <Button fx:id="chooseButton" layoutX="470.0" layoutY="503.0" mnemonicParsing="false" onAction="#chooseHotelHandler" prefHeight="60.0" prefWidth="122.0" text="Select" />
          </children>
       </Pane>
    </children>
