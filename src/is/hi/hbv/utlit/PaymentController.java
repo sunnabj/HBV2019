@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -43,6 +44,12 @@ public class PaymentController {
     private TextField getAddress;
 
     @FXML
+    private Label totalscost;
+
+    @FXML
+    private Label totallist;
+
+    @FXML
     private TextField getCardnumber;    // Textfield til að sækja gildi fyrir kortnúmer
 
     @FXML
@@ -50,24 +57,25 @@ public class PaymentController {
 
     @FXML
     void Next(ActionEvent event) {
-        nextButton.setOnAction( e -> {
-            validateFirstName();
-            validateLastName();
-            validateEmaill();
-            validatePhone();
-            validateKennitala((getKennitala.getText()));
-            validateCardNumber();
-            validateCardExpiryDate();
-            validateCVC();
-        });
+        validateFirstName();
+        validateLastName();
+        validateEmaill();
+        validatePhone();
+        validateKennitala((getKennitala.getText()));
+        validateCardNumber();
+        validateCardExpiryDate();
+        validateCVC();
+        // Loadum nýrri scene -> paymentConfirmation.fxml
+        // TODO : kassa sem sýna verðlist og aukaþjónustu
     }
 
     @FXML
     void Back (ActionEvent actionEvent) throws IOException {
-        // Loadum nýrri scene -> MorePic.fxml
+        // Loadum nýrri scene -> herbergi.fxml
         Parent MorePic_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
         Scene Search_scene = new Scene(MorePic_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        main_stage.setTitle("Room infomation");
         main_stage.setScene(Search_scene);
         main_stage.show();
     }
@@ -93,7 +101,7 @@ public class PaymentController {
         Matcher m = p.matcher(getCardnumber.getText());
         if(m.find() && m.group().equals(getCardnumber.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Card-number");
             alert.setHeaderText(null);
@@ -102,12 +110,12 @@ public class PaymentController {
             return false;
         }
     }
-    boolean validateCardExpiryDate() {
+    private boolean validateCardExpiryDate() {
         Pattern p = Pattern.compile("(?:0[1-9]|1[0-2])/[0-9]{2}");
         Matcher m = p.matcher(getExpirydate.getText());
         if(m.find() && m.group().equals(getExpirydate.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Expiry date");
             alert.setHeaderText(null);
@@ -117,12 +125,12 @@ public class PaymentController {
         }
     }
 
-    boolean validateCVC() {
+    private boolean validateCVC() {
         Pattern p = Pattern.compile("[1-9][1-9][1-9]");
         Matcher m = p.matcher(getCVC.getText());
         if(m.find() && m.group().equals(getCVC.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate CVC");
             alert.setHeaderText(null);
@@ -137,7 +145,7 @@ public class PaymentController {
         Matcher m = p.matcher(getEmail.getText());
         if(m.find() && m.group().equals(getEmail.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Email");
             alert.setHeaderText(null);
@@ -152,13 +160,12 @@ public class PaymentController {
         Matcher m = p.matcher(getFirstname.getText());
         if(m.find() && m.group().equals(getFirstname.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate First Name");
             alert.setHeaderText(null);
             alert.setContentText("Please Enter Valid First Name");
             alert.showAndWait();
-
             return false;
         }
     }
@@ -167,7 +174,7 @@ public class PaymentController {
         Matcher m = p.matcher(getLastname.getText());
         if(m.find() && m.group().equals(getLastname.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Last Name");
             alert.setHeaderText(null);
@@ -183,7 +190,6 @@ public class PaymentController {
         System.out.println(a);
         int j = 3;
         int k = 0;
-
         if (lengd != 10 ) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Kennitala");
@@ -218,7 +224,7 @@ public class PaymentController {
         Matcher m = p.matcher(getPhone.getText());
         if(m.find() && m.group().equals(getPhone.getText())){
             return true;
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Mobile Number");
             alert.setHeaderText(null);
@@ -227,5 +233,8 @@ public class PaymentController {
             return false;
         }
     }
-
+    public void setText12 (String choice, int count) {
+        totalscost.setText(String.valueOf(count));
+        totallist.setText(choice);
+    }
 }

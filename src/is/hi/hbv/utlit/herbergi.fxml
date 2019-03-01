@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.HerbergiController">
    <children>
-      <TextArea layoutX="24.0" layoutY="85.0" prefHeight="567.0" prefWidth="383.0" text="Þetta hótel er staðsett við Hengilssvæðið, um 18 km frá Þingvallaþjóðgarði, en hann er á heimsminjaskrá UNESCO. Veitingastaðurinn býður uppá norræna sérrétti og bar með fallegu og víðáttumiklu útsýni.&#10;&#10;Öll herbergi á Ion Adventure Hotel eru með ókeypis WiFi, gervihnattasjónvarp, setusvæði og baðherbergi. Sum herbergin eru með útsýni yfir Þingvallavatn.&#10;&#10;Á staðnum er heilsulind og gufubað sem hægt er að bóka. Gestir Ion Adventure geta einnig haft það notalegt í sameiginlegri sjónvarpsstofu.&#10;&#10;Miðbær Reykjavíkur er í 45 mínútna akstursfjarlægð frá hótelinu.&#10;&#10;Þessi gististaður er á einni vinsælustu staðsetningunni á Nesjavöllum! Gestir eru ánægðir með staðsetninguna í samanburði við aðra gististaði á svæðinu.&#10;&#10;Pör eru sérlega hrifin af staðsetningunni – þau gáfu henni einkunnina 8,2 fyrir tveggja manna ferðir.&#10;&#10;Þessum gististað er óhætt að mæla með fyrir þá sem vilja fá sem mest verðgildi á Nesjavöllum! Gestir fá mikið fyrir peninginn í samanburði við aðra gististaði á þessum stað.&#10;&#10;Við tölum þitt tungumál!" wrapText="true" />
+      <TextArea layoutX="24.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" text="Þetta hótel er staðsett við Hengilssvæðið, um 18 km frá Þingvallaþjóðgarði, en hann er á heimsminjaskrá UNESCO. Veitingastaðurinn býður uppá norræna sérrétti og bar með fallegu og víðáttumiklu útsýni.&#10;&#10;Öll herbergi á Ion Adventure Hotel eru með ókeypis WiFi, gervihnattasjónvarp, setusvæði og baðherbergi. Sum herbergin eru með útsýni yfir Þingvallavatn.&#10;&#10;Á staðnum er heilsulind og gufubað sem hægt er að bóka. Gestir Ion Adventure geta einnig haft það notalegt í sameiginlegri sjónvarpsstofu.&#10;&#10;Miðbær Reykjavíkur er í 45 mínútna akstursfjarlægð frá hótelinu.&#10;&#10;Þessi gististaður er á einni vinsælustu staðsetningunni á Nesjavöllum! Gestir eru ánægðir með staðsetninguna í samanburði við aðra gististaði á svæðinu.&#10;&#10;Pör eru sérlega hrifin af staðsetningunni – þau gáfu henni einkunnina 8,2 fyrir tveggja manna ferðir.&#10;&#10;Þessum gististað er óhætt að mæla með fyrir þá sem vilja fá sem mest verðgildi á Nesjavöllum! Gestir fá mikið fyrir peninginn í samanburði við aðra gististaði á þessum stað.&#10;&#10;Við tölum þitt tungumál!" wrapText="true" />
       <Label alignment="CENTER" layoutX="24.0" layoutY="24.0" prefHeight="45.0" prefWidth="383.0" text="ION Adventure Hotel" textFill="#4d01ff">
          <font>
             <Font name="System Bold" size="35.0" />
@@ -72,5 +89,6 @@
             </SplitPane>
          </children>
       </VBox>
+      <ListView layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
    </children>
 </AnchorPane>

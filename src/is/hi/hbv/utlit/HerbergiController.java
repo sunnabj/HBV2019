@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import is.hi.hbv.vinnsla.Hotel;
 import is.hi.hbv.vinnsla.HotelsDAO;
 import javafx.beans.value.ObservableValue;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -41,18 +43,17 @@ public class HerbergiController {
     @FXML
     private MenuButton map_pin;
 
-
-    //private final HashMap<String, ArrayList<Comparable<?>>> hm = new HashMap<>();
     Group zoomGroup;
 
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
-        // Loadum nýrri scene -> MorePic.fxml
-        Parent MorePic_parent = FXMLLoader.load(getClass().getResource("MorePic.fxml"));
-        Scene MorePic_scene = new Scene(MorePic_parent,1150,750);
-        Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setScene(MorePic_scene);
-        main_stage.show();
+        // Loadum nýrri glugga -> MorePic.fxml
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MorePic.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("More Picture");
+        stage.setScene(new Scene(root1));
+        stage.show();
     }
 
 
@@ -81,14 +82,13 @@ public class HerbergiController {
 
     @FXML
     void nextPage(ActionEvent actionEvent) throws IOException {
-        // Loadum nýrri scene -> Next.fxml??
-        /*
-        Parent Search_parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
-        Scene Search_scene = new Scene(Search_parent);
+        // Loadum nýrri scene -> payment.fxml
+        Parent payment_parent = FXMLLoader.load(getClass().getResource("services.fxml"));
+        Scene payment_scene = new Scene(payment_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setScene(Search_scene);
+        main_stage.setTitle("Services");
+        main_stage.setScene(payment_scene);
         main_stage.show();
-        */
     }
 
 

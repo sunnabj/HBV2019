@@ -18,15 +18,15 @@
    <children>
       <VBox layoutX="39.0" layoutY="49.0" prefHeight="313.0" prefWidth="490.0">
          <children>
-            <Label prefHeight="53.0" prefWidth="269.0" text="Þínar upplýsingar">
+            <Label prefHeight="53.0" prefWidth="269.0" text="Your Infomation">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Nafn" />
-                  <TextField fx:id="getFirstname" prefHeight="30.0" prefWidth="360.0" promptText="Nafn">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Firstname" />
+                  <TextField fx:id="getFirstname" prefHeight="30.0" prefWidth="360.0" promptText="Firstname">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -40,8 +40,8 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Eftirnafn" />
-                  <TextField fx:id="getLastname" prefHeight="30.0" prefWidth="360.0" promptText="Eftirnafn">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Lastname" />
+                  <TextField fx:id="getLastname" prefHeight="30.0" prefWidth="360.0" promptText="Lastname">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -55,8 +55,8 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Kennitala" />
-                  <TextField fx:id="getKennitala" prefHeight="30.0" prefWidth="360.0" promptText="t.d 2854019243">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Kennitala-ID" />
+                  <TextField fx:id="getKennitala" prefHeight="30.0" prefWidth="360.0" promptText="ex. 2854019243">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -70,8 +70,8 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Netfang" />
-                  <TextField fx:id="getEmail" prefHeight="30.0" prefWidth="360.0" promptText="t.d something@something.com">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="E-mail" />
+                  <TextField fx:id="getEmail" prefHeight="30.0" prefWidth="360.0" promptText="ex. something@something.com">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -85,8 +85,8 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Sími" />
-                  <TextField fx:id="getPhone" prefHeight="30.0" prefWidth="360.0" promptText="t.d 349589">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Phone" />
+                  <TextField fx:id="getPhone" prefHeight="30.0" prefWidth="360.0" promptText="ex. 3495890">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -100,8 +100,8 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Heimilisfang" />
-                  <TextField fx:id="getAddress" prefHeight="30.0" prefWidth="360.0" promptText="Heimillisfang">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Address" />
+                  <TextField fx:id="getAddress" prefHeight="30.0" prefWidth="360.0" promptText="Address">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -119,8 +119,8 @@
             </Label>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Kort-númer" />
-                  <TextField fx:id="getCardnumber" prefHeight="30.0" prefWidth="360.0" promptText="t.d xxxxyyyyaaaabbbb">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Card-number" />
+                  <TextField fx:id="getCardnumber" prefHeight="30.0" prefWidth="360.0" promptText="ex. 0000-1111-2222-3333">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -134,8 +134,8 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Rennur út dagur" />
-                  <TextField fx:id="getExpirydate" prefHeight="30.0" prefWidth="360.0" promptText="t.d mmyy">
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Expiry date" />
+                  <TextField fx:id="getExpirydate" prefHeight="30.0" prefWidth="360.0" promptText="ex. mm/yy">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -150,7 +150,7 @@
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="CVC" />
-                  <TextField fx:id="getCVC" prefHeight="30.0" prefWidth="360.0" promptText="t.d xxx">
+                  <TextField fx:id="getCVC" prefHeight="30.0" prefWidth="360.0" promptText="ex. xxx">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -166,5 +166,7 @@
       </VBox>
       <Button fx:id="nextButton" layoutX="788.0" layoutY="583.0" mnemonicParsing="false" onAction="#Next" text="Áfram" />
       <Button layoutX="675.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Til baka" />
+      <Label fx:id="totallist" layoutX="583.0" layoutY="100.0" prefHeight="430.0" prefWidth="294.0" style="-fx-border-color: black;" text="TODO : saekja verdlist xD" />
+      <Label fx:id="totalscost" layoutX="583.0" layoutY="41.0" prefHeight="17.0" prefWidth="240.0" text="Totals Costs : " />
    </children>
 </AnchorPane>

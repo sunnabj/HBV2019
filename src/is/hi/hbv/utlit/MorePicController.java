@@ -32,15 +32,15 @@ public class MorePicController implements Initializable {
     void tilBaka(ActionEvent actionEvent) throws IOException {
         // Loadum aftur scene -> herbergi.fxml
         Parent herbergi_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
-        Scene herbergi_scene = new Scene(herbergi_parent,1150,750);
+        Scene herbergi_scene = new Scene(herbergi_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        main_stage.setTitle("Room infomation");
         main_stage.setScene(herbergi_scene);
         main_stage.show();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         File folder = new File("resources/img");
         File[] listOfFiles = folder.listFiles();
         TilePane tilePane = new TilePane();
