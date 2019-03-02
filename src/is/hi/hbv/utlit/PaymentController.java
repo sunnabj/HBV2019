@@ -17,7 +17,7 @@ import java.io.IOException;
 import javax.lang.model.SourceVersion;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class PaymentController {
+public class PaymentController<fxmlLoader> {
 
     @FXML
     private TextField getPhone;         // Textfield til að sækja gildi fyrir símanúmer
@@ -53,10 +53,7 @@ public class PaymentController {
     private TextField getCardnumber;    // Textfield til að sækja gildi fyrir kortnúmer
 
     @FXML
-    private Button nextButton;          // Takkið next til að fara næsta scene
-
-    @FXML
-    void Next(ActionEvent event) {
+    void Next(ActionEvent actionEvent) throws IOException {
         validateFirstName();
         validateLastName();
         validateEmaill();
@@ -66,7 +63,12 @@ public class PaymentController {
         validateCardExpiryDate();
         validateCVC();
         // Loadum nýrri scene -> paymentConfirmation.fxml
-        // TODO : kassa sem sýna verðlist og aukaþjónustu
+        Parent MorePic_parent = FXMLLoader.load(getClass().getResource("confirm.fxml"));
+        Scene Search_scene = new Scene(MorePic_parent);
+        Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        main_stage.setTitle("Booking Confirmation");
+        main_stage.setScene(Search_scene);
+        main_stage.show();
     }
 
     @FXML
@@ -233,8 +235,15 @@ public class PaymentController {
             return false;
         }
     }
-    public void setText12 (String choice, int count) {
-        totalscost.setText(String.valueOf(count));
-        totallist.setText(choice);
+
+    public void setText12 (String totalslist, String count) {
+        int room = 70000;
+        int i = Integer.parseInt(count);
+        int x = room+i;
+        totalscost.setText("Totals cost : " + x +" kr.");
+        totallist.setText("Booking Infomation : \n"+"----Room Infomation----\n"
+                                    + "Day/s - Roomtype - Price \n"
+                                    + " 1 - Kingsize - 70.000 kr \n" + "\n\n"
+                                    + "----Extra Services----\n"+ totalslist + "\nHappy vacation !!!");
     }
 }
