@@ -120,7 +120,7 @@
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Card-number" />
-                  <TextField fx:id="getCardnumber" prefHeight="30.0" prefWidth="360.0" promptText="ex. 0000-1111-2222-3333">
+                  <TextField fx:id="getCardnumber" prefHeight="30.0" prefWidth="360.0" promptText="ex. 0000111122223333">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
@@ -164,8 +164,8 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="nextButton" layoutX="788.0" layoutY="583.0" mnemonicParsing="false" onAction="#Next" text="Áfram" />
-      <Button layoutX="675.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Til baka" />
+      <Button fx:id="nextButton" layoutX="788.0" layoutY="583.0" mnemonicParsing="false" onAction="#Next" text="Next" />
+      <Button layoutX="675.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Back" />
       <Label fx:id="totallist" alignment="TOP_LEFT" layoutX="583.0" layoutY="100.0" lineSpacing="10.0" prefHeight="430.0" prefWidth="294.0" style="-fx-border-color: black;" text="TODO : saekja verdlist xD">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

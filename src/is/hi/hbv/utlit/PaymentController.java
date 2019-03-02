@@ -15,6 +15,8 @@ import java.io.IOException;
 
 
 import javax.lang.model.SourceVersion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class PaymentController<fxmlLoader> {
@@ -44,6 +46,9 @@ public class PaymentController<fxmlLoader> {
     private TextField getAddress;
 
     @FXML
+    private Button nextButton;
+
+    @FXML
     private Label totalscost;
 
     @FXML
@@ -53,22 +58,39 @@ public class PaymentController<fxmlLoader> {
     private TextField getCardnumber;    // Textfield til að sækja gildi fyrir kortnúmer
 
     @FXML
-    void Next(ActionEvent actionEvent) throws IOException {
-        validateFirstName();
-        validateLastName();
-        validateEmaill();
-        validatePhone();
-        validateKennitala((getKennitala.getText()));
-        validateCardNumber();
-        validateCardExpiryDate();
-        validateCVC();
-        // Loadum nýrri scene -> paymentConfirmation.fxml
-        Parent MorePic_parent = FXMLLoader.load(getClass().getResource("confirm.fxml"));
-        Scene Search_scene = new Scene(MorePic_parent);
-        Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setTitle("Booking Confirmation");
-        main_stage.setScene(Search_scene);
-        main_stage.show();
+    void Next(ActionEvent actionEvent) {
+        if (validateFirstName() && validateLastName()
+                            && validateEmaill() && validatePhone()
+                            && validateKennitala((getKennitala.getText())) && validateCardNumber()
+                            && validateCardExpiryDate() && validateCVC() == true)
+        {
+            // Loadum nýrri scene -> paymentConfirmation.fxml
+            Stage stage123 = (Stage) nextButton.getScene().getWindow();
+            stage123.close();
+            String Firsname_text = getFirstname.getText();
+            String Lastname_text = getLastname.getText();
+            String Email_text = getEmail.getText();
+            String Phone_text = getPhone.getText();
+            String Address_text = getAddress.getText();
+            String Kennitala_text = getKennitala.getText();
+            String CardNumber_text = getCardnumber.getText();
+            String List = totallist.getText();
+
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("confirm.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            confirmController display = Loader.getController();
+            display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,List);
+
+            Parent p = Loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(p));
+            stage.show();
+        }
     }
 
     @FXML
@@ -241,9 +263,28 @@ public class PaymentController<fxmlLoader> {
         int i = Integer.parseInt(count);
         int x = room+i;
         totalscost.setText("Totals cost : " + x +" kr.");
-        totallist.setText("Booking Infomation : \n"+"----Room Infomation----\n"
+        totallist.setText("----Room Infomation----\n"
                                     + "Day/s - Roomtype - Price \n"
-                                    + " 1 - Kingsize - 70.000 kr \n" + "\n\n"
-                                    + "----Extra Services----\n"+ totalslist + "\nHappy vacation !!!");
+                                    + " 1 - Kingsize - 70.000 kr \n" + "\n"
+                                    + "----Extra Services----\n"+ totalslist + "\n");
+    }
+
+    public void saveInfosetText (TextField card, TextField expiry, TextField CVC) {
+        getCardnumber.setText(String.valueOf(card));
+        getExpirydate.setText(String.valueOf(expiry));
+        getCVC.setText(String.valueOf(CVC));
+    }
+
+    public void saveInfogetText (String card, String expiry, String CVC) {
+        TextField card1 = new TextField(), expiry1 = new TextField(),CVC1 = new TextField();
+        String card_Text = card1.getText();
+        String expiry_Text = expiry1.getText();
+        String cvc_Text = CVC1.getText();
+        getCardnumber.getText();
+        getExpirydate.getText();
+        getCVC.getText();
+        FXMLLoader Loader = new FXMLLoader();
+        confirmController display = Loader.getController();
+        //display.saveInfosetText (card, expiry, CVC);
     }
 }

@@ -6,10 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="Reservation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.confirmController">
    <children>
-      <Label fx:id="getName" layoutX="264.0" layoutY="28.0" text="Hotel Name" />
-      <Label fx:id="result" layoutX="20.0" layoutY="72.0" prefHeight="695.0" prefWidth="560.0" text="Label" />
+      <Label fx:id="getName" layoutX="224.0" layoutY="30.0" text="Hotel Name - saekja gildi" />
+      <Label fx:id="resultBooking" layoutX="20.0" layoutY="71.0" prefHeight="210.0" prefWidth="398.0" text="Þetta bara hluti í Search.fxml sem ég er ekki strax ... árekstur" />
+      <Label fx:id="resultInfo" layoutX="20.0" layoutY="310.0" prefHeight="438.0" prefWidth="281.0" text="Label" />
+      <Button fx:id="saveButton" layoutX="498.0" layoutY="735.0" mnemonicParsing="false" onAction="#nextPage" text="Save" />
    </children>
 </AnchorPane>
