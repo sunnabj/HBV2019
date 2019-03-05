@@ -19,35 +19,37 @@ import java.util.logging.Logger;
 public class servicesController {
 
     @FXML
-    private CheckBox swimming;
+    private CheckBox swimming;      // Swim tjékk box
 
     @FXML
-    private CheckBox spa;
+    private CheckBox spa;           // Spa tjékk box
 
     @FXML
-    private Label totalslist;
+    private Label totalslist;       // Heildalist label birta
 
     @FXML
-    private CheckBox pickup;
+    private CheckBox pickup;        // Pickup tjékk box
 
     @FXML
-    private Label totalscost;
+    private Label totalscost;       // Heildaverð label birta
 
     @FXML
-    private CheckBox breakfast;
+    private CheckBox breakfast;     // Breakfast tjékk box
 
     @FXML
-    private CheckBox dinner;
+    private CheckBox dinner;        // Dinner tjékk box
 
     @FXML
-    private CheckBox rental;
+    private CheckBox rental;        // Rental car tjékk box
 
     @FXML
     private Button nextButton;
 
-    private String a;
-    private String b;
+    private String a;       // String fyrir list
+    private String b;       // String fyrir heildakosta
 
+    //
+    //
     @FXML
     void nextPage(ActionEvent actionEvent) {
         Stage stage123 = (Stage) nextButton.getScene().getWindow();
@@ -71,26 +73,29 @@ public class servicesController {
         stage.show();
     }
 
+    // Setfall fyrir Count fall
     public void setCount(String s)
     {
         a= s;
     }
-
+    // Getfall fyrir Count
     public String getCount()
     {
         return a;
     }
-
+    // Setfall fyrir Choice
     public void setChoice(String s)
     {
         b= s;
     }
-
+    // Getfall fyrir choice
     public String getChoice()
     {
         return b;
     }
 
+    // Þetta checkbox leyfa notenda bæta við þjónustu sem þeir vilt
+    // virka einfalt eins og er xD
     void checkbox(){
         int count = 0;
         String choice = "";
@@ -129,6 +134,8 @@ public class servicesController {
         setChoice(choice);
     }
 
+    // Kalla á aðferð checkbox
+    //
     @FXML
     void handleButtonAction() {
         checkbox();

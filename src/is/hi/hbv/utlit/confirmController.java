@@ -37,6 +37,8 @@ public class confirmController {
     @FXML
     private Button saveButton;
 
+    // Þetta sækja gögnum af herbergi sem notenda hefur valið og birta á
+    // þarf samt biða eftir gögnum og helst ekki vinna strax því getur árekstur á Search.fxml eða HotelDAO....
     public void setText12 (Hotel chosenHotel, long daycountvalue, LocalDate arrivalchoicevalue, LocalDate departurechoicevalue,
                            int guestnumbervalue) {
         getName.setText(String.valueOf(chosenHotel));
@@ -47,7 +49,8 @@ public class confirmController {
                         "Unit Type : " + " 1 - Kingsize - 70.000 kr \n" + "\n"
                 );
     }
-
+    // Þetta er að ferð kalla allar upplýsingar frá Paymentglugga og prenta það út ...
+    // Ef getur, getur sameina aðferð uppí í þetta það sé snyrtilega xD.
     public void setText123 (String Firstname,String Lastname,String Email,String Phone,String Address,String Kennitala,String Card, String List) {
         resultInfo.setText( "------------Total Cost------------\n\n" +
                             List + "\n" +
@@ -61,13 +64,15 @@ public class confirmController {
                             "Card-number : " + Card + "\n"
         );
     }
+    // Save button action control kalla Snapshot af glugga sem er í (confirm glugga) og vista
+    // í hvar sem er inn á tölva notenda. Kalla Continue aðferð dialog
     @FXML
     void nextPage(ActionEvent actionEvent) throws IOException {
         saveImage();
         Continue(actionEvent);
         //saveInfo(actionEvent);
     }
-
+    // Vista snapshot af Confirm glugga og vista á notenda tölvar.
     private void saveImage(){
         Stage stage123 = (Stage) saveButton.getScene().getWindow();
         Image i = Reservation.snapshot(null, null);
@@ -82,7 +87,8 @@ public class confirmController {
             }
         }
     }
-
+    // Þetta þarf laga betra til að virka
+    // hugmynd að kalla á textfield eins og sækja gildi frá payment í confirm ... þarf tíma ...
     private void saveInfo(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
         alert.setHeaderText("Save Card-infomation !!!");
@@ -92,12 +98,12 @@ public class confirmController {
             if (current == ButtonType.YES) {
                 // TODO . this
             } else if (current == ButtonType.NO) {
-                System.exit(1);
             }
         });
         alert.show();
     }
-
+    // Continue dialog staðfest til láta notenda velur valmöguleika Yes þá til baka á search ...
+    // No þá hætta við forrit ....
     private void Continue(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
         alert.setHeaderText("Booking has confirmed !!!");

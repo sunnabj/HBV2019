@@ -45,6 +45,7 @@ public class HerbergiController {
 
     Group zoomGroup;
 
+    // Sækja morepic glugga
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
         // Loadum nýrri glugga -> MorePic.fxml
@@ -57,19 +58,21 @@ public class HerbergiController {
     }
 
 
-
+    // ZoomIn aðferð
     @FXML
     void zoomIn(ActionEvent event) {
         double sliderVal = zoom_slider.getValue();
         zoom_slider.setValue(sliderVal += 0.1);
     }
 
+    // ZoomOut aðferð
     @FXML
     void zoomOut(ActionEvent event) {
         double sliderVal = zoom_slider.getValue();
         zoom_slider.setValue(sliderVal + -0.1);
     }
 
+    // Sækja search glugga
     @FXML
     void returnSearch(ActionEvent actionEvent) throws IOException {
         // Loadum nýrri scene -> Search.fxml
@@ -79,7 +82,7 @@ public class HerbergiController {
         main_stage.setScene(Search_scene);
         main_stage.show();
     }
-
+    // Sækja þjónusta glugga
     @FXML
     void nextPage(ActionEvent actionEvent) throws IOException {
         // Loadum nýrri scene -> payment.fxml
@@ -97,6 +100,7 @@ public class HerbergiController {
 
         zoom_slider.setMin(0.5);
         zoom_slider.setMax(1.5);
+        // sitja default 1.0 í stillingar svo notenda getur auðvelt að zoomin og OUT
         zoom_slider.setValue(1.0);
         zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
 
@@ -108,7 +112,7 @@ public class HerbergiController {
         map_scrollpane.setContent(contentGroup);
 
     }
-
+    // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
         double scrollH = map_scrollpane.getHvalue();
         double scrollV = map_scrollpane.getVvalue();

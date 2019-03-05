@@ -57,16 +57,20 @@ public class PaymentController<fxmlLoader> {
     @FXML
     private TextField getCardnumber;    // Textfield til að sækja gildi fyrir kortnúmer
 
+    // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
     @FXML
     void Next(ActionEvent actionEvent) {
-        if (validateFirstName() && validateLastName()
-                            && validateEmaill() && validatePhone()
+        if (validateFirstName() && validateLastName()                                                   // if-setning athuga fyrir hvert fall er
+                            && validateEmaill() && validatePhone()                                      // það satt eða ósatt ef satt halda áfram
                             && validateKennitala((getKennitala.getText())) && validateCardNumber()
                             && validateCardExpiryDate() && validateCVC() == true)
         {
             // Loadum nýrri scene -> paymentConfirmation.fxml
+            // Loka fyrst gamla glugga með nextButton til að sækja núverandi scene
             Stage stage123 = (Stage) nextButton.getScene().getWindow();
+            // Svo lokað gamla scene
             stage123.close();
+            // Sækja texta frá nokkra Textfield innan scene.
             String Firsname_text = getFirstname.getText();
             String Lastname_text = getLastname.getText();
             String Email_text = getEmail.getText();
@@ -76,6 +80,7 @@ public class PaymentController<fxmlLoader> {
             String CardNumber_text = getCardnumber.getText();
             String List = totallist.getText();
 
+            // Aðferð að kalla gögna frá annara scene, ekki saman við aðra aðferð.
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("confirm.fxml"));
             try {
@@ -93,6 +98,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Þetta bara venjulegt aðferð til að kalla á nýju scene
     @FXML
     void Back (ActionEvent actionEvent) throws IOException {
         // Loadum nýrri scene -> herbergi.fxml
@@ -104,6 +110,7 @@ public class PaymentController<fxmlLoader> {
         main_stage.show();
     }
 
+    // bara eitthvað fall til að athuga hvort þetta er int eða ekki ... nota ekki núna
     private boolean isInt(TextField input, String message) {
         try {
             int number = Integer.parseInt(getCardnumber.getText());
@@ -115,6 +122,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Athuga Card hvort þetta legit eða ekki .... sækja ekki upplýsingar frá þeim :D
     private boolean validateCardNumber(){
         Pattern p = Pattern.compile("^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
                                             "(?<mastercard>5[1-5][0-9]{14})|" +
@@ -134,6 +142,8 @@ public class PaymentController<fxmlLoader> {
             return false;
         }
     }
+
+    // Athuga hvort úttrunni tíma er til ??
     private boolean validateCardExpiryDate() {
         Pattern p = Pattern.compile("(?:0[1-9]|1[0-2])/[0-9]{2}");
         Matcher m = p.matcher(getExpirydate.getText());
@@ -149,6 +159,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Athuga CVC ....
     private boolean validateCVC() {
         Pattern p = Pattern.compile("[1-9][1-9][1-9]");
         Matcher m = p.matcher(getCVC.getText());
@@ -164,6 +175,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Athuga Email ..... nota regex til að athuga
     private boolean validateEmaill(){
         Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
         Matcher m = p.matcher(getEmail.getText());
@@ -179,6 +191,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Nota Regex til að athuga hvort það satt ??
     private boolean validateFirstName(){
         Pattern p = Pattern.compile("[a-zA-Z]+");
         Matcher m = p.matcher(getFirstname.getText());
@@ -193,6 +206,8 @@ public class PaymentController<fxmlLoader> {
             return false;
         }
     }
+
+    //  Athuga lastname ... en saman við first name ... bara má ekki hafa tölur inn á
     private boolean validateLastName(){
         Pattern p = Pattern.compile("[a-zA-Z]+");
         Matcher m = p.matcher(getLastname.getText());
@@ -209,6 +224,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Athuga kennitala sé rétt eða ekki .... þetta hefur lærð á Tölvunarfræði 1
     private boolean validateKennitala(String a){
         int lengd = getKennitala.getText().length();
         System.out.println(a);
@@ -243,6 +259,7 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Athuga hvort símanúmer sé rétt á íslenska síma
     private boolean validatePhone(){
         Pattern p = Pattern.compile("(00354|354)?[5-8][0-9][0-9][0-9][0-9][0-9][0-9]");
         Matcher m = p.matcher(getPhone.getText());
@@ -258,6 +275,8 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // TODO : þetta þarf að laga/breyta því þarf að sækja gögnum á gagnasafn
+    // og þetta á að sækja herbergi upplýsingar !!!
     public void setText12 (String totalslist, String count) {
         int room = 70000;
         int i = Integer.parseInt(count);
@@ -269,12 +288,14 @@ public class PaymentController<fxmlLoader> {
                                     + "----Extra Services----\n"+ totalslist + "\n");
     }
 
+    // bara testa hvort þetta sé virka ef maður búinn á reservation og langar vista korta upplýsingar ...
     public void saveInfosetText (TextField card, TextField expiry, TextField CVC) {
         getCardnumber.setText(String.valueOf(card));
         getExpirydate.setText(String.valueOf(expiry));
         getCVC.setText(String.valueOf(CVC));
     }
 
+    // þetta líka
     public void saveInfogetText (String card, String expiry, String CVC) {
         TextField card1 = new TextField(), expiry1 = new TextField(),CVC1 = new TextField();
         String card_Text = card1.getText();
