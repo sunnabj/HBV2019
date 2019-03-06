@@ -229,7 +229,6 @@ public class searchController implements Initializable {
 
     /*
     * Fall sem ákvarðar sorteringu fyrir val á radiobuttons
-    * TODO: Laga þessa duplication sem er í gangi fyrir sorteringu!!!
      */
     public void sortingHandler(ActionEvent actionEvent) {
         RadioButton r = (RadioButton)actionEvent.getSource();
@@ -283,6 +282,7 @@ public class searchController implements Initializable {
         }
 
         resultList.setItems(hotelResults);
+
     }
 
     public void sortByStars() {
@@ -293,11 +293,13 @@ public class searchController implements Initializable {
         int index = 0;
         for (Object hotel : hotelResults) {
             Hotel nHotel = (Hotel) hotel;
-            System.out.println(hotel);
+            int stars = nHotel.getStars();
+            System.out.println(stars);
             hotelStarSort[index] = nHotel.getStars();
-            System.out.println(hotelStarSort[index]);
+            hotelStarSort[index] = stars;
             index++;
         }
+
         // Nú sorterum við hotelSort fylkið:
         int tmp;
         for (int count = 1; count < hotelStarSort.length; count++) {
@@ -309,11 +311,16 @@ public class searchController implements Initializable {
                 }
             }
         }
+        // Þetta er ennþá rétta lengdin
+        for (int i = 0; i < hotelStarSort.length; i++) {
+            System.out.println(hotelStarSort[i]);
+        }
+
         // Svo finnum við samsvarandi stjörnufjölda í hotelResult listanum og bætum í röð inn í hotelsSorted
         for (int j = 0; j < hotelStarSort.length; j++) {
             for (Object hotel : hotelResults) {
                 Hotel aHotel = (Hotel) hotel;
-                if (aHotel.getStars() == hotelStarSort[j]) {
+                if (aHotel.getStars() == hotelStarSort[j] && !hotelsStarSorted.contains(hotel)) {
                     hotelsStarSorted.add(aHotel);
                 }
             }
@@ -321,11 +328,15 @@ public class searchController implements Initializable {
         // Breytum yfir á viðeigandi form og birtum uppfærðan, raðaðan niðurstöðulista.
         hotelResults = FXCollections.observableArrayList(hotelsStarSorted);
 
-        for (Object hotel : hotelResults) {
-            hotel.toString();
-        }
+        // Hér er hotelResults búið að doublast
+
+        // for (Object hotel : hotelResults) {
+        //    hotel.toString();
+        // }
 
         resultList.setItems(hotelResults);
+
+        // Hér er hotelResults orðið double
     }
 
     // Skilar object fyrir valið hótel (herbergi) í lista
