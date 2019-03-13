@@ -10,7 +10,7 @@ public class Hotel {
 
     private int stars;
     private int minprice;
-    private int reviewID;
+    private int reviewID; // breyta í reviewNr
     private String name;
     private int hotelID;
     private String hotelInfo; // Eftir að bæta við í gagnagrunninn
@@ -24,7 +24,7 @@ public class Hotel {
         hotelID = hotelIdent;
         stars = starvalue;
         minprice = pricevalue;
-        reviewID = reviews;
+        reviewID = reviews; // Mun breytast í reviewNr - fjöldi reviews
         // hotelInfo = info; // Mun bætast við. Líka sem inntak.
         hotelAddress = address;
         phoneNr = phone;
@@ -37,7 +37,7 @@ public class Hotel {
         return minprice;
     }
     public int getReviewID() {
-        return reviewID;
+        return reviewID; // Breyta í ReviewNr
     }
     public int getHotelID() {
         return hotelID;

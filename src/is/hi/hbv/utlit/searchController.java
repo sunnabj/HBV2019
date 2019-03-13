@@ -1,5 +1,6 @@
 package is.hi.hbv.utlit;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import is.hi.hbv.vinnsla.Hotel;
 import is.hi.hbv.vinnsla.HotelsDAO;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +25,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class searchController implements Initializable {
@@ -132,11 +135,11 @@ public class searchController implements Initializable {
         // Svona náum við í dagsetningarnar úr datepickers - uppfærum tilviksbreyturnar
 
         arrivalchoicevalue = arrivalchoice.getValue();
-        System.out.println(arrivalchoicevalue);
+        // System.out.println(arrivalchoicevalue);
         departurechoicevalue = departurechoice.getValue();
-        System.out.println(departurechoicevalue);
+        // System.out.println(departurechoicevalue);
         daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
-        System.out.println(daycountvalue);
+        // System.out.println(daycountvalue);
     }
     // Birtir glugga til að skrá sig á póstlista
     public void mailListDialogHandler(ActionEvent actionEvent) {
@@ -213,23 +216,48 @@ public class searchController implements Initializable {
      */
     public void chooseHotelHandler(ActionEvent actionEvent) throws IOException {
         if (hotelindex != -1) {
-            hotelName = String.valueOf(resultList.getItems().get(hotelindex));
+            hotelName = String.valueOf(resultList.getItems().get(hotelindex)); //TODO: Má sleppa þessu.
             chosenHotel = (Hotel) resultList.getItems().get(hotelindex);
-            System.out.println("Valið hótel: " + chosenHotel);
-            System.out.println("Herbergi í völdu hóteli: " + chosenHotel.getRooms());
+            // System.out.println("Valið hótel: " + chosenHotel);
+            // System.out.println("Herbergi í völdu hóteli: " + chosenHotel.getRooms());
         }
         // Loadum nýrri senu -> Herbergi.fxml
-        Parent herbergi_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
+
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("herbergi.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        HerbergiController herbergi = Loader.getController();
+
+        //herbergi.setChosenHotel(chosenHotel);
+
+        herbergi.printHotel(chosenHotel);
+
+        Parent herbergi_parent = Loader.getRoot();
+        //Stage stage = new Stage();
+        //stage.setScene(new Scene(p));
+        //stage.show();
+
+        // gamla:
+        // Parent herbergi_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
         Scene herbergi_scene = new Scene(herbergi_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         main_stage.setScene(herbergi_scene);
         main_stage.show();
 
+        //TODO: Loada herbergjum úr völdu hóteli inn í næstu senu. Annað hvort Hotel hlutnum, og herbergiController kallar á getRooms(), eða Room listanum úr getRooms.
+        //TODO: Loada hotelID/hotelInfo inn í showHotelInfo í herbergiController
+        // TODO: Ný hugmynd - setja chosenHotel inn í set fall í herbergiController - þá getur hann notað það fyrir allt.
+        // TODO: Þarf reyndar líka að koma fjölda daga þarna inn líka, og kannski upphafs- og lokadagsetningu.
     }
 
     /*
     * Fall sem ákvarðar sorteringu fyrir val á radiobuttons
      */
+    // TODO: Setja inn valmöguleika fyrir radiobutton 3 -> sortByReviews
     public void sortingHandler(ActionEvent actionEvent) {
         RadioButton r = (RadioButton)actionEvent.getSource();
         if (Integer.parseInt(r.getId()) == 1) {
@@ -338,6 +366,8 @@ public class searchController implements Initializable {
 
         // Hér er hotelResults orðið double
     }
+
+    //TODO: Búa til sortByReviews!
 
     // Skilar object fyrir valið hótel (herbergi) í lista
     public Hotel getChosenHotel() {

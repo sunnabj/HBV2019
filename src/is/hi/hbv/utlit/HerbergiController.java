@@ -45,6 +45,8 @@ public class HerbergiController {
 
     Group zoomGroup;
 
+    private Hotel chosenHotel;
+
     // Sækja morepic glugga
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
@@ -97,7 +99,7 @@ public class HerbergiController {
 
     @FXML
     void initialize() {
-
+        System.out.println("Valið hótel: " + chosenHotel);
         zoom_slider.setMin(0.5);
         zoom_slider.setMax(1.5);
         // sitja default 1.0 í stillingar svo notenda getur auðvelt að zoomin og OUT
@@ -110,7 +112,6 @@ public class HerbergiController {
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
-
     }
     // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
@@ -122,5 +123,12 @@ public class HerbergiController {
         map_scrollpane.setVvalue(scrollV);
     }
 
+    public void setChosenHotel(Hotel hotel) {
+        chosenHotel = hotel;
+    }
+
+    public void printHotel(Hotel hotel) {
+        System.out.println("Hótelið er: " + hotel);
+    }
 
 }
