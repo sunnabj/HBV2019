@@ -1,5 +1,7 @@
 package is.hi.hbv.utlit;
 
+import is.hi.hbv.vinnsla.Hotel;
+import is.hi.hbv.vinnsla.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +52,12 @@ public class servicesController {
     private String a;       // String fyrir list
     private String b;       // String fyrir heildakosta
 
+    private Hotel chosenHotel;
+    private long daycountvalue;
+    private LocalDate arrivalchoicevalue;
+    private LocalDate departurechoicevalue;
+    private int guestnumbervalue;
+
     //
     //
     @FXML
@@ -66,6 +76,8 @@ public class servicesController {
         }
         PaymentController display = Loader.getController();
         display.setText12(list_text,cost_text);
+        // display.setChosenHotel(chosenHotel);
+        display.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
 
         Parent p = Loader.getRoot();
         Stage stage = new Stage();
@@ -134,6 +146,18 @@ public class servicesController {
         setChoice(choice);
     }
 
+    public void setHotel(Hotel hotel) {
+        chosenHotel = hotel;
+    }
+
+    public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
+        chosenHotel = hotel;
+        daycountvalue = daycount;
+        arrivalchoicevalue = arrival;
+        departurechoicevalue = departure;
+        guestnumbervalue = guests;
+    }
+
     // Kalla á aðferð checkbox
     //
     @FXML
@@ -141,3 +165,5 @@ public class servicesController {
         checkbox();
     }
 }
+
+

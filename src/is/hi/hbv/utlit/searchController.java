@@ -232,9 +232,9 @@ public class searchController implements Initializable {
         }
         HerbergiController herbergi = Loader.getController();
 
-        //herbergi.setChosenHotel(chosenHotel);
-
-        herbergi.printHotel(chosenHotel);
+        herbergi.setChosenHotel(chosenHotel);
+        herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        //herbergi.printHotel(chosenHotel);
 
         Parent herbergi_parent = Loader.getRoot();
         //Stage stage = new Stage();

@@ -28,6 +28,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class HerbergiController {
@@ -46,10 +48,15 @@ public class HerbergiController {
     Group zoomGroup;
 
     private Hotel chosenHotel;
+    private long daycountvalue;
+    private LocalDate arrivalchoicevalue;
+    private LocalDate departurechoicevalue;
+    private int guestnumbervalue;
 
     // Sækja morepic glugga
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
+        System.out.println("Hótel? " + chosenHotel);
         // Loadum nýrri glugga -> MorePic.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MorePic.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
@@ -88,7 +95,22 @@ public class HerbergiController {
     @FXML
     void nextPage(ActionEvent actionEvent) throws IOException {
         // Loadum nýrri scene -> payment.fxml
-        Parent payment_parent = FXMLLoader.load(getClass().getResource("services.fxml"));
+
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("services.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        servicesController room = Loader.getController();
+        //room.setHotel(chosenHotel);
+        room.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        Parent payment_parent = Loader.getRoot();
+
+        //Parent payment_parent = FXMLLoader.load(getClass().getResource("services.fxml"));
         Scene payment_scene = new Scene(payment_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         main_stage.setTitle("Services");
@@ -99,7 +121,7 @@ public class HerbergiController {
 
     @FXML
     void initialize() {
-        System.out.println("Valið hótel: " + chosenHotel);
+        //System.out.println("Valið hótel: " + chosenHotel);
         zoom_slider.setMin(0.5);
         zoom_slider.setMax(1.5);
         // sitja default 1.0 í stillingar svo notenda getur auðvelt að zoomin og OUT
@@ -112,6 +134,7 @@ public class HerbergiController {
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
+
     }
     // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
@@ -125,10 +148,24 @@ public class HerbergiController {
 
     public void setChosenHotel(Hotel hotel) {
         chosenHotel = hotel;
+        System.out.println("Hótelið er: " + chosenHotel);
+        showRooms();
     }
 
-    public void printHotel(Hotel hotel) {
-        System.out.println("Hótelið er: " + hotel);
+    public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
+        chosenHotel = hotel;
+        daycountvalue = daycount;
+        arrivalchoicevalue = arrival;
+        departurechoicevalue = departure;
+        guestnumbervalue = guests;
+    }
+
+
+    public void showRooms() {
+        ArrayList<Object> rooms = chosenHotel.getRooms();
+        for (Object room : rooms) {
+            System.out.println(room);
+        }
     }
 
 }

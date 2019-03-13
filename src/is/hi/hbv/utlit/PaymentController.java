@@ -1,5 +1,6 @@
 package is.hi.hbv.utlit;
 
+import is.hi.hbv.vinnsla.Hotel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 
 import javax.lang.model.SourceVersion;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -57,6 +59,12 @@ public class PaymentController<fxmlLoader> {
     @FXML
     private TextField getCardnumber;    // Textfield til að sækja gildi fyrir kortnúmer
 
+    private Hotel chosenHotel;
+    private long daycountvalue;
+    private LocalDate arrivalchoicevalue;
+    private LocalDate departurechoicevalue;
+    private int guestnumbervalue;
+
     // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
     @FXML
     void Next(ActionEvent actionEvent) {
@@ -90,7 +98,8 @@ public class PaymentController<fxmlLoader> {
             }
             confirmController display = Loader.getController();
             display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,List);
-
+            //display.setTextHotel(chosenHotel);
+            display.setText12(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
             Parent p = Loader.getRoot();
             Stage stage = new Stage();
             stage.setScene(new Scene(p));
@@ -286,6 +295,7 @@ public class PaymentController<fxmlLoader> {
                                     + "Day/s - Roomtype - Price \n"
                                     + " 1 - Kingsize - 70.000 kr \n" + "\n"
                                     + "----Extra Services----\n"+ totalslist + "\n");
+        System.out.println("Valið hótel í paymentController: " + chosenHotel);
     }
 
     // bara testa hvort þetta sé virka ef maður búinn á reservation og langar vista korta upplýsingar ...
@@ -308,4 +318,13 @@ public class PaymentController<fxmlLoader> {
         confirmController display = Loader.getController();
         //display.saveInfosetText (card, expiry, CVC);
     }
+    
+    public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
+        chosenHotel = hotel;
+        daycountvalue = daycount;
+        arrivalchoicevalue = arrival;
+        departurechoicevalue = departure;
+        guestnumbervalue = guests;
+    }
+
 }

@@ -41,13 +41,16 @@ public class confirmController {
     // þarf samt biða eftir gögnum og helst ekki vinna strax því getur árekstur á Search.fxml eða HotelDAO....
     public void setText12 (Hotel chosenHotel, long daycountvalue, LocalDate arrivalchoicevalue, LocalDate departurechoicevalue,
                            int guestnumbervalue) {
-        getName.setText(String.valueOf(chosenHotel));
+        getName.setText(chosenHotel.getName());
         resultBooking.setText("---------Booking Infomation---------\n\n" +
                         "Arrival : " + arrivalchoicevalue + "\n" +
                         "Departure : " + departurechoicevalue + "\n" +
                         "Number of Guest : " + guestnumbervalue + "\n" +
                         "Unit Type : " + " 1 - Kingsize - 70.000 kr \n" + "\n"
                 );
+    }
+    public void setTextHotel(Hotel chosenHotel) {
+        getName.setText(chosenHotel.getName());
     }
     // Þetta er að ferð kalla allar upplýsingar frá Paymentglugga og prenta það út ...
     // Ef getur, getur sameina aðferð uppí í þetta það sé snyrtilega xD.

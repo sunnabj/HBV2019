@@ -52,6 +52,9 @@ public class Hotel {
     public String getPhoneNr() {
         return phoneNr;
     }
+    public String getName() {
+        return name;
+    }
 
     public ArrayList<Object> getRooms() {
         HotelsDAO db = new HotelsDAO();
