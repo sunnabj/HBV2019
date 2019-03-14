@@ -308,27 +308,6 @@ public class PaymentController<fxmlLoader> {
                                     + "----Extra Services----\n"+ totalslist + "\n");
         System.out.println("Valið hótel í paymentController: " + chosenHotel);
     }
-
-    // bara testa hvort þetta sé virka ef maður búinn á reservation og langar vista korta upplýsingar ...
-    public void saveInfosetText (TextField card, TextField expiry, TextField CVC) {
-        getCardnumber.setText(String.valueOf(card));
-        getExpirydate.setText(String.valueOf(expiry));
-        getCVC.setText(String.valueOf(CVC));
-    }
-
-    // þetta líka
-    public void saveInfogetText (String card, String expiry, String CVC) {
-        TextField card1 = new TextField(), expiry1 = new TextField(),CVC1 = new TextField();
-        String card_Text = card1.getText();
-        String expiry_Text = expiry1.getText();
-        String cvc_Text = CVC1.getText();
-        getCardnumber.getText();
-        getExpirydate.getText();
-        getCVC.getText();
-        FXMLLoader Loader = new FXMLLoader();
-        confirmController display = Loader.getController();
-        //display.saveInfosetText (card, expiry, CVC);
-    }
     
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
