@@ -173,6 +173,16 @@ public class confirmController implements Initializable {
                 main_stage.setScene(herbergi_scene);
                 main_stage.show();
             } else if (current == ButtonType.NO) {
+                Parent herbergi_parent = null;
+                try {
+                    herbergi_parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Scene herbergi_scene = new Scene(herbergi_parent);
+                Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                main_stage.setScene(herbergi_scene);
+                main_stage.show();
             }
         });
         alert.showAndWait();

@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class HerbergiController {
+public class HerbergiController implements Initializable{
     @FXML
     private MenuItem pin_info;
 
@@ -43,7 +43,7 @@ public class HerbergiController {
     private ScrollPane map_scrollpane;
 
     @FXML
-    private MenuButton map_pin;
+    private ListView<String> test;
 
     @FXML
     private Label hotelname;
@@ -63,6 +63,8 @@ public class HerbergiController {
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
+
+    ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
 
     // Sækja morepic glugga
     @FXML
@@ -191,4 +193,8 @@ public class HerbergiController {
         card = Card;
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        test.setItems(items);
+    }
 }

@@ -89,6 +89,6 @@
             </SplitPane>
          </children>
       </VBox>
-      <ListView layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
+      <ListView fx:id="test" layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
    </children>
 </AnchorPane>
