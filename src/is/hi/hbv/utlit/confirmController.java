@@ -159,14 +159,16 @@ public class confirmController implements Initializable {
                 // Loadum nýrri senu -> Seach.fxml
 
                 FXMLLoader Loader = new FXMLLoader();
-                Loader.setLocation(getClass().getResource("Search.fxml"));
+                Loader.setLocation(getClass().getResource("Intro.fxml"));
                 try {
                     Loader.load();
                 } catch (IOException ex) {
                     Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                searchController search = Loader.getController();
-                search.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
+                //searchController search = Loader.getController();
+                //search.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
+                introController intro = Loader.getController();
+                intro.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
                 Parent herbergi_parent = Loader.getRoot();
                 Scene herbergi_scene = new Scene(herbergi_parent);
                 Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -175,7 +177,7 @@ public class confirmController implements Initializable {
             } else if (current == ButtonType.NO) {
                 Parent herbergi_parent = null;
                 try {
-                    herbergi_parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
+                    herbergi_parent = FXMLLoader.load(getClass().getResource("Intro.fxml"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
