@@ -318,7 +318,7 @@ public class PaymentController<fxmlLoader> {
         confirmController display = Loader.getController();
         //display.saveInfosetText (card, expiry, CVC);
     }
-    
+
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
         daycountvalue = daycount;
