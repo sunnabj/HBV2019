@@ -4,6 +4,7 @@ import is.hi.hbv.vinnsla.Hotel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +17,9 @@ import java.io.IOException;
 
 
 import javax.lang.model.SourceVersion;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -64,6 +67,13 @@ public class PaymentController<fxmlLoader> {
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private String address;
+    private String kennitala;
+    private String card;
 
     // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
     @FXML
@@ -100,6 +110,7 @@ public class PaymentController<fxmlLoader> {
             display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,List);
             //display.setTextHotel(chosenHotel);
             display.setText12(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+            //display.setSaveInfo(Firstname, Lastname, Email, Phone, Address, Kennitala, Card);
             Parent p = Loader.getRoot();
             Stage stage = new Stage();
             stage.setScene(new Scene(p));
@@ -327,4 +338,13 @@ public class PaymentController<fxmlLoader> {
         guestnumbervalue = guests;
     }
 
+    public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
+        this.getFirstname.setText(Firstname);
+        this.getLastname.setText(Lastname);
+        this.getEmail.setText(Email);
+        this.getPhone.setText(Phone);
+        this.getAddress.setText(Address);
+        this.getKennitala.setText(Kennitala);
+        this.getCardnumber.setText(Card);
+    }
 }

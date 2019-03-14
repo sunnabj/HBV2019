@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class HerbergiController {
+public class HerbergiController implements Initializable{
     @FXML
     private MenuItem pin_info;
 
@@ -43,7 +43,18 @@ public class HerbergiController {
     private ScrollPane map_scrollpane;
 
     @FXML
-    private MenuButton map_pin;
+    private ListView<String> test;
+
+    @FXML
+    private Label hotelname;
+
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private String address;
+    private String kennitala;
+    private String card;
 
     Group zoomGroup;
 
@@ -52,6 +63,8 @@ public class HerbergiController {
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
+
+    ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
 
     // Sækja morepic glugga
     @FXML
@@ -108,6 +121,7 @@ public class HerbergiController {
         servicesController room = Loader.getController();
         //room.setHotel(chosenHotel);
         room.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        room.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
         Parent payment_parent = Loader.getRoot();
 
         //Parent payment_parent = FXMLLoader.load(getClass().getResource("services.fxml"));
@@ -148,6 +162,7 @@ public class HerbergiController {
 
     public void setChosenHotel(Hotel hotel) {
         chosenHotel = hotel;
+        hotelname.setText(chosenHotel.getName());
         System.out.println("Hótelið er: " + chosenHotel);
         showRooms();
     }
@@ -168,4 +183,18 @@ public class HerbergiController {
         }
     }
 
+    public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
+        firstname = Firstname;
+        lastname = Lastname;
+        email = Email;
+        phone = Phone;
+        address = Address;
+        kennitala = Kennitala;
+        card = Card;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        test.setItems(items);
+    }
 }

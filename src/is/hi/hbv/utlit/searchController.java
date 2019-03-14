@@ -47,9 +47,9 @@ public class searchController implements Initializable {
     @FXML
     public AnchorPane frontPageAnchor;  // Pane utan um alla forsíðuna
     @FXML
-    public ScrollPane resultboxScroll;  // Skrollbox fyrir niðurstöður
+    public ScrollPane resultboxScroll;  // Skrollbox fyrir niðurstöður , þarf ekki ég búinn henda það
     @FXML
-    public VBox resultboxPlane; // Annað box fyrir niðurstöður, spurning hvort þurfi
+    public VBox resultboxPlane; // Annað box fyrir niðurstöður, spurning hvort þurfi , þarf ekki ég búinn henda það
     @FXML
     public ToggleGroup sorting; // Til að geta bara valið eitt sorting skilyrði í einu
     @FXML
@@ -88,6 +88,14 @@ public class searchController implements Initializable {
     private LocalDate arrivalchoicevalue; // Gildi fyrir valinn komudag
     private LocalDate departurechoicevalue; // Gildir fyrir valinn brottfarardag
     private long daycountvalue;          // Gildi fyrir fjölda gistinátta
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private String address;
+    private String kennitala;
+    private String card;
+    private String Firstname;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -234,6 +242,7 @@ public class searchController implements Initializable {
 
         herbergi.setChosenHotel(chosenHotel);
         herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        herbergi.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
         //herbergi.printHotel(chosenHotel);
 
         Parent herbergi_parent = Loader.getRoot();
@@ -383,6 +392,16 @@ public class searchController implements Initializable {
     }
     public LocalDate getDepartureDate() {
         return departurechoicevalue;
+    }
+
+    public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
+        firstname = Firstname;
+        lastname = Lastname;
+        email = Email;
+        phone = Phone;
+        address = Address;
+        kennitala = Kennitala;
+        card = Card;
     }
 
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.introController">
+   <children>
+      <Label layoutX="195.0" layoutY="30.0" prefHeight="51.0" prefWidth="189.0" text="Iceland Hotel" textFill="#ff1500f5">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <effect>
+            <Blend opacity="0.5" />
+         </effect>
+      </Label>
+      <VBox layoutX="218.0" layoutY="90.0" prefHeight="225.0" prefWidth="143.0">
+         <children>
+            <Button fx:id="searchID" mnemonicParsing="false" onAction="#searchHandle" prefWidth="250.0" text="Search">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#manageBooking" prefWidth="250.0" text="Manage Booking">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="location" mnemonicParsing="false" onAction="#hotelMaphandle" prefWidth="250.0" text="Our hotel location">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="aboutus" mnemonicParsing="false" onAction="#aboutusHandle" prefWidth="250.0" text="About us">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="quitID" mnemonicParsing="false" onAction="#quitHandle" prefWidth="250.0" text="Quit">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
