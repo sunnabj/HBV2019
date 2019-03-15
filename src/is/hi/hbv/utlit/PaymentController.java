@@ -67,18 +67,13 @@ public class PaymentController<fxmlLoader> {
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String phone;
-    private String address;
-    private String kennitala;
-    private String card;
 
     // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
     @FXML
     void Next(ActionEvent actionEvent) {
-        if (validateFirstName() && validateLastName()                                                   // if-setning athuga fyrir hvert fall er
+         if (validateTextfield() == false ){
+            System.out.println("hello");
+        } else if (         validateFirstName() && validateLastName()                                                   // if-setning athuga fyrir hvert fall er
                             && validateEmaill() && validatePhone()                                      // það satt eða ósatt ef satt halda áfram
                             && validateKennitala((getKennitala.getText())) && validateCardNumber()
                             && validateCardExpiryDate() && validateCVC() == true)
@@ -245,38 +240,51 @@ public class PaymentController<fxmlLoader> {
     }
 
     // Athuga kennitala sé rétt eða ekki .... þetta hefur lærð á Tölvunarfræði 1
-    private boolean validateKennitala(String a){
-        int lengd = getKennitala.getText().length();
-        System.out.println(a);
-        int j = 3;
-        int k = 0;
-        if (lengd != 10 ) {
+    private boolean validateKennitala(final String a){
+        if (a == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Validate Kennitala");
             alert.setHeaderText(null);
             alert.setContentText("Please Enter Valid Kennitala");
             alert.showAndWait();
             return false;
-        } else {
-            for (int i = 0; i < lengd; i++){
-                int x = Character.getNumericValue(a.charAt(i));
-                k += x*j;
-                j--;
-                if (j == 1)
-                    j = 7;
-            }
-            int mod = k%11;
-            if (mod >=0 && mod <=9){
-                return true;
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Validate Kennitala");
-                alert.setHeaderText(null);
-                alert.setContentText("Please Enter Valid Kennitala");
-                alert.showAndWait();
-                return false;
-            }
         }
+
+        final String kennitalaClean = cleanKennitala(a);
+
+        if (kennitalaClean.length() != 10) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Validate Kennitala");
+            alert.setHeaderText(null);
+            alert.setContentText("Please Enter Valid Kennitala");
+            alert.showAndWait();
+            return false;
+        }
+
+        int sum =
+                (Integer.parseInt(kennitalaClean.substring(0, 1)) * 3)
+                        + (Integer.parseInt(kennitalaClean.substring(1, 2)) * 2)
+                        + (Integer.parseInt(kennitalaClean.substring(2, 3)) * 7)
+                        + (Integer.parseInt(kennitalaClean.substring(3, 4)) * 6)
+                        + (Integer.parseInt(kennitalaClean.substring(4, 5)) * 5)
+                        + (Integer.parseInt(kennitalaClean.substring(5, 6)) * 4)
+                        + (Integer.parseInt(kennitalaClean.substring(6, 7)) * 3)
+                        + (Integer.parseInt(kennitalaClean.substring(7, 8)) * 2);
+
+        int num = 11 - (sum % 11);
+        num = (num == 11) ? 0 : num;
+        if (num == Integer.parseInt(kennitalaClean.substring(8, 9))){
+            return true;
+        }
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Validate Kennitala");
+        alert.setHeaderText(null);
+        alert.setContentText("Please Enter Valid Kennitala");
+        alert.showAndWait();
+        return false;
+    }
+    public static String cleanKennitala(final String a) {
+        return a.replaceAll("[^0-9]", "");
     }
 
     // Athuga hvort símanúmer sé rétt á íslenska síma
@@ -295,6 +303,25 @@ public class PaymentController<fxmlLoader> {
         }
     }
 
+    // Athuga hvort allar tharf textfield eru fillar
+    private boolean validateTextfield(){
+        if(     getFirstname.getText() == null | getLastname.getText() == null|
+                getEmail.getText() == null | getPhone.getText() == null |
+                getKennitala.getText() == null | getCardnumber.getText() == null |
+                getExpirydate.getText() == null | getCVC.getText() == null
+                )
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Validate Fields");
+            alert.setHeaderText(null);
+            alert.setContentText("Please Enter Into The Fields");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
+
     // TODO : þetta þarf að laga/breyta því þarf að sækja gögnum á gagnasafn
     // og þetta á að sækja herbergi upplýsingar !!!
     public void setText12 (String totalslist, String count) {
@@ -307,27 +334,6 @@ public class PaymentController<fxmlLoader> {
                                     + " 1 - Kingsize - 70.000 kr \n" + "\n"
                                     + "----Extra Services----\n"+ totalslist + "\n");
         System.out.println("Valið hótel í paymentController: " + chosenHotel);
-    }
-
-    // bara testa hvort þetta sé virka ef maður búinn á reservation og langar vista korta upplýsingar ...
-    public void saveInfosetText (TextField card, TextField expiry, TextField CVC) {
-        getCardnumber.setText(String.valueOf(card));
-        getExpirydate.setText(String.valueOf(expiry));
-        getCVC.setText(String.valueOf(CVC));
-    }
-
-    // þetta líka
-    public void saveInfogetText (String card, String expiry, String CVC) {
-        TextField card1 = new TextField(), expiry1 = new TextField(),CVC1 = new TextField();
-        String card_Text = card1.getText();
-        String expiry_Text = expiry1.getText();
-        String cvc_Text = CVC1.getText();
-        getCardnumber.getText();
-        getExpirydate.getText();
-        getCVC.getText();
-        FXMLLoader Loader = new FXMLLoader();
-        confirmController display = Loader.getController();
-        //display.saveInfosetText (card, expiry, CVC);
     }
 
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
