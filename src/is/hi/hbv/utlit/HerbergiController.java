@@ -1,4 +1,5 @@
 package is.hi.hbv.utlit;
+import com.sun.jndi.toolkit.url.UrlUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,7 +10,12 @@ import javafx.scene.control.Slider;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
@@ -47,6 +53,12 @@ public class HerbergiController implements Initializable{
 
     @FXML
     private Label hotelname;
+
+    @FXML
+    private TextArea hotelInfo;
+
+    @FXML
+    private Pane hotelImage;
 
     private String firstname;
     private String lastname;
@@ -148,7 +160,6 @@ public class HerbergiController implements Initializable{
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
-
     }
     // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
@@ -163,8 +174,18 @@ public class HerbergiController implements Initializable{
     public void setChosenHotel(Hotel hotel) {
         chosenHotel = hotel;
         hotelname.setText(chosenHotel.getName());
+        hotelInfo.setText(chosenHotel.getHotelInfo());
         System.out.println("Hótelið er: " + chosenHotel);
         showRooms();
+
+        // Birtir mynd af völdu hóteli.
+        hotelImage.getChildren().clear();
+        Integer hotelID = chosenHotel.getHotelID();
+        Image image = new Image("is/hi/hbv/utlit/img/Roomimage/hotel/" + hotelID + ".jpg");
+        javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(image);
+        imageView.setFitWidth(383);
+        imageView.setFitHeight(212);
+        hotelImage.getChildren().add(imageView);
     }
 
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {

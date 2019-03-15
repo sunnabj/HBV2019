@@ -19,13 +19,13 @@ public class Hotel {
 
     //Name, HotelID, Stars, ReviewID, minPrice
 
-    public Hotel(String namevalue, int hotelIdent, int starvalue, int reviews, int pricevalue, String address, String phone) {
+    public Hotel(String namevalue, int hotelIdent, int starvalue, int reviews, int pricevalue, String address, String phone, String info) {
         name = namevalue;
         hotelID = hotelIdent;
         stars = starvalue;
         minprice = pricevalue;
         reviewID = reviews; // Mun breytast í reviewNr - fjöldi reviews
-        // hotelInfo = info; // Mun bætast við. Líka sem inntak.
+        hotelInfo = info; // Mun bætast við. Líka sem inntak.
         hotelAddress = address;
         phoneNr = phone;
     }

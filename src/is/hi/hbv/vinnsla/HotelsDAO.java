@@ -110,7 +110,7 @@ public class HotelsDAO {
             //PreparedStatement p = conn.prepareStatement("SELECT Hotel.Name, Room.Rate, Hotel.Stars, Hotel.ReviewID, Room.RoomNumber" +
             //        " FROM Hotel, Room WHERE minPrice <= ?" +
             //     "AND area = ? AND minGuest <= ? AND maxGuest >= ? AND Hotel.HotelID = Room.HotelID");
-             PreparedStatement p = conn.prepareStatement("SELECT Name, HotelID, Stars, ReviewID, minPrice, Address, Phone" +
+             PreparedStatement p = conn.prepareStatement("SELECT Name, HotelID, Stars, ReviewID, minPrice, Address, Phone, HotelInfo" +
                      " FROM Hotel WHERE minPrice <= ? AND Area = ? AND minGuest <= ? AND maxGuest >= ?");
 
             p.setInt(1, high);
@@ -125,7 +125,9 @@ public class HotelsDAO {
             r = p.executeQuery();
             // Fyrir hverja niðurstöðu í query er búið til nýtt "hótel" - því bætt á lista sem er svo skilað
             while (r.next()) {
-                Hotel hotel = new Hotel(r.getString(1), r.getInt(2), r.getInt(3), r.getInt(4), r.getInt(5), r.getString(6), r.getString(7));
+                Hotel hotel = new Hotel(r.getString(1), r.getInt(2), r.getInt(3),
+                        r.getInt(4), r.getInt(5), r.getString(6), r.getString(7),
+                        r. getString(8));
                 hotels.add(hotel);
             }
         } catch (SQLException e) {

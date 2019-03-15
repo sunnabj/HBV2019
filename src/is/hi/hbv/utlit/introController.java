@@ -88,7 +88,7 @@ public class introController {
         alert.setContentText("This project is called Iceland Hotel\n"+
                 "This is final project for HBV-401G\n" +
                 "Authors : Sunna Björnsdóttir - something@hi.is\n" +
-                "Þórdís Pétursdóttir - something@hi.is\n" +
+                "Þórdís Pétursdóttir - thp44@hi.is\n" +
                 "Hieu Van Phan - hvp5@hi.is\n" +
                 "\n"
         );

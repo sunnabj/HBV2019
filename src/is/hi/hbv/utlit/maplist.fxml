@@ -58,7 +58,7 @@
                      <children>
                         <ImageView>
                            <image>
-                              <Image url="@img/Roomimage/island.png" />
+                              <Image url="@img/Roomimage/map/island.png" />
                            </image>
                         </ImageView>
                         <MenuButton fx:id="map_pin" layoutX="110.0" layoutY="100.0" mnemonicParsing="false" styleClass="map-pin">
