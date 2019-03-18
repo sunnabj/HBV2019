@@ -49,7 +49,7 @@ public class HerbergiController implements Initializable{
     private ScrollPane map_scrollpane;
 
     @FXML
-    private ListView test; // var <String>
+    private ListView hotelRooms; // var <String>
 
     @FXML
     private Label hotelname;
@@ -206,7 +206,7 @@ public class HerbergiController implements Initializable{
         for (Object room : roomResults) {
             room.toString();
         }
-        test.setItems(roomResults);
+        hotelRooms.setItems(roomResults);
 
     }
 
