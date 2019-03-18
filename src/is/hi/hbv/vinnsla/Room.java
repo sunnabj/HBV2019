@@ -5,12 +5,14 @@ public class Room {
     private int price;
     private int roomID;
     private int roomNr;
+    private String roomInfo;
 
-    public Room(int guests, int pricevalue, int roomIdent, int roomnumber) {
+    public Room(int guests, int pricevalue, int roomIdent, int roomnumber, String info) {
         guestNumber = guests;
         price = pricevalue;
         roomID = roomIdent;
         roomNr = roomnumber;
+        roomInfo = info;
     }
 
     public int getGuests() {
@@ -25,6 +27,7 @@ public class Room {
     public int getRoomNr() {
         return roomNr;
     }
+    public String getRoomInfo() { return roomInfo; }
 
     public String toString() {
         return "Room number " + roomNr;

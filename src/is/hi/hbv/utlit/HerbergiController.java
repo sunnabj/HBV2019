@@ -49,7 +49,7 @@ public class HerbergiController implements Initializable{
     private ScrollPane map_scrollpane;
 
     @FXML
-    private ListView<String> test;
+    private ListView test; // var <String>
 
     @FXML
     private Label hotelname;
@@ -76,7 +76,9 @@ public class HerbergiController implements Initializable{
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
 
-    ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
+    private ObservableList<Object> roomResults;
+
+    //ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
 
     // Sækja morepic glugga
     @FXML
@@ -196,12 +198,16 @@ public class HerbergiController implements Initializable{
         guestnumbervalue = guests;
     }
 
-
+    /*
+    * Birtir herbergin í völdu hóteli í ListView glugga
+     */
     public void showRooms() {
-        ArrayList<Object> rooms = chosenHotel.getRooms();
-        for (Object room : rooms) {
-            System.out.println(room);
+        roomResults = FXCollections.observableArrayList(chosenHotel.getRooms());
+        for (Object room : roomResults) {
+            room.toString();
         }
+        test.setItems(roomResults);
+
     }
 
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
@@ -216,6 +222,6 @@ public class HerbergiController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        test.setItems(items);
+        //test.setItems(items);
     }
 }
