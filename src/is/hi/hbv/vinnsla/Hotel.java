@@ -37,11 +37,8 @@ public class Hotel {
         return minprice;
     }
     public int getReviewNr() {
-<<<<<<< HEAD
-        return reviewNr; // Breyta í ReviewNr
-=======
+
         return reviewNr;
->>>>>>> origin/master
     }
     public int getHotelID() {
         return hotelID;
