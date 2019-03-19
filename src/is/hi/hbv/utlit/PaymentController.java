@@ -8,10 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -24,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class PaymentController<fxmlLoader> {
+public class PaymentController<fxmlLoader> implements  Initializable{
 
     @FXML
     private TextField getPhone;         // Textfield til að sækja gildi fyrir símanúmer
@@ -52,6 +49,9 @@ public class PaymentController<fxmlLoader> {
 
     @FXML
     private Button nextButton;
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private Label totalscost;
@@ -352,5 +352,20 @@ public class PaymentController<fxmlLoader> {
         this.getAddress.setText(Address);
         this.getKennitala.setText(Kennitala);
         this.getCardnumber.setText(Card);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        getFirstname.setTooltip(new Tooltip("Please enter your first name"));
+        getLastname.setTooltip(new Tooltip("Please enter your last name"));
+        getKennitala.setTooltip(new Tooltip("Please enter your icelandic ID without symbol"));
+        getEmail.setTooltip(new Tooltip("Please enter your email"));
+        getPhone.setTooltip(new Tooltip("Please enter your phone number without symbol"));
+        getAddress.setTooltip(new Tooltip("Please enter your address"));
+        getCardnumber.setTooltip(new Tooltip("Please enter your credit card number"));
+        getExpirydate.setTooltip(new Tooltip("Please enter your expiry date with symbol ex. mm/yy"));
+        getCVC.setTooltip(new Tooltip("Please enter your CVC"));
+        nextButton.setTooltip(new Tooltip("Finish payment"));
+        backButton.setTooltip(new Tooltip("Go back to search"));
     }
 }

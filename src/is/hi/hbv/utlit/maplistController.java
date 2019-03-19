@@ -85,13 +85,14 @@ public class maplistController {
     void initialize() {
 
         // nota paint to get x and y
-        hm.put("Capital area/Reykjavik", new ArrayList<>(Arrays.asList(260.0, 545.0, "Code: KHAF\nElevation: 66ft")));
-        hm.put("Keflavik", new ArrayList<>(Arrays.asList(200.0, 580.0, "Code: KHWD\nElevation: 52ft")));
-        hm.put("North/Akureyri", new ArrayList<>(Arrays.asList(600.0, 215.0, "Code: KNUQ\nElevation: 32ft")));
-        hm.put("South/Vestmanneyjar", new ArrayList<>(Arrays.asList(410.0, 690.0, "Code: KPAO\nElevation: 7ft")));
-        hm.put("East/Husavik", new ArrayList<>(Arrays.asList(1007.0, 275.0, "Code: KRHV\nElevation: 135ft")));
-        hm.put("West/Olafsvik", new ArrayList<>(Arrays.asList(93.0, 394.0, "Code: KSQL\nElevation: 52ft")));
-        hm.put("All areas", new ArrayList<>(Arrays.asList(563.0, 364.0, "Code: KSFO\nElevation: 13ft")));
+        hm.put("Capital area/Reykjavik", new ArrayList<>(Arrays.asList(1003.0, 1508.0, "Code: KDVO\nElevation: 66ft")));
+        hm.put("Capital area/Keflavik", new ArrayList<>(Arrays.asList(836.0, 1589.0, "Code: C83\nElevation: 52ft")));
+        hm.put("North/Akureyri", new ArrayList<>(Arrays.asList(2010.0, 575.0, "Code: KHAF\nElevation: 32ft")));
+        hm.put("South/Vik", new ArrayList<>(Arrays.asList(1789.0, 1965.0, "Code: KHWD\nElevation: 7ft")));
+        hm.put("East/Egilsstadir", new ArrayList<>(Arrays.asList(2955.0, 783.0, "Code: KLVK\nElevation: 135ft")));
+        hm.put("East/Neskaustadur", new ArrayList<>(Arrays.asList(3139.0, 839.0, "Code: KOAK\nElevation: 160ft")));
+        hm.put("West/Stykkisholmur", new ArrayList<>(Arrays.asList(821.0, 931.0, "Code: KNUQ\nElevation: 52ft")));
+        hm.put("West/Hellissandur", new ArrayList<>(Arrays.asList(567.0, 1025.0, "Code: KPAO\nElevation: 100ft")));
 
         ObservableList<String> names = FXCollections.observableArrayList();
         Set<Entry<String, ArrayList<Comparable<?>>>> set = hm.entrySet();
@@ -106,8 +107,8 @@ public class maplistController {
         map_pin.setVisible(false);
 
         zoom_slider.setMin(0.5);
-        zoom_slider.setMax(1.5);
-        zoom_slider.setValue(1.0);
+        zoom_slider.setMax(3.0);
+        zoom_slider.setValue(1.5);
         zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
 
         // Wrap scroll content in a Group so ScrollPane re-computes scroll bars
@@ -142,7 +143,7 @@ public class maplistController {
         final Timeline timeline = new Timeline();
         final KeyValue kv1 = new KeyValue(map_scrollpane.hvalueProperty(), scrollH);
         final KeyValue kv2 = new KeyValue(map_scrollpane.vvalueProperty(), scrollV);
-        final KeyFrame kf = new KeyFrame(Duration.millis(500), kv1, kv2);
+        final KeyFrame kf = new KeyFrame(Duration.millis(700), kv1, kv2);
         timeline.getKeyFrames().add(kf);
         timeline.play();
 

@@ -1,5 +1,7 @@
 package is.hi.hbv.utlit;
 import com.sun.jndi.toolkit.url.UrlUtil;
+import javafx.animation.ParallelTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -40,7 +43,10 @@ import java.util.logging.Logger;
 
 public class HerbergiController implements Initializable{
     @FXML
-    private MenuItem pin_info;
+    private Button outID;
+
+    @FXML
+    private Button backID;
 
     @FXML
     private Slider zoom_slider;
@@ -49,16 +55,28 @@ public class HerbergiController implements Initializable{
     private ScrollPane map_scrollpane;
 
     @FXML
-    private ListView<String> test;
+    private ListView hotelRooms;
 
     @FXML
     private Label hotelname;
 
     @FXML
+    private Button inID;
+
+    @FXML
     private TextArea hotelInfo;
 
     @FXML
+    private Button nextID;
+
+    @FXML
+    private ImageView mapID;
+
+    @FXML
     private Pane hotelImage;
+
+    @FXML
+    private Button morepicID;
 
     private String firstname;
     private String lastname;
@@ -75,6 +93,8 @@ public class HerbergiController implements Initializable{
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
+
+    private ObservableList<Object> roomResults;
 
     ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
 
@@ -160,6 +180,22 @@ public class HerbergiController implements Initializable{
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
+        mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
+                    Parent root = (Parent) loader.load();
+                    Stage stage = new Stage();
+                    //stage.initStyle(StageStyle.DECORATED);
+                    stage.setTitle("Hotel Map");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Can't open !!!");
+                }
+            }
+        });
     }
     // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
@@ -186,6 +222,24 @@ public class HerbergiController implements Initializable{
         imageView.setFitWidth(383);
         imageView.setFitHeight(212);
         hotelImage.getChildren().add(imageView);
+        morepicID.setTooltip(new Tooltip("See more pictures of "+ chosenHotel.getName() + "."));
+
+        mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
+                    Parent root = (Parent) loader.load();
+                    Stage stage = new Stage();
+                    //stage.initStyle(StageStyle.DECORATED);
+                    stage.setTitle("Hotel Map");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Can't open !!!");
+                }
+            }
+        });
     }
 
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
@@ -196,12 +250,16 @@ public class HerbergiController implements Initializable{
         guestnumbervalue = guests;
     }
 
-
+    /*
+     * Birtir herbergin í völdu hóteli í ListView glugga
+     */
     public void showRooms() {
-        ArrayList<Object> rooms = chosenHotel.getRooms();
-        for (Object room : rooms) {
-            System.out.println(room);
+        roomResults = FXCollections.observableArrayList(chosenHotel.getRooms());
+        for (Object room : roomResults) {
+            room.toString();
         }
+        hotelRooms.setItems(roomResults);
+
     }
 
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
@@ -216,6 +274,10 @@ public class HerbergiController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        test.setItems(items);
+        //test.setItems(items);
+        outID.setTooltip(new Tooltip("Zoom-out"));
+        inID.setTooltip(new Tooltip("Zoom-in."));
+        nextID.setTooltip(new Tooltip("Go to services"));
+        backID.setTooltip(new Tooltip("Go back to search"));
     }
 }

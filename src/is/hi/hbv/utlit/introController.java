@@ -3,23 +3,23 @@ package is.hi.hbv.utlit;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class introController {
+public class introController implements Initializable {
 
 
     private String firstname;
@@ -29,6 +29,21 @@ public class introController {
     private String address;
     private String kennitala;
     private String card;
+
+    @FXML
+    private Button aboutus;
+
+    @FXML
+    private Button searchID;
+
+    @FXML
+    private Button locationID;
+
+    @FXML
+    private Button bookingID;
+
+    @FXML
+    private Button quitID;
 
 
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
@@ -62,8 +77,17 @@ public class introController {
     }
 
     public void manageBooking(javafx.event.ActionEvent actionEvent) {
-        // Get gildi fra booking number
-        // prenta ut :D
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("booking.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = new Stage();
+            //stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Log-in with BookID");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Can't open !!!");
+        }
     }
 
     public void hotelMaphandle(javafx.event.ActionEvent actionEvent) {
@@ -72,8 +96,8 @@ public class introController {
             Parent root = (Parent) loader.load();
             Stage stage = new Stage();
             //stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Hotel Map !");
-            stage.setScene(new Scene(root,715,420));
+            stage.setTitle("Hotel Map");
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             System.out.println("Can't open !!!");
@@ -98,5 +122,14 @@ public class introController {
 
     public void quitHandle(javafx.event.ActionEvent actionEvent) {
         System.exit(1);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        searchID.setTooltip(new Tooltip("Go to search"));
+        bookingID.setTooltip(new Tooltip("Go to manage your booking"));
+        locationID.setTooltip(new Tooltip("See our hotel location aroud Iceland"));
+        aboutus.setTooltip(new Tooltip("About this application"));
+        quitID.setTooltip(new Tooltip("Quit this application"));
     }
 }

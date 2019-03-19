@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="root_vbox" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.maplistController">
+<VBox fx:id="root_vbox" prefHeight="615.0" prefWidth="919.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.maplistController">
    <children>
       <HBox alignment="CENTER_LEFT">
          <children>
@@ -49,7 +49,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <SplitPane dividerPositions="0.3076923076923077" prefHeight="480.0" prefWidth="643.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.21046892039258452" prefHeight="480.0" prefWidth="643.0" VBox.vgrow="ALWAYS">
          <items>
             <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="200.0" prefWidth="200.0" />
             <ScrollPane fx:id="map_scrollpane" prefHeight="200.0" prefWidth="200.0">

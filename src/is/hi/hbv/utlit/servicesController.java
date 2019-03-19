@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -201,6 +202,13 @@ public class servicesController implements Initializable {
         totalslist.setText("No service : 0 kr");
         setCount(String.valueOf(0));
         setChoice("No service : 0 kr");
+        pickup.setTooltip(new Tooltip("Pickup straight from airport"));
+        breakfast.setTooltip(new Tooltip("Eat break in hotel"));
+        dinner.setTooltip(new Tooltip("Eat dinner in hotel"));
+        rental.setTooltip(new Tooltip("Rental a car"));
+        spa.setTooltip(new Tooltip("Try our spa service"));
+        swimming.setTooltip(new Tooltip("Try our swimming service"));
+        nextButton.setTooltip(new Tooltip("Go to payment"));
     }
 }
 

@@ -32,9 +32,9 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="599.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="Fleiri mynd" />
-      <Button layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Til baka" />
-      <Button layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Áfram" />
+      <Button fx:id="morepicID" layoutX="599.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="Fleiri mynd" />
+      <Button fx:id="backID" layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Til baka" />
+      <Button fx:id="nextID" layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Áfram" />
       <VBox layoutX="423.0" layoutY="342.0">
          <children>
             <HBox alignment="CENTER_LEFT">
@@ -43,7 +43,7 @@
                      <padding>
                         <Insets right="8.0" />
                      </padding></Label>
-                  <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
+                  <Button fx:id="outID" mnemonicParsing="false" onAction="#zoomOut" text="-" />
                   <Slider fx:id="zoom_slider">
                      <HBox.margin>
                         <Insets />
@@ -51,7 +51,7 @@
                      <padding>
                         <Insets left="8.0" />
                      </padding></Slider>
-                  <Button mnemonicParsing="false" onAction="#zoomIn" text="+" />
+                  <Button fx:id="inID" mnemonicParsing="false" onAction="#zoomIn" text="+" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -63,7 +63,7 @@
                      <content>
                         <Pane>
                            <children>
-                              <ImageView pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="mapID" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/Roomimage/map/map.png" />
                                  </image>

@@ -17,6 +17,6 @@
       <Label fx:id="resultBooking" layoutX="20.0" layoutY="71.0" prefHeight="210.0" prefWidth="352.0" text="Þetta bara hluti í Search.fxml" />
       <Label fx:id="resultInfo" alignment="TOP_LEFT" layoutX="20.0" layoutY="281.0" prefHeight="508.0" prefWidth="352.0" text="Label" />
       <Button fx:id="saveButton" layoutX="498.0" layoutY="735.0" mnemonicParsing="false" onAction="#nextPage" text="Save" />
-      <ImageView fx:id="star" fitHeight="150.0" fitWidth="200.0" layoutX="386.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="hotelImage1" fitHeight="200.0" fitWidth="250.0" layoutX="336.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

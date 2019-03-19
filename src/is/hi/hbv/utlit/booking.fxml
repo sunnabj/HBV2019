@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="266.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.bookingController">
+   <children>
+      <VBox layoutX="33.0" layoutY="35.0" prefHeight="139.0" prefWidth="355.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Booking ID" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" top="20.0" />
+                     </HBox.margin></Label>
+                  <TextField fx:id="bookingID" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="16.0" prefWidth="285.0">
+               <children>
+                  <Label text="Pin ID" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="30.0" top="20.0" />
+                     </HBox.margin></Label>
+                  <TextField fx:id="pinID" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="confirmID" layoutX="364.0" layoutY="219.0" mnemonicParsing="false" onAction="#confirm" prefHeight="27.0" prefWidth="69.0" text="OK" />
+   </children>
+</AnchorPane>

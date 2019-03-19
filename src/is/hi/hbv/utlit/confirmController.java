@@ -14,11 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -40,6 +42,10 @@ public class confirmController implements Initializable {
     private Label getName;
 
     @FXML
+    private ImageView hotelImage1;
+
+
+    @FXML
     private Button saveButton;
     private String firstname;
     private String lastname;
@@ -48,6 +54,7 @@ public class confirmController implements Initializable {
     private String address;
     private String kennitala;
     private String card;
+    Connection connection= null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,12 +63,17 @@ public class confirmController implements Initializable {
         alert.setContentText("Your payment has been verifired\n"+
                 "Here is more detail !");
         alert.showAndWait() ;
+
+
+        saveButton.setTooltip(new Tooltip("Save this booking and continue/quit"));
     }
+    String book = bookingNumber();
+    String pin = pinNumber();
 
     // Þetta sækja gögnum af herbergi sem notenda hefur valið og birta á
     // þarf samt biða eftir gögnum og helst ekki vinna strax því getur árekstur á Search.fxml eða HotelDAO....
-    public void setText12 (Hotel chosenHotel, long daycountvalue, LocalDate arrivalchoicevalue, LocalDate departurechoicevalue,
-                           int guestnumbervalue) {
+    public void setText12 (Hotel chosenHotel, long daycountvalue, LocalDate arrivalchoicevalue,
+                           LocalDate departurechoicevalue, int guestnumbervalue) {
         getName.setText(chosenHotel.getName() + " , "+ chosenHotel.getStars() + " stars."+"\n" +
                             "Address : " + chosenHotel.getHotelAddress() + "\n" +
                             "Phone number : (+354) " + chosenHotel.getPhoneNr() + "\n"
@@ -70,15 +82,21 @@ public class confirmController implements Initializable {
                             "Day count/s : " + daycountvalue + " day/s" + "\n" +
                             "Arrival : " + arrivalchoicevalue + "\n" +
                             "Departure : " + departurechoicevalue + "\n" +
-                            "Booking number : " + bookingNumber() + "\n" +
-                            "Hotel-pin number : " + pinNumber() + "\n" +
+                            "Booking number : " + book + "\n" +
+                            "Booking-pin number : " + pin + "\n" +
                             "Number of Guest : " + guestnumbervalue + "\n"
                 );
+
+        // Birtir mynd af völdu hóteli.
+        Integer hotelID = chosenHotel.getHotelID();
+        Image image = new Image("is/hi/hbv/utlit/img/Roomimage/hotel/" + hotelID + ".jpg");
+        hotelImage1.setImage(image);
     }
 
     // Þetta er að ferð kalla allar upplýsingar frá Paymentglugga og prenta það út ...
     // Ef getur, getur sameina aðferð uppí í þetta það sé snyrtilega xD.
-    public void setText123 (String Firstname,String Lastname,String Email,String Phone,String Address,String Kennitala,String Card, String List) {
+    public void setText123 (String Firstname,String Lastname,String Email,String Phone,
+                            String Address,String Kennitala,String Card, String List) {
         resultInfo.setText( "-------------------Total Cost----------------\n\n" +
                             List + "\n" +
                             "---------------Guest Infomation--------------\n\n" +
@@ -105,24 +123,27 @@ public class confirmController implements Initializable {
     // Save button action control kalla Snapshot af glugga sem er í (confirm glugga) og vista
     // í hvar sem er inn á tölva notenda. Kalla Continue aðferð dialog
     @FXML
-    void nextPage(ActionEvent actionEvent) throws IOException {
+    void nextPage(ActionEvent actionEvent) throws IOException, SQLException {
         saveImage();
         Continue(actionEvent);
+        savetoSQL(book,pin);
     }
     // Vista snapshot af Confirm glugga og vista á notenda tölvar.
-    private void saveImage(){
+    private void saveImage() throws IOException {
         Stage stage123 = (Stage) saveButton.getScene().getWindow();
         Image i = Reservation.snapshot(null, null);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(stage123);
+        // vista fyrir notenda tolvu
         if (file != null) {
-            try {
                 ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png", file);
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
+
+        //vista
+        ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png",
+                new File("src/is/hi/hbv/utlit/img/Roomimage/booking/"+book+".png"));
+
     }
 
     // Continue dialog staðfest til láta notenda velur valmöguleika Yes þá til baka á search ...
@@ -213,5 +234,19 @@ public class confirmController implements Initializable {
             m[i] = Integer.toString(random);
         }
         return m[0]+m[1]+m[2]+m[3];
+    }
+
+
+    public void savetoSQL(String bookingID, String pinID) {
+        String sql = "INSERT INTO Booking(BookingID,PinID) VALUES(?,?)";
+        String url = "jdbc:sqlite:hotels.db";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, bookingID);
+            pstmt.setString(2, pinID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+" help me");
+        }
     }
 }

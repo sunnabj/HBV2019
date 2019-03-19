@@ -18,6 +18,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.VBox;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 import java.time.temporal.ChronoUnit;
 
 import java.io.IOException;
@@ -124,7 +126,7 @@ public class searchController implements Initializable {
     /*
     * Það sem gerist þegar ýtt er á leita takkann - ýmislegt í boði.
      */
-    public void hotelsearchHandler(ActionEvent actionEvent) {
+    public void hotelsearchHandler(ActionEvent actionEvent) throws SQLException {
         // Notum value sem við fáum úr comboboxunum til að ákvarða hvað birtist í leitarniðurstöðunum.
         // Náum í hótelherbergi eftir skilyrðum sem við veljum í search
         HotelsDAO database = new HotelsDAO();
