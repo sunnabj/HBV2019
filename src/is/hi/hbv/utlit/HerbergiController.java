@@ -55,7 +55,11 @@ public class HerbergiController implements Initializable{
     private ScrollPane map_scrollpane;
 
     @FXML
+<<<<<<< HEAD
     private ListView hotelRooms;
+=======
+    private ListView hotelRooms; // var <String>
+>>>>>>> origin/master
 
     @FXML
     private Label hotelname;
@@ -96,7 +100,11 @@ public class HerbergiController implements Initializable{
 
     private ObservableList<Object> roomResults;
 
+<<<<<<< HEAD
     ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
+=======
+    //ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
+>>>>>>> origin/master
 
     // Sækja morepic glugga
     @FXML
@@ -251,7 +259,11 @@ public class HerbergiController implements Initializable{
     }
 
     /*
+<<<<<<< HEAD
      * Birtir herbergin í völdu hóteli í ListView glugga
+=======
+    * Birtir herbergin í völdu hóteli í ListView glugga
+>>>>>>> origin/master
      */
     public void showRooms() {
         roomResults = FXCollections.observableArrayList(chosenHotel.getRooms());
@@ -275,9 +287,12 @@ public class HerbergiController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //test.setItems(items);
+<<<<<<< HEAD
         outID.setTooltip(new Tooltip("Zoom-out"));
         inID.setTooltip(new Tooltip("Zoom-in."));
         nextID.setTooltip(new Tooltip("Go to services"));
         backID.setTooltip(new Tooltip("Go back to search"));
+=======
+>>>>>>> origin/master
     }
 }

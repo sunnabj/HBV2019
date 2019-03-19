@@ -37,12 +37,15 @@ public class Hotel {
         return minprice;
     }
     public int getReviewNr() {
+<<<<<<< HEAD
         return reviewNr; // Breyta í ReviewNr
+=======
+        return reviewNr;
+>>>>>>> origin/master
     }
     public int getHotelID() {
         return hotelID;
     }
-    // Ekki komið inn
     public String getHotelInfo() {
         return hotelInfo;
     }
@@ -61,8 +64,13 @@ public class Hotel {
         return db.getRoomsInHotel(hotelID);
     }
 
+    public ArrayList<String> getReviews() {
+        HotelsDAO db = new HotelsDAO();
+        return db.getHotelReviews(hotelID);
+    }
+
     public String toString() {
-        return name + " - Price from: " + minprice + " - Stars: " + stars;
+        return name + " - Price from: " + minprice + " - Stars: " + stars + " - " + reviewNr + " reviews";
     }
 
 }

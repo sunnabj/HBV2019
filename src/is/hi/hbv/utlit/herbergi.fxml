@@ -84,7 +84,7 @@
             </SplitPane>
          </children>
       </VBox>
-      <ListView fx:id="test" layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
+      <ListView fx:id="hotelRooms" layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
       <Pane fx:id="hotelImage" layoutX="437.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" />
    </children>
 </AnchorPane>
