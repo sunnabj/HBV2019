@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="735.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.booking2Controller">
    <children>
       <ImageView fx:id="imageID" fitHeight="686.0" fitWidth="611.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="okID" layoutX="561.0" layoutY="689.0" mnemonicParsing="false" text="OK" />
-      <Button fx:id="deleteID" layoutX="434.0" layoutY="689.0" mnemonicParsing="false" onAction="#deleteImage" text="Delete Booking" />
+      <Button fx:id="okID" layoutX="551.0" layoutY="689.0" mnemonicParsing="false" onAction="#closeAction" text="Close" />
+      <Button fx:id="cancelBooking" layoutX="382.0" layoutY="689.0" mnemonicParsing="false" onAction="#cancelBookingID" text="Cancel This Booking" />
    </children>
 </AnchorPane>

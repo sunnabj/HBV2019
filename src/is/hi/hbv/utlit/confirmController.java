@@ -140,7 +140,7 @@ public class confirmController implements Initializable {
                 ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png", file);
         }
 
-        //vista
+        //vista í resource mappa til að forrit geta sækja seinna bóoking og afbóka :D
         ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png",
                 new File("src/is/hi/hbv/utlit/img/Roomimage/booking/"+book+".png"));
 

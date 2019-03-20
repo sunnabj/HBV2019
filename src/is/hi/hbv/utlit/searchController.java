@@ -68,6 +68,8 @@ public class searchController implements Initializable {
     public RadioButton starRadio; // Radiobutton til að sortera eftir fjölda stjarna
     @FXML
     private MailListController mailListController; // Tilvik fyrir póstlista dialog controller
+    @FXML
+    public TextField mailID; // Lesa inn email texta
 
     Hotel chosenHotel; // Valið hótel (herbergi) í lista - object
 
@@ -151,7 +153,7 @@ public class searchController implements Initializable {
     }
     // Birtir glugga til að skrá sig á póstlista
     public void mailListDialogHandler(ActionEvent actionEvent) {
-        mailListController.mailDialog();
+        mailListController.mailDialog(mailID.getText());
     }
 
     /*

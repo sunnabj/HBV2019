@@ -1,23 +1,17 @@
 package is.hi.hbv.utlit;
 
-import is.hi.hbv.vinnsla.HotelsDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -81,16 +75,8 @@ public class bookingController implements Initializable {
     }
 
     public void confirm(ActionEvent actionEvent) throws IOException {
-        //Parent home_page_parent =  FXMLLoader.load(getClass().getResource("Intro.fxml"));
-        //Scene home_page_scene = new Scene(home_page_parent);
-        //Stage app_stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-
         if (isValidCredentials())
         {
-            /*
-            app_stage.hide(); //optional
-            app_stage.setScene(home_page_scene);
-            app_stage.show();*/
             // Aðferð að kalla gögna frá annara scene, ekki saman við aðra aðferð.
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("booking2.fxml"));
@@ -119,7 +105,7 @@ public class bookingController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         isValidCredentials();
         bookingID.setTooltip(new Tooltip("Please enter your Booking ID from last payment"));
-        pinID.setTooltip(new Tooltip("PPlease enter your Pin ID from last payment"));
+        pinID.setTooltip(new Tooltip("Please enter your Pin ID from last payment"));
         confirmID.setTooltip(new Tooltip("Go to booking manage"));
     }
 }
