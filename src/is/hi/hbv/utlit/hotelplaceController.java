@@ -17,6 +17,6 @@ public class hotelplaceController{
     public void setValues(Hotel hotel) {
         chosenHotel = hotel;
         WebEngine engine = mapView.getEngine();
-        engine.load("https://www.google.com/maps/search/"+chosenHotel.getHotelAddress());
+        engine.load("https://maps.google.com/maps?&q="+chosenHotel.getHotelAddress());
     }
 }
