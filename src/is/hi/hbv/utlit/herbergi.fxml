@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -32,59 +33,11 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="morepicID" layoutX="599.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="Fleiri mynd" />
+      <Button fx:id="morepicID" layoutX="470.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="More Picture" />
       <Button fx:id="backID" layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Til baka" />
       <Button fx:id="nextID" layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Áfram" />
-      <VBox layoutX="423.0" layoutY="342.0">
-         <children>
-            <HBox alignment="CENTER_LEFT">
-               <children>
-                  <Label text="Zoom">
-                     <padding>
-                        <Insets right="8.0" />
-                     </padding></Label>
-                  <Button fx:id="outID" mnemonicParsing="false" onAction="#zoomOut" text="-" />
-                  <Slider fx:id="zoom_slider">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="8.0" />
-                     </padding></Slider>
-                  <Button fx:id="inID" mnemonicParsing="false" onAction="#zoomIn" text="+" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <SplitPane prefHeight="240.0" prefWidth="410.0" VBox.vgrow="ALWAYS">
-               <items>
-                  <ScrollPane fx:id="map_scrollpane">
-                     <content>
-                        <Pane>
-                           <children>
-                              <ImageView fx:id="mapID" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/Roomimage/map/map.png" />
-                                 </image>
-                                 <viewport>
-                                    <Rectangle2D />
-                                 </viewport>
-                              </ImageView>
-                              <MenuButton fx:id="map_pin" layoutX="94.0" layoutY="14.0" mnemonicParsing="false" styleClass="map-pin" stylesheets="@style.css">
-                                 <items>
-                                    <MenuItem fx:id="pin_info" mnemonicParsing="false" />
-                                 </items>
-                              </MenuButton>
-                           </children>
-                        </Pane>
-                     </content>
-                  </ScrollPane>
-               </items>
-            </SplitPane>
-         </children>
-      </VBox>
       <ListView fx:id="hotelRooms" layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
       <Pane fx:id="hotelImage" layoutX="437.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" />
+      <Button layoutX="629.0" layoutY="307.0" mnemonicParsing="false" onAction="#hotelLocation" text="Hotel Location" />
    </children>
 </AnchorPane>

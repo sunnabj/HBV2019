@@ -74,8 +74,7 @@ public class booking2Controller implements Initializable {
         //    deleteDir(new File( "src/is/hi/hbv/utlit/img/Roomimage/booking/" + booking + ".png"));
         //}
         // adding text as overlay to an image
-
-
+        alert();
     }
 
     //  Þetta aðferð eyða selected myndum !!!
@@ -121,4 +120,12 @@ public class booking2Controller implements Initializable {
         cancelBooking.setTooltip(new Tooltip("Cancel this reservation"));
     }
 
+    public void alert () {
+        Alert alert2 = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert2.setHeaderText("Tip");
+        alert2.setContentText("For better user experiment\n"+
+                            "Please restart this application before " +
+                            "check your booking");
+        alert2.showAndWait();
+    }
 }
