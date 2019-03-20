@@ -1,5 +1,6 @@
 package is.hi.hbv.utlit;
 import com.sun.jndi.toolkit.url.UrlUtil;
+import is.hi.hbv.vinnsla.Room;
 import javafx.animation.ParallelTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -89,7 +90,10 @@ public class HerbergiController implements Initializable{
 
     Group zoomGroup;
 
+    int roomindex = -1;
+
     private Hotel chosenHotel;
+    private Room chosenRoom;
     private long daycountvalue;
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
@@ -100,6 +104,58 @@ public class HerbergiController implements Initializable{
 
     //ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //test.setItems(items);
+        outID.setTooltip(new Tooltip("Zoom-out"));
+        inID.setTooltip(new Tooltip("Zoom-in."));
+        nextID.setTooltip(new Tooltip("Go to services"));
+        backID.setTooltip(new Tooltip("Go back to search"));
+
+        // Fylgjumst með völdum gildum í niðurstöðuglugga
+        MultipleSelectionModel<Object> lsm = hotelRooms.getSelectionModel();
+        lsm.selectedItemProperty().addListener(new ChangeListener<Object>() {
+            @Override
+            public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+                // Indexinn í listanum.
+                roomindex = lsm.getSelectedIndex();
+                System.out.println("Room index: " + roomindex);
+            }
+        });
+    }
+
+    @FXML
+    public void initialize() {
+        zoom_slider.setMin(0.5);
+        zoom_slider.setMax(1.5);
+        // sitja default 1.0 í stillingar svo notenda getur auðvelt að zoomin og OUT
+        zoom_slider.setValue(1.0);
+        zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
+
+        // Wrap scroll content in a Group so ScrollPane re-computes scroll bars
+        Group contentGroup = new Group();
+        zoomGroup = new Group();
+        contentGroup.getChildren().add(zoomGroup);
+        zoomGroup.getChildren().add(map_scrollpane.getContent());
+        map_scrollpane.setContent(contentGroup);
+        mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
+                    Parent root = (Parent) loader.load();
+                    Stage stage = new Stage();
+                    //stage.initStyle(StageStyle.DECORATED);
+                    stage.setTitle("Hotel Map");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Can't open !!!");
+                }
+            }
+        });
+
+    }
     // Sækja morepic glugga
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
@@ -143,6 +199,12 @@ public class HerbergiController implements Initializable{
     void nextPage(ActionEvent actionEvent) throws IOException {
         // Loadum nýrri scene -> payment.fxml
 
+        if (roomindex != -1) {
+            chosenRoom = (Room) hotelRooms.getItems().get(roomindex);
+            System.out.println("Valið herbergi: " + chosenRoom);
+            // System.out.println("Herbergi í völdu hóteli: " + chosenHotel.getRooms());
+        }
+
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("services.fxml"));
         try {
@@ -154,7 +216,7 @@ public class HerbergiController implements Initializable{
 
         servicesController room = Loader.getController();
         //room.setHotel(chosenHotel);
-        room.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        room.setValues(chosenHotel, chosenRoom, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
         room.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
         Parent payment_parent = Loader.getRoot();
 
@@ -167,38 +229,6 @@ public class HerbergiController implements Initializable{
     }
 
 
-    @FXML
-    void initialize() {
-        //System.out.println("Valið hótel: " + chosenHotel);
-        zoom_slider.setMin(0.5);
-        zoom_slider.setMax(1.5);
-        // sitja default 1.0 í stillingar svo notenda getur auðvelt að zoomin og OUT
-        zoom_slider.setValue(1.0);
-        zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
-
-        // Wrap scroll content in a Group so ScrollPane re-computes scroll bars
-        Group contentGroup = new Group();
-        zoomGroup = new Group();
-        contentGroup.getChildren().add(zoomGroup);
-        zoomGroup.getChildren().add(map_scrollpane.getContent());
-        map_scrollpane.setContent(contentGroup);
-        mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
-                    Parent root = (Parent) loader.load();
-                    Stage stage = new Stage();
-                    //stage.initStyle(StageStyle.DECORATED);
-                    stage.setTitle("Hotel Map");
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                } catch (Exception e) {
-                    System.out.println("Can't open !!!");
-                }
-            }
-        });
-    }
     // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
         double scrollH = map_scrollpane.getHvalue();
@@ -274,12 +304,5 @@ public class HerbergiController implements Initializable{
         card = Card;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //test.setItems(items);
-        outID.setTooltip(new Tooltip("Zoom-out"));
-        inID.setTooltip(new Tooltip("Zoom-in."));
-        nextID.setTooltip(new Tooltip("Go to services"));
-        backID.setTooltip(new Tooltip("Go back to search"));
-    }
+
 }

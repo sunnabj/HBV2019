@@ -65,10 +65,12 @@ public class servicesController implements Initializable {
     private String b;       // String fyrir heildakosta
 
     private Hotel chosenHotel;
+    private Room chosenRoom;
     private long daycountvalue;
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
+    private int totalPrice;
 
     //
     //
@@ -87,10 +89,10 @@ public class servicesController implements Initializable {
             Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
         }
         PaymentController display = Loader.getController();
-        display.setText12(list_text, cost_text);
         // display.setChosenHotel(chosenHotel);
-        display.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        display.setValues(chosenHotel, chosenRoom, totalPrice, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
         display.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
+        display.setText12(list_text, cost_text);
 
         Parent p = Loader.getRoot();
         Stage stage = new Stage();
@@ -133,30 +135,36 @@ public class servicesController implements Initializable {
         } else {
             if (pickup.isSelected()) {
                 count += 2500;
+                totalPrice += 2500;
                 choice += pickup.getText() + " 2500 kr\n";
             }
             if (breakfast.isSelected()) {
                 count += 1980;
+                totalPrice += 1980;
                 choice += breakfast.getText() + " 1980 kr\n";
             }
 
             if (dinner.isSelected()) {
                 count += 1780;
+                totalPrice += 1780;
                 choice += dinner.getText() + " 1780 kr\n";
             }
 
             if (rental.isSelected()) {
                 count += 4500;
+                totalPrice += 4500;
                 choice += rental.getText() + " 4500 kr\n";
             }
 
             if (spa.isSelected()) {
                 count += 7500;
+                totalPrice += 7500;
                 choice += spa.getText() + " 7500 kr\n";
             }
 
             if (swimming.isSelected()) {
                 count += 998;
+                totalPrice += 998;
                 choice += swimming.getText() + " 998 kr\n";
             }
         }
@@ -170,12 +178,20 @@ public class servicesController implements Initializable {
         chosenHotel = hotel;
     }
 
-    public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
+    public void setValues(Hotel hotel, Room room, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
+        System.out.println("Valið hótel í services: " + chosenHotel);
         daycountvalue = daycount;
+        System.out.println("Fjöldi daga í services: " + daycountvalue);
         arrivalchoicevalue = arrival;
+        System.out.println("Arrival í services: " + arrivalchoicevalue);
         departurechoicevalue = departure;
+        System.out.println("Departure í services: " + departurechoicevalue);
         guestnumbervalue = guests;
+        System.out.println("Guestnumbervalue í services: " + guestnumbervalue);
+        chosenRoom = room;
+        System.out.println("Room í services: " + chosenRoom);
+        totalPrice += room.getPrice();
     }
 
     // Kalla á aðferð checkbox

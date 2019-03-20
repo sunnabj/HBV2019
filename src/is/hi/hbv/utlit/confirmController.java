@@ -96,9 +96,9 @@ public class confirmController implements Initializable {
     // Þetta er að ferð kalla allar upplýsingar frá Paymentglugga og prenta það út ...
     // Ef getur, getur sameina aðferð uppí í þetta það sé snyrtilega xD.
     public void setText123 (String Firstname,String Lastname,String Email,String Phone,
-                            String Address,String Kennitala,String Card, String List) {
+                            String Address,String Kennitala,String Card, int price) {
         resultInfo.setText( "-------------------Total Cost----------------\n\n" +
-                            List + "\n" +
+                            price + "\n" +
                             "---------------Guest Infomation--------------\n\n" +
                             "Guest Name : Mr/Mrs." + Firstname + "\n" +
                             "Last Name : " + Lastname + "\n" +

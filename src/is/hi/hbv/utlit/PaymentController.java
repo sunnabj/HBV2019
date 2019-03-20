@@ -1,6 +1,7 @@
 package is.hi.hbv.utlit;
 
 import is.hi.hbv.vinnsla.Hotel;
+import is.hi.hbv.vinnsla.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +68,8 @@ public class PaymentController<fxmlLoader> implements  Initializable{
     private LocalDate arrivalchoicevalue;
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
+    private Room chosenRoom;
+    private int totalPrice;
 
     // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
     @FXML
@@ -102,7 +105,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
                 Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
             }
             confirmController display = Loader.getController();
-            display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,List);
+            display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,totalPrice);
             //display.setTextHotel(chosenHotel);
             display.setText12(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
             //display.setSaveInfo(Firstname, Lastname, Email, Phone, Address, Kennitala, Card);
@@ -330,18 +333,20 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         int x = room+i;
         totalscost.setText("Totals cost : " + x +" kr.");
         totallist.setText("----Room Infomation----\n"
-                                    + "Day/s - Roomtype - Price \n"
-                                    + " 1 - Kingsize - 70.000 kr \n" + "\n"
+                                    + String.valueOf(chosenRoom) // + "Day/s - Roomtype - Price \n"
+                                    // + " 1 - Kingsize - 70.000 kr \n" + "\n"
                                     + "----Extra Services----\n"+ totalslist + "\n");
-        System.out.println("Valið hótel í paymentController: " + chosenHotel);
+        // System.out.println("Valið hótel í paymentController: " + chosenHotel);
     }
 
-    public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
+    public void setValues(Hotel hotel, Room room, int price, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
         daycountvalue = daycount;
         arrivalchoicevalue = arrival;
         departurechoicevalue = departure;
         guestnumbervalue = guests;
+        chosenRoom = room;
+        totalPrice = price;
     }
 
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {

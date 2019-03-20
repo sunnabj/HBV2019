@@ -71,7 +71,7 @@ public class searchController implements Initializable {
 
     Hotel chosenHotel; // Valið hótel (herbergi) í lista - object
 
-    int hotelindex = 0; //Núverandi index í result lista
+    int hotelindex = -1; //Núverandi index í result lista
 
     String hotelName; // Nafn valins hótels í lista.
 
@@ -120,6 +120,7 @@ public class searchController implements Initializable {
             public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
                 // Indexinn í listanum.
                 hotelindex = lsm.getSelectedIndex();
+                System.out.println("Hótel index: " + hotelindex);
             }
         });
     }
@@ -223,7 +224,7 @@ public class searchController implements Initializable {
      */
     public void chooseHotelHandler(ActionEvent actionEvent) throws IOException {
         if (hotelindex != -1) {
-            hotelName = String.valueOf(resultList.getItems().get(hotelindex)); //TODO: Má sleppa þessu.
+            // hotelName = String.valueOf(resultList.getItems().get(hotelindex)); //TODO: Má sleppa þessu.
             chosenHotel = (Hotel) resultList.getItems().get(hotelindex);
             // System.out.println("Valið hótel: " + chosenHotel);
             // System.out.println("Herbergi í völdu hóteli: " + chosenHotel.getRooms());
