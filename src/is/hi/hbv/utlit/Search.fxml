@@ -62,7 +62,7 @@
                <font>
                   <Font size="19.0" />
                </font></Label>
-            <TextField prefHeight="39.0" prefWidth="294.0" promptText="Something@example.com" />
+            <TextField fx:id="mailID" prefHeight="39.0" prefWidth="294.0" promptText="Something@example.com" />
             <Button fx:id="mailListButton" mnemonicParsing="false" onAction="#mailListDialogHandler" prefHeight="36.0" prefWidth="149.0" text="Register!" />
          </children>
       </VBox>

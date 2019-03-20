@@ -111,12 +111,11 @@ public class introController implements Initializable {
         alert.setTitle("Iceland Hotel");
         alert.setContentText("This project is called Iceland Hotel\n"+
                 "This is final project for HBV-401G\n" +
-                "Authors : Sunna Björnsdóttir - something@hi.is\n" +
+                "Authors : Sunna Björnsdóttir - sub4@hi.is\n" +
                 "Þórdís Pétursdóttir - thp44@hi.is\n" +
                 "Hieu Van Phan - hvp5@hi.is\n" +
                 "\n"
         );
-
         alert.showAndWait();
     }
 

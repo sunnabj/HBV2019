@@ -2,13 +2,14 @@ package is.hi.hbv.utlit;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MailListController implements Initializable {
@@ -21,7 +22,7 @@ public class MailListController implements Initializable {
 
     }
 
-    public void mailDialog() {
+    public void mailDialog(String mailID) {
         // Innihald dialogs búið til
         DialogPane p = new DialogPane();
         nmailDialog.setVisible(true);
@@ -36,6 +37,16 @@ public class MailListController implements Initializable {
         d.setDialogPane(p);
         // Haus og titill
         d.setTitle("Thank you for registering!");
+
+        String sql = "INSERT INTO Mail(Maillist) VALUES(?)";
+        String url = "jdbc:sqlite:hotels.db";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, mailID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+" help me");
+        }
 
         // Hnappur til að loka glugga búinn til og bætt við
         ButtonType close = new ButtonType("Close",
