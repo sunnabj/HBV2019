@@ -82,7 +82,7 @@ public class searchController implements Initializable {
     // Listar fyrir mismunandi svæði, verð og gestafjölda sem er hægt að velja í drop down listum
     private ObservableList<String> areaList = FXCollections.observableArrayList("Capital area", "North", "South", "East", "West");
 
-    private ObservableList<String> priceList = FXCollections.observableArrayList("15000 ISK or less", "25000 ISK or less", "35000 ISK or less", "45000 ISK or less", "60000 ISK or less", "Doesn't matter");
+    private ObservableList<String> priceList = FXCollections.observableArrayList("25000 ISK or less", "35000 ISK or less", "45000 ISK or less", "60000 ISK or less", "Doesn't matter");
 
     private ObservableList<String> guestList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6");
 
@@ -213,10 +213,7 @@ public class searchController implements Initializable {
                     if (newValue == null) {
                         return;
                     }
-                    if (newValue.equals("15000 ISK or less")) {
-                        maxpricevalue = 15000;
-                    }
-                    else if (newValue.equals("25000 ISK or less")) {
+                    if (newValue.equals("25000 ISK or less")) {
                         //minpricevalue = 15000;
                         maxpricevalue = 25000;
                     }

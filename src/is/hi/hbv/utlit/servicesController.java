@@ -10,9 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -139,43 +143,42 @@ public class servicesController implements Initializable {
         } else {
             if (pickup.isSelected()) {
                 count += 2500;
-                totalPrice += 2500;
                 choice += pickup.getText() + " 2500 ISK\n";
             }
             if (breakfast.isSelected()) {
                 count += 1980;
-                totalPrice += 1980;
                 choice += breakfast.getText() + " 1980 ISK\n";
             }
 
             if (dinner.isSelected()) {
                 count += 1780;
-                totalPrice += 1780;
                 choice += dinner.getText() + " 1780 ISK\n";
             }
 
             if (rental.isSelected()) {
                 count += 4500;
-                totalPrice += 4500;
                 choice += rental.getText() + " 4500 ISK\n";
             }
 
             if (spa.isSelected()) {
                 count += 7500;
-                totalPrice += 7500;
                 choice += spa.getText() + " 7500 ISK\n";
             }
 
             if (swimming.isSelected()) {
                 count += 998;
-                totalPrice += 998;
                 choice += swimming.getText() + " 998 ISK\n";
             }
         }
+        //TODO: Laga: Allt sem er valið bætist eins oft við verðið og eitthvað annað er valið að auki!
+        // TODO: Í hvert skipti sem hakað er við eitthvað er farið í gegnum allar if setningarnar!!!
         totalscost.setText("Added cost : " + count + " ISK");
         totalslist.setText(choice);
         setCount(String.valueOf(count));
         setChoice(choice);
+        System.out.println("Count - kostnaður í services: " + count);
+        totalPrice += count;
+        System.out.println("Heildarkostnaður: " + totalPrice);
     }
 
     public void setHotel(Hotel hotel) {
@@ -199,7 +202,21 @@ public class servicesController implements Initializable {
     // Kalla á aðferð checkbox
     //
     @FXML
-    void handleButtonAction() {
+    void handleButtonAction(ActionEvent actionEvent) {
+        Checkbox c = (Checkbox)actionEvent.getSource();
+        //TODO: Hvernig á að ná í ID fyrir checkbox?
+        /*
+        actionEvent.getIntersectedNode().getId();
+        if (Integer.parseInt(c.getId()) == 1) {
+            sortByPrice();
+        }
+        else if (Integer.parseInt(c.getId()) == 2) {
+            sortByReviews();
+        }
+        else if (Integer.parseInt(r.getId()) == 3) {
+            sortByStars();
+        }
+        */
         checkbox();
     }
 

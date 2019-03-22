@@ -328,10 +328,10 @@ public class PaymentController<fxmlLoader> implements  Initializable{
     // TODO : þetta þarf að laga/breyta því þarf að sækja gögnum á gagnasafn
     // og þetta á að sækja herbergi upplýsingar !!!
     public void setText12 (String totalslist, String count) {
-        int room = 70000;
-        int i = Integer.parseInt(count);
-        int x = room+i;
-        totalscost.setText("Totals cost : " + x +" kr.");
+        // int room = 70000;
+        //int i = Integer.parseInt(count);
+        // int x = room+i;
+        totalscost.setText("Total cost : " + totalPrice +" ISK");
         totallist.setText("----Room Infomation----\n"
                                     + String.valueOf(chosenRoom) // + "Day/s - Roomtype - Price \n"
                                     // + " 1 - Kingsize - 70.000 kr \n" + "\n"
