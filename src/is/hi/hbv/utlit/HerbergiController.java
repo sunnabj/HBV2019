@@ -239,12 +239,12 @@ public class HerbergiController implements Initializable{
         map_scrollpane.setVvalue(scrollV);
     }
 
-    public void setChosenHotel(Hotel hotel) {
+    public void showHotel(Hotel hotel) {
         chosenHotel = hotel;
         hotelname.setText(chosenHotel.getName());
         hotelInfo.setText(chosenHotel.getHotelInfo());
         System.out.println("Hótelið er: " + chosenHotel);
-        showRooms();
+        //showRooms();
 
         // Birtir mynd af völdu hóteli.
         hotelImage.getChildren().clear();
@@ -280,6 +280,8 @@ public class HerbergiController implements Initializable{
         arrivalchoicevalue = arrival;
         departurechoicevalue = departure;
         guestnumbervalue = guests;
+        showRooms();
+        showHotel(hotel);
     }
 
     /*

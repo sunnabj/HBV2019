@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,6 +22,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class servicesController implements Initializable {
+
+    @FXML
+    public TextArea roomInfoBox;    // Sýnir aukalegar upplýsingar um valið herbergi
+    @FXML
+    public Label roomPriceLabel;    // Sýnir verð herbergis
+    @FXML
+    public Label guestNumberLabel;  // Sýnir gestafjölda í herbergi
 
     @FXML
     private CheckBox swimming;      // Swim tjékk box
@@ -128,47 +132,47 @@ public class servicesController implements Initializable {
 
         if (!pickup.isSelected() && !breakfast.isSelected() && !dinner.isSelected()
                 && !rental.isSelected() && !spa.isSelected() && !swimming.isSelected()) {
-            count += 0;
+            // count += 0;
             choice += " No service : 0 kr\n";
-            totalscost.setText("Totals cost : " + count + " kr.");
+            totalscost.setText("Added cost : " + count + " ISK");
             totalslist.setText(choice);
         } else {
             if (pickup.isSelected()) {
                 count += 2500;
                 totalPrice += 2500;
-                choice += pickup.getText() + " 2500 kr\n";
+                choice += pickup.getText() + " 2500 ISK\n";
             }
             if (breakfast.isSelected()) {
                 count += 1980;
                 totalPrice += 1980;
-                choice += breakfast.getText() + " 1980 kr\n";
+                choice += breakfast.getText() + " 1980 ISK\n";
             }
 
             if (dinner.isSelected()) {
                 count += 1780;
                 totalPrice += 1780;
-                choice += dinner.getText() + " 1780 kr\n";
+                choice += dinner.getText() + " 1780 ISK\n";
             }
 
             if (rental.isSelected()) {
                 count += 4500;
                 totalPrice += 4500;
-                choice += rental.getText() + " 4500 kr\n";
+                choice += rental.getText() + " 4500 ISK\n";
             }
 
             if (spa.isSelected()) {
                 count += 7500;
                 totalPrice += 7500;
-                choice += spa.getText() + " 7500 kr\n";
+                choice += spa.getText() + " 7500 ISK\n";
             }
 
             if (swimming.isSelected()) {
                 count += 998;
                 totalPrice += 998;
-                choice += swimming.getText() + " 998 kr\n";
+                choice += swimming.getText() + " 998 ISK\n";
             }
         }
-        totalscost.setText("Totals cost : " + count + " kr.");
+        totalscost.setText("Added cost : " + count + " ISK");
         totalslist.setText(choice);
         setCount(String.valueOf(count));
         setChoice(choice);
@@ -180,18 +184,16 @@ public class servicesController implements Initializable {
 
     public void setValues(Hotel hotel, Room room, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
-        System.out.println("Valið hótel í services: " + chosenHotel);
         daycountvalue = daycount;
-        System.out.println("Fjöldi daga í services: " + daycountvalue);
         arrivalchoicevalue = arrival;
-        System.out.println("Arrival í services: " + arrivalchoicevalue);
         departurechoicevalue = departure;
-        System.out.println("Departure í services: " + departurechoicevalue);
         guestnumbervalue = guests;
-        System.out.println("Guestnumbervalue í services: " + guestnumbervalue);
         chosenRoom = room;
-        System.out.println("Room í services: " + chosenRoom);
-        totalPrice += room.getPrice();
+        long roomPrice = room.getPrice()*daycountvalue;
+        totalPrice += roomPrice;
+        roomInfoBox.setText(chosenRoom.getRoomInfo());
+        roomPriceLabel.setText(String.valueOf(roomPrice) + " ISK for " + daycountvalue + " nights");
+        guestNumberLabel.setText(String.valueOf(guests) + " guests");
     }
 
     // Kalla á aðferð checkbox
@@ -214,10 +216,10 @@ public class servicesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        totalscost.setText("Totals cost : " + 0 + " kr.");
-        totalslist.setText("No service : 0 kr");
+        totalscost.setText("Additional cost : " + 0 + " ISK");
+        totalslist.setText("No service : 0 ISK");
         setCount(String.valueOf(0));
-        setChoice("No service : 0 kr");
+        setChoice("No service : 0 ISK");
         pickup.setTooltip(new Tooltip("Pickup straight from airport"));
         breakfast.setTooltip(new Tooltip("Eat break in hotel"));
         dinner.setTooltip(new Tooltip("Eat dinner in hotel"));

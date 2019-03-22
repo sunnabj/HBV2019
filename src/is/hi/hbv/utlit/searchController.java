@@ -87,8 +87,8 @@ public class searchController implements Initializable {
     private ObservableList<String> guestList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6");
 
     private String areachoicevalue;    // Gildi fyrir valið svæði
-    private int maxpricevalue;         // Gildi fyrir hámarksverð
-    private int guestnumbervalue;      // Gildi fyrir valinn gestafjölda
+    private int maxpricevalue = -1;         // Gildi fyrir hámarksverð
+    private int guestnumbervalue = -1;      // Gildi fyrir valinn gestafjölda
     private LocalDate arrivalchoicevalue; // Gildi fyrir valinn komudag
     private LocalDate departurechoicevalue; // Gildir fyrir valinn brottfarardag
     private long daycountvalue;          // Gildi fyrir fjölda gistinátta
@@ -130,8 +130,44 @@ public class searchController implements Initializable {
     * Það sem gerist þegar ýtt er á leita takkann - ýmislegt í boði.
      */
     public void hotelsearchHandler(ActionEvent actionEvent) throws SQLException {
+
+        // Náum í valdar dagsetningar
+        arrivalchoicevalue = arrivalchoice.getValue();
+        departurechoicevalue = departurechoice.getValue();
+        daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
         // Notum value sem við fáum úr comboboxunum til að ákvarða hvað birtist í leitarniðurstöðunum.
         // Náum í hótelherbergi eftir skilyrðum sem við veljum í search
+        if (arrivalchoicevalue == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Arrival date missing");
+            alert.setContentText("Please choose an arrival date");
+            alert.showAndWait();
+        }
+        if (departurechoicevalue == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Departure date missing");
+            alert.setContentText("Please choose a departure date");
+            alert.showAndWait();
+        }
+        if (areachoicevalue == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Area missing");
+            alert.setContentText("Please choose a preferred area");
+            alert.showAndWait();
+        }
+        if (maxpricevalue == -1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Price range missing");
+            alert.setContentText("Please choose a price range");
+            alert.showAndWait();
+        }
+        if (guestnumbervalue == -1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Number of guests missing");
+            alert.setContentText("Please choose number of guests");
+            alert.showAndWait();
+        }
+
         HotelsDAO database = new HotelsDAO();
         hotelResults = FXCollections.observableArrayList(database.HotelSearch(maxpricevalue, areachoicevalue, guestnumbervalue));
         // Viljum birta strengjaútgáfu af objectinu
@@ -141,15 +177,12 @@ public class searchController implements Initializable {
         // Uppfærum niðurstöðuglugann
         resultList.setItems(hotelResults);
 
+        if (hotelResults.isEmpty()) {
+            ArrayList<String> noResults = new ArrayList<String>();
+            noResults.add("No hotels found");
+            resultList.setItems(FXCollections.observableArrayList(noResults));
+        }
 
-        // Svona náum við í dagsetningarnar úr datepickers - uppfærum tilviksbreyturnar
-
-        arrivalchoicevalue = arrivalchoice.getValue();
-        // System.out.println(arrivalchoicevalue);
-        departurechoicevalue = departurechoice.getValue();
-        // System.out.println(departurechoicevalue);
-        daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
-        // System.out.println(daycountvalue);
     }
     // Birtir glugga til að skrá sig á póstlista
     public void mailListDialogHandler(ActionEvent actionEvent) {
@@ -180,7 +213,10 @@ public class searchController implements Initializable {
                     if (newValue == null) {
                         return;
                     }
-                    if (newValue.equals("25000 ISK or less")) {
+                    if (newValue.equals("15000 ISK or less")) {
+                        maxpricevalue = 15000;
+                    }
+                    else if (newValue.equals("25000 ISK or less")) {
                         //minpricevalue = 15000;
                         maxpricevalue = 25000;
                     }
@@ -242,7 +278,7 @@ public class searchController implements Initializable {
         }
         HerbergiController herbergi = Loader.getController();
 
-        herbergi.setChosenHotel(chosenHotel);
+        //herbergi.setChosenHotel(chosenHotel);
         herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
         herbergi.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
         //herbergi.printHotel(chosenHotel);
@@ -258,11 +294,6 @@ public class searchController implements Initializable {
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         main_stage.setScene(herbergi_scene);
         main_stage.show();
-
-        //TODO: Loada herbergjum úr völdu hóteli inn í næstu senu. Annað hvort Hotel hlutnum, og herbergiController kallar á getRooms(), eða Room listanum úr getRooms.
-        //TODO: Loada hotelID/hotelInfo inn í showHotelInfo í herbergiController
-        // TODO: Ný hugmynd - setja chosenHotel inn í set fall í herbergiController - þá getur hann notað það fyrir allt.
-        // TODO: Þarf reyndar líka að koma fjölda daga þarna inn líka, og kannski upphafs- og lokadagsetningu.
     }
 
     /*

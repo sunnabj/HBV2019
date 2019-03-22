@@ -98,7 +98,7 @@ public class confirmController implements Initializable {
     public void setText123 (String Firstname,String Lastname,String Email,String Phone,
                             String Address,String Kennitala,String Card, int price) {
         resultInfo.setText( "-------------------Total Cost----------------\n\n" +
-                            price + "\n" +
+                            "                " + price + " ISK" + "\n\n" +
                             "---------------Guest Infomation--------------\n\n" +
                             "Guest Name : Mr/Mrs." + Firstname + "\n" +
                             "Last Name : " + Lastname + "\n" +
