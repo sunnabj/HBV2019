@@ -17,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -72,7 +74,7 @@ public class HerbergiController implements Initializable{
     private Button nextID;
 
     @FXML
-    private ImageView mapID;
+    private WebView mapID;
 
     @FXML
     private Pane hotelImage;
@@ -107,8 +109,8 @@ public class HerbergiController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //test.setItems(items);
-        outID.setTooltip(new Tooltip("Zoom-out"));
-        inID.setTooltip(new Tooltip("Zoom-in."));
+        //outID.setTooltip(new Tooltip("Zoom-out"));
+        //inID.setTooltip(new Tooltip("Zoom-in."));
         nextID.setTooltip(new Tooltip("Go to services"));
         backID.setTooltip(new Tooltip("Go back to search"));
 
@@ -122,8 +124,9 @@ public class HerbergiController implements Initializable{
                 System.out.println("Room index: " + roomindex);
             }
         });
-    }
 
+    }
+/*
     @FXML
     public void initialize() {
         zoom_slider.setMin(0.5);
@@ -156,6 +159,7 @@ public class HerbergiController implements Initializable{
         });
 
     }
+    */
     // Sækja morepic glugga
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
@@ -256,6 +260,7 @@ public class HerbergiController implements Initializable{
         hotelImage.getChildren().add(imageView);
         morepicID.setTooltip(new Tooltip("See more pictures of "+ chosenHotel.getName() + "."));
 
+        /*
         mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -272,6 +277,8 @@ public class HerbergiController implements Initializable{
                 }
             }
         });
+        */
+
     }
 
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
@@ -306,5 +313,24 @@ public class HerbergiController implements Initializable{
         card = Card;
     }
 
+
+    public void hotelLocation(ActionEvent actionEvent) {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("hotelplace.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        hotelplaceController location = Loader.getController();
+        location.setValues(chosenHotel);
+        Parent payment_parent = Loader.getRoot();
+        Scene payment_scene = new Scene(payment_parent);
+        Stage main_stage = new Stage();
+        main_stage.setTitle(chosenHotel.getName());
+        main_stage.setScene(payment_scene);
+        main_stage.setMaximized(true);
+        main_stage.show();
+    }
 
 }

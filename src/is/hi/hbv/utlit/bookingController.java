@@ -6,8 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,8 +15,6 @@ import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javafx.scene.control.TextField;
 
 public class bookingController implements Initializable {
 
@@ -103,6 +100,12 @@ public class bookingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setHeaderText("Tip");
+        alert.setContentText("For better user experiment\n"+
+                            "Please restart this application before " +
+                            "check your booking");
+        alert.showAndWait() ;
         isValidCredentials();
         bookingID.setTooltip(new Tooltip("Please enter your Booking ID from last payment"));
         pinID.setTooltip(new Tooltip("Please enter your Pin ID from last payment"));
