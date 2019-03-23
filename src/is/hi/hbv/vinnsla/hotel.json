@@ -1,0 +1,401 @@
+{
+  "hotel": [
+    {
+      "name": "Icelandair hótel Reykjavík Natura",
+      "location": "Höfuðborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "25000",
+          "guests": "4"
+        },
+        {
+          "room": "2",
+          "price": "20000",
+          "guests": "4"
+        },
+        {
+          "room": "3",
+          "price": "20000",
+          "guests": "2"
+        },
+        {
+          "room": "4",
+          "price": "18500",
+          "guests": "2"
+        }
+      ]
+    },
+    {
+      "name": "Hótel Plaza",
+      "location": "Höfðuborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "30000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "32000",
+          "guests": "3"
+        },
+        {
+          "room": "3",
+          "price": "35000",
+          "guests": "3"
+        },
+        {
+          "room": "4",
+          "price": "40000",
+          "guests": "2"
+        }
+      ]
+    },
+    {
+      "name": "Center Hotel Arnarhvoll",
+      "location": "Höfðuborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "35000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "38000",
+          "guests": "3"
+        },
+        {
+          "room": "3",
+          "price": "40000",
+          "guests": "2"
+        }
+      ]
+    },
+    {
+      "name": "First Hotel Reykjavik Kopavogur",
+      "location": "Höfuðborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "18000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "20000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "27000",
+          "guests": "3"
+        },
+        {
+          "room": "4",
+          "price": "37000",
+          "guests": "5"
+        }
+      ]
+    },
+    {
+      "name": "City Park Hotel",
+      "location": "Höfuðborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "23000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "27000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "35000",
+          "guests": "3"
+        },
+        {
+          "room": "4",
+          "price": "51000",
+          "guests": "4"
+        }
+      ]
+    },
+    {
+      "name": "Grand Hotel Reykjavik",
+      "location": "Höfuðborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "40000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "45000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "47000",
+          "guests": "2"
+        },
+        {
+          "room": "4",
+          "price": "51000",
+          "guests": "5"
+        }
+      ]
+    },
+    {
+      "name": "Atlantic Apartments and Rooms",
+      "location": "Höfuðborgarsvæðið",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "17000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "21000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "28000",
+          "guests": "5"
+        },
+        {
+          "room": "4",
+          "price": "38000",
+          "guests": "6"
+        }
+      ]
+    },
+    {
+      "name": "Diamond Suites",
+      "location": "Suðurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "102000",
+          "guests": "4"
+        },
+        {
+          "room": "2",
+          "price": "125000",
+          "guests": "5"
+        },
+        {
+          "room": "3",
+          "price": "136000",
+          "guests": "4"
+        },
+        {
+          "room": "4",
+          "price": "161000",
+          "guests": "4"
+        }
+      ]
+    },
+    {
+      "name": "Hotel Katla by Kea",
+      "location": "Suðurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "37000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "38000",
+          "guests": "3"
+        },
+        {
+          "room": "3",
+          "price": "47000",
+          "guests": "3"
+        }
+      ]
+    },
+    {
+      "name": "Hildibrand Hotel",
+      "location": "Austurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "29000",
+          "guests": "4"
+        },
+        {
+          "room": "2",
+          "price": "35000",
+          "guests": "4"
+        },
+        {
+          "room": "3",
+          "price": "39000",
+          "guests": "6"
+        },
+        {
+          "room": "4",
+          "price": "48000",
+          "guests": "8"
+        }
+      ]
+    },
+    {
+      "name": "Icelandair Hótel Hérað",
+      "location": "Austurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "25000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "28000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "33000",
+          "guests": "2"
+        }
+      ]
+    },
+    {
+      "name": "Hótel Akureyri Dynheimar",
+      "location": "Norðurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "19000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "22000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "27000",
+          "guests": "2"
+        }
+      ]
+    },
+    {
+      "name": "Hótel Edda Akureyri",
+      "location": "Norðurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "12000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "15000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "18000",
+          "guests": "3"
+        },
+        {
+          "room": "4",
+          "price": "29000",
+          "guests": "3"
+        }
+      ]
+    },
+    {
+      "name": "Sigló Hótel",
+      "location": "Norðurland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "41000",
+          "guests": "2"
+        },
+        {
+          "room": "2",
+          "price": "45000",
+          "guests": "2"
+        },
+        {
+          "room": "3",
+          "price": "51000",
+          "guests": "2"
+        },
+        {
+          "room": "4",
+          "price": "109000",
+          "guests": "2"
+        }
+      ]
+    },
+    {
+      "name": "Fosshótel Stykkishólmur",
+      "location": "Vesturland",
+      "roomsAvailable": [
+        {
+          "room": "1",
+          "price": "34000",
+          "guests": "3"
+        },
+        {
+          "room": "2",
+          "price": "43000",
+          "guests": "3"
+        },
+        {
+          "room": "3",
+          "price": "59000",
+          "guests": "2"
+        },
+        {
+          "room": "4",
+          "price": "71000",
+          "guests": "2"
+        },
+
+        {
+          "name": "Hótel Hellissandur",
+          "location": "Vesturland",
+          "roomsAvailable": [
+            {
+              "room": "1",
+              "price": "13000",
+              "guests": "2"
+            },
+            {
+              "room": "2",
+              "price": "17000",
+              "guests": "2"
+            },
+            {
+              "room": "3",
+              "price": "21000",
+              "guests": "3"
+            },
+            {
+              "room": "4",
+              "price": "25000",
+              "guests": "4"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
