@@ -49,10 +49,6 @@ public class searchController implements Initializable {
     @FXML
     public AnchorPane frontPageAnchor;  // Pane utan um alla forsíðuna
     @FXML
-    public ScrollPane resultboxScroll;  // Skrollbox fyrir niðurstöður , þarf ekki ég búinn henda það
-    @FXML
-    public VBox resultboxPlane; // Annað box fyrir niðurstöður, spurning hvort þurfi , þarf ekki ég búinn henda það
-    @FXML
     public ToggleGroup sorting; // Til að geta bara valið eitt sorting skilyrði í einu
     @FXML
     public AnchorPane mailList; // Glugginn fyrir póstlista - óþarfi?
@@ -75,12 +71,10 @@ public class searchController implements Initializable {
 
     int hotelindex = -1; //Núverandi index í result lista
 
-    String hotelName; // Nafn valins hótels í lista.
-
     private ObservableList<Object> hotelResults; // Niðurstöður fyrir valin hótel
 
     // Listar fyrir mismunandi svæði, verð og gestafjölda sem er hægt að velja í drop down listum
-    private ObservableList<String> areaList = FXCollections.observableArrayList("Capital area", "North", "South", "East", "West");
+    private ObservableList<String> areaList = FXCollections.observableArrayList("Capital area", "North region", "South region", "East region", "West region");
 
     private ObservableList<String> priceList = FXCollections.observableArrayList("25000 ISK or less", "35000 ISK or less", "45000 ISK or less", "60000 ISK or less", "Doesn't matter");
 
@@ -122,7 +116,6 @@ public class searchController implements Initializable {
             public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
                 // Indexinn í listanum.
                 hotelindex = lsm.getSelectedIndex();
-                System.out.println("Hótel index: " + hotelindex);
             }
         });
     }
@@ -255,44 +248,36 @@ public class searchController implements Initializable {
 
     /*
     * Handler fyrir að velja hótel úr leitarniðurstöðum.
-    * Nafnið á hótelinu sem er valið í listanum að því sinni er vistað og herbergi.fxml er birt.
-    * Einnig er hótel objectinn sjálfur vistaður. (Bætt við seinna, sennilega gáfulegra).
-    * Hægt að ná í hótelnafnið með getHotelName() og hótel objectinn með getHotel() hér fyrir neðan.
+    * Hótelið sem er valið í listanum að því sinni er vistað og herbergi.fxml er birt.
+    * Ef ekkert hótel er valið kemur upp viðvörun
      */
     public void chooseHotelHandler(ActionEvent actionEvent) throws IOException {
         if (hotelindex != -1) {
-            // hotelName = String.valueOf(resultList.getItems().get(hotelindex)); //TODO: Má sleppa þessu.
             chosenHotel = (Hotel) resultList.getItems().get(hotelindex);
-            // System.out.println("Valið hótel: " + chosenHotel);
-            // System.out.println("Herbergi í völdu hóteli: " + chosenHotel.getRooms());
+            // Loadum nýrri senu -> Herbergi.fxml
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("herbergi.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            HerbergiController herbergi = Loader.getController();
+            herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+            herbergi.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
+            Parent herbergi_parent = Loader.getRoot();
+            Scene herbergi_scene = new Scene(herbergi_parent);
+            Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            main_stage.setScene(herbergi_scene);
+            main_stage.show();
         }
-        // Loadum nýrri senu -> Herbergi.fxml
-
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("herbergi.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No hotel chosen");
+            alert.setContentText("Please choose a hotel");
+            alert.showAndWait();
         }
-        HerbergiController herbergi = Loader.getController();
 
-        //herbergi.setChosenHotel(chosenHotel);
-        herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
-        herbergi.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
-        //herbergi.printHotel(chosenHotel);
-
-        Parent herbergi_parent = Loader.getRoot();
-        //Stage stage = new Stage();
-        //stage.setScene(new Scene(p));
-        //stage.show();
-
-        // gamla:
-        // Parent herbergi_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
-        Scene herbergi_scene = new Scene(herbergi_parent);
-        Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setScene(herbergi_scene);
-        main_stage.show();
     }
 
     /*

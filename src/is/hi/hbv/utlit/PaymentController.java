@@ -117,15 +117,24 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Þetta bara venjulegt aðferð til að kalla á nýju scene
+    // Farið til baka í að velja herbergi í völdu hóteli
     @FXML
     void Back (ActionEvent actionEvent) throws IOException {
-        // Loadum nýrri scene -> herbergi.fxml
-        Parent MorePic_parent = FXMLLoader.load(getClass().getResource("herbergi.fxml"));
-        Scene Search_scene = new Scene(MorePic_parent);
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("herbergi.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        HerbergiController herbergi = Loader.getController();
+
+        herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+
+        Parent herbergi_parent = Loader.getRoot();
+        Scene herbergi_scene = new Scene(herbergi_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setTitle("Room infomation");
-        main_stage.setScene(Search_scene);
+        main_stage.setScene(herbergi_scene);
         main_stage.show();
     }
 

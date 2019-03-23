@@ -18,7 +18,7 @@
    <children>
       <VBox layoutX="39.0" layoutY="49.0" prefHeight="313.0" prefWidth="482.0">
          <children>
-            <Label prefHeight="53.0" prefWidth="269.0" text="Your Infomation">
+            <Label prefHeight="53.0" prefWidth="269.0" text="Your Information">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -166,7 +166,7 @@
       </VBox>
       <Button fx:id="nextButton" layoutX="788.0" layoutY="583.0" mnemonicParsing="false" onAction="#Next" text="Next" />
       <Button fx:id="backButton" layoutX="675.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Back" />
-      <Label fx:id="totallist" alignment="TOP_LEFT" layoutX="547.0" layoutY="100.0" lineSpacing="10.0" prefHeight="430.0" prefWidth="330.0" style="-fx-border-color: black;" text="TODO : saekja verdlist xD">
+      <Label fx:id="totallist" alignment="TOP_LEFT" layoutX="547.0" layoutY="100.0" lineSpacing="10.0" prefHeight="430.0" prefWidth="330.0" style="-fx-border-color: black;">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
