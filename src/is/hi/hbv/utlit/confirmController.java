@@ -59,9 +59,9 @@ public class confirmController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK);
-        alert.setHeaderText("Payment successful !!!");
-        alert.setContentText("Your payment has been verifired\n"+
-                "Here is more detail !");
+        alert.setHeaderText("Payment successful!");
+        alert.setContentText("Your payment has been verified\n"+
+                "Here are further details");
         alert.showAndWait() ;
 
 
@@ -78,13 +78,13 @@ public class confirmController implements Initializable {
                             "Address : " + chosenHotel.getHotelAddress() + "\n" +
                             "Phone number : (+354) " + chosenHotel.getPhoneNr() + "\n"
         );
-        resultBooking.setText("-------------Booking Infomation--------------\n\n" +
-                            "Day count/s : " + daycountvalue + " day/s" + "\n" +
+        resultBooking.setText("-------------Booking Information--------------\n\n" +
+                            "Number of nights : " + daycountvalue + " day/s" + "\n" +
                             "Arrival : " + arrivalchoicevalue + "\n" +
                             "Departure : " + departurechoicevalue + "\n" +
                             "Booking number : " + book + "\n" +
                             "Booking-pin number : " + pin + "\n" +
-                            "Number of Guest : " + guestnumbervalue + "\n"
+                            "Number of guests : " + guestnumbervalue + "\n"
                 );
 
         // Birtir mynd af völdu hóteli.
@@ -96,11 +96,13 @@ public class confirmController implements Initializable {
     // Þetta er að ferð kalla allar upplýsingar frá Paymentglugga og prenta það út ...
     // Ef getur, getur sameina aðferð uppí í þetta það sé snyrtilega xD.
     public void setText123 (String Firstname,String Lastname,String Email,String Phone,
-                            String Address,String Kennitala,String Card, int price) {
-        // TODO: Lokaverðið er eitthvað vitlaust
+                            String Address,String Kennitala,String Card, int price, int addedPrice) {
+        int roomPrice = price - addedPrice;
         resultInfo.setText( "-------------------Total Cost----------------\n\n" +
-                            "                " + price + " ISK" + "\n\n" +
-                            "---------------Guest Infomation--------------\n\n" +
+                            "Room : " + roomPrice + " ISK" + "\n" +
+                            "Additional services : " + addedPrice + " ISK" + "\n" +
+                            "Total : " + price + " ISK" + "\n\n" +
+                            "---------------Guest Information--------------\n\n" +
                             "Guest Name : Mr/Mrs." + Firstname + "\n" +
                             "Last Name : " + Lastname + "\n" +
                             "Email : " + Email + " \n" +
@@ -109,7 +111,7 @@ public class confirmController implements Initializable {
                             "Kennitala : " + Kennitala + "\n" +
                             "Card-number : " + Card + "\n" +
                             "\n" + "=======================================" + "\n" +
-                            "Do you have any problem with this program ?" + "\n" +
+                            "Do you have any problems with this program ?" + "\n" +
                             "Contact us : Iceland@hotel.com or \n" +
                             "Tel : +354 6590792, +354 6946636, +354 6161350"
         );
@@ -151,8 +153,8 @@ public class confirmController implements Initializable {
     // No þá hætta við forrit ....
     private void Continue(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText("Booking has confirmed !!!");
-        alert.setContentText("Thanks your booking has confirm\n"+
+        alert.setHeaderText("Your booking has been confirmed!");
+        alert.setContentText("Thank you for booking with Hotels of Iceland.\n"+
                 "Do you want to book another one ?");
         alert.resultProperty().addListener((observable, previous, current) -> {
             if (current == ButtonType.YES) {

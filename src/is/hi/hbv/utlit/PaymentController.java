@@ -70,6 +70,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
     private int guestnumbervalue;
     private Room chosenRoom;
     private int totalPrice;
+    private int servicePrice;
 
     // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
     @FXML
@@ -105,7 +106,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
                 Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
             }
             confirmController display = Loader.getController();
-            display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,totalPrice);
+            display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,totalPrice, servicePrice);
             //display.setTextHotel(chosenHotel);
             display.setText12(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
             //display.setSaveInfo(Firstname, Lastname, Email, Phone, Address, Kennitala, Card);
@@ -331,15 +332,20 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         // int room = 70000;
         //int i = Integer.parseInt(count);
         // int x = room+i;
+        int roomPrice = totalPrice - servicePrice;
         totalscost.setText("Total cost : " + totalPrice +" ISK");
-        totallist.setText("----Room Infomation----\n"
-                                    + String.valueOf(chosenRoom) // + "Day/s - Roomtype - Price \n"
-                                    // + " 1 - Kingsize - 70.000 kr \n" + "\n"
-                                    + "----Extra Services----\n"+ totalslist + "\n");
+        totallist.setText("----Order details----\n"
+                        + chosenHotel.getName() + "\n"
+                        + chosenHotel.getStars() + " stars" + "\n"
+                        + chosenHotel.getHotelAddress() + "\n"
+                        + "Room number " + chosenRoom.getRoomNr() + "\n"
+                        + String.valueOf(roomPrice) + " ISK for " + daycountvalue + " night(s)" + "\n"
+                        //+ chosenRoom.getRoomInfo() + "\n"
+                        + "----Additional Services----\n"+ totalslist + "\n");
         // System.out.println("Valið hótel í paymentController: " + chosenHotel);
     }
 
-    public void setValues(Hotel hotel, Room room, int price, long daycount, LocalDate arrival, LocalDate departure, int guests) {
+    public void setValues(Hotel hotel, Room room, int price, int addedPrice, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
         daycountvalue = daycount;
         arrivalchoicevalue = arrival;
@@ -347,6 +353,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         guestnumbervalue = guests;
         chosenRoom = room;
         totalPrice = price;
+        servicePrice = addedPrice;
     }
 
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {

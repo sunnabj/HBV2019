@@ -79,6 +79,7 @@ public class servicesController implements Initializable {
     private LocalDate departurechoicevalue;
     private int guestnumbervalue;
     private int totalPrice;
+    private int servicePrice;
 
     //
     //
@@ -89,6 +90,29 @@ public class servicesController implements Initializable {
         String list_text = b;
         String cost_text = a;
 
+        if (pickup.isSelected()) {
+            totalPrice += 2500;
+        }
+        if (breakfast.isSelected()) {
+            totalPrice += 1980;
+        }
+
+        if (dinner.isSelected()) {
+            totalPrice += 1780;
+        }
+
+        if (rental.isSelected()) {
+            totalPrice += 4500;
+        }
+
+        if (spa.isSelected()) {
+            totalPrice += 7500;
+        }
+
+        if (swimming.isSelected()) {
+            totalPrice += 998;
+        }
+
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("payment.fxml"));
         try {
@@ -98,7 +122,7 @@ public class servicesController implements Initializable {
         }
         PaymentController display = Loader.getController();
         // display.setChosenHotel(chosenHotel);
-        display.setValues(chosenHotel, chosenRoom, totalPrice, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+        display.setValues(chosenHotel, chosenRoom, totalPrice, servicePrice, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
         display.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
         display.setText12(list_text, cost_text);
 
@@ -170,15 +194,14 @@ public class servicesController implements Initializable {
                 choice += swimming.getText() + " 998 ISK\n";
             }
         }
-        //TODO: Laga: Allt sem er valið bætist eins oft við verðið og eitthvað annað er valið að auki!
-        // TODO: Í hvert skipti sem hakað er við eitthvað er farið í gegnum allar if setningarnar!!!
         totalscost.setText("Added cost : " + count + " ISK");
         totalslist.setText(choice);
         setCount(String.valueOf(count));
         setChoice(choice);
         System.out.println("Count - kostnaður í services: " + count);
-        totalPrice += count;
-        System.out.println("Heildarkostnaður: " + totalPrice);
+        servicePrice = count;
+        //totalPrice += count;
+        //System.out.println("Heildarkostnaður: " + totalPrice);
     }
 
     public void setHotel(Hotel hotel) {
@@ -195,7 +218,7 @@ public class servicesController implements Initializable {
         long roomPrice = room.getPrice()*daycountvalue;
         totalPrice += roomPrice;
         roomInfoBox.setText(chosenRoom.getRoomInfo());
-        roomPriceLabel.setText(String.valueOf(roomPrice) + " ISK for " + daycountvalue + " nights");
+        roomPriceLabel.setText(String.valueOf(roomPrice) + " ISK for " + daycountvalue + " night(s)");
         guestNumberLabel.setText(String.valueOf(guests) + " guests");
     }
 
@@ -203,20 +226,6 @@ public class servicesController implements Initializable {
     //
     @FXML
     void handleButtonAction(ActionEvent actionEvent) {
-        Checkbox c = (Checkbox)actionEvent.getSource();
-        //TODO: Hvernig á að ná í ID fyrir checkbox?
-        /*
-        actionEvent.getIntersectedNode().getId();
-        if (Integer.parseInt(c.getId()) == 1) {
-            sortByPrice();
-        }
-        else if (Integer.parseInt(c.getId()) == 2) {
-            sortByReviews();
-        }
-        else if (Integer.parseInt(r.getId()) == 3) {
-            sortByStars();
-        }
-        */
         checkbox();
     }
 
