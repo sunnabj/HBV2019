@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.PaymentController">
    <children>
-      <VBox layoutX="39.0" layoutY="49.0" prefHeight="313.0" prefWidth="490.0">
+      <VBox layoutX="39.0" layoutY="49.0" prefHeight="313.0" prefWidth="482.0">
          <children>
             <Label prefHeight="53.0" prefWidth="269.0" text="Your Infomation">
                <font>
@@ -25,7 +25,7 @@
             </Label>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Firstname" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="First name" />
                   <TextField fx:id="getFirstname" prefHeight="30.0" prefWidth="360.0" promptText="Firstname">
                      <HBox.margin>
                         <Insets left="15.0" />
@@ -40,7 +40,7 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Lastname" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Last name" />
                   <TextField fx:id="getLastname" prefHeight="30.0" prefWidth="360.0" promptText="Lastname">
                      <HBox.margin>
                         <Insets left="15.0" />
@@ -110,9 +110,9 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="39.0" layoutY="362.0" prefHeight="237.0" prefWidth="490.0">
+      <VBox layoutX="39.0" layoutY="362.0" prefHeight="237.0" prefWidth="482.0">
          <children>
-            <Label prefHeight="53.0" prefWidth="269.0" text="Kort upplýsingar">
+            <Label prefHeight="53.0" prefWidth="269.0" text="Card information">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
@@ -132,7 +132,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="40.0" prefWidth="450.0">
+            <HBox prefHeight="40.0" prefWidth="492.0">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="100.0" text="Expiry date" />
                   <TextField fx:id="getExpirydate" prefHeight="30.0" prefWidth="360.0" promptText="ex. mm/yy">
@@ -166,7 +166,7 @@
       </VBox>
       <Button fx:id="nextButton" layoutX="788.0" layoutY="583.0" mnemonicParsing="false" onAction="#Next" text="Next" />
       <Button fx:id="backButton" layoutX="675.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Back" />
-      <Label fx:id="totallist" alignment="TOP_LEFT" layoutX="583.0" layoutY="100.0" lineSpacing="10.0" prefHeight="430.0" prefWidth="294.0" style="-fx-border-color: black;" text="TODO : saekja verdlist xD">
+      <Label fx:id="totallist" alignment="TOP_LEFT" layoutX="547.0" layoutY="100.0" lineSpacing="10.0" prefHeight="430.0" prefWidth="330.0" style="-fx-border-color: black;" text="TODO : saekja verdlist xD">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
@@ -176,7 +176,7 @@
          <font>
             <Font name="Courier New" size="15.0" />
          </font></Label>
-      <Label fx:id="totalscost" layoutX="583.0" layoutY="41.0" prefHeight="17.0" prefWidth="240.0" text="Totals Costs : ">
+      <Label fx:id="totalscost" layoutX="547.0" layoutY="40.0" prefHeight="17.0" prefWidth="240.0" text="Total Cost : ">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>

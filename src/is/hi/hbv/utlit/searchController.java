@@ -134,7 +134,6 @@ public class searchController implements Initializable {
         // Náum í valdar dagsetningar
         arrivalchoicevalue = arrivalchoice.getValue();
         departurechoicevalue = departurechoice.getValue();
-        daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
         // Notum value sem við fáum úr comboboxunum til að ákvarða hvað birtist í leitarniðurstöðunum.
         // Náum í hótelherbergi eftir skilyrðum sem við veljum í search
         if (arrivalchoicevalue == null) {
@@ -167,21 +166,24 @@ public class searchController implements Initializable {
             alert.setContentText("Please choose number of guests");
             alert.showAndWait();
         }
+        else {
+            daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
+            HotelsDAO database = new HotelsDAO();
+            hotelResults = FXCollections.observableArrayList(database.HotelSearch(maxpricevalue, areachoicevalue, guestnumbervalue));
+            // Viljum birta strengjaútgáfu af objectinu
+            for (Object hotel : hotelResults) {
+                hotel.toString();
+            }
+            // Uppfærum niðurstöðuglugann
+            resultList.setItems(hotelResults);
 
-        HotelsDAO database = new HotelsDAO();
-        hotelResults = FXCollections.observableArrayList(database.HotelSearch(maxpricevalue, areachoicevalue, guestnumbervalue));
-        // Viljum birta strengjaútgáfu af objectinu
-        for (Object hotel : hotelResults) {
-            hotel.toString();
+            if (hotelResults.isEmpty()) {
+                ArrayList<String> noResults = new ArrayList<String>();
+                noResults.add("No hotels found");
+                resultList.setItems(FXCollections.observableArrayList(noResults));
+            }
         }
-        // Uppfærum niðurstöðuglugann
-        resultList.setItems(hotelResults);
 
-        if (hotelResults.isEmpty()) {
-            ArrayList<String> noResults = new ArrayList<String>();
-            noResults.add("No hotels found");
-            resultList.setItems(FXCollections.observableArrayList(noResults));
-        }
 
     }
     // Birtir glugga til að skrá sig á póstlista
