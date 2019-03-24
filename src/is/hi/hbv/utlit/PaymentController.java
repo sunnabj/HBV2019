@@ -337,10 +337,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
 
     // TODO : þetta þarf að laga/breyta því þarf að sækja gögnum á gagnasafn
     // og þetta á að sækja herbergi upplýsingar !!!
-    public void setText12 (String totalslist, String count) {
-        // int room = 70000;
-        //int i = Integer.parseInt(count);
-        // int x = room+i;
+    public void setText12 (String totalslist) {
         int roomPrice = totalPrice - servicePrice;
         totalscost.setText("Total cost : " + totalPrice +" ISK");
         totallist.setText("----Order details----\n"
@@ -351,7 +348,6 @@ public class PaymentController<fxmlLoader> implements  Initializable{
                         + String.valueOf(roomPrice) + " ISK for " + daycountvalue + " night(s)" + "\n"
                         //+ chosenRoom.getRoomInfo() + "\n"
                         + "----Additional Services----\n"+ totalslist + "\n");
-        // System.out.println("Valið hótel í paymentController: " + chosenHotel);
     }
 
     public void setValues(Hotel hotel, Room room, int price, int addedPrice, long daycount, LocalDate arrival, LocalDate departure, int guests) {
