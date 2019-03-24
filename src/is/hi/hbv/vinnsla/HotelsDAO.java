@@ -88,9 +88,17 @@ public class HotelsDAO {
             else if (area.equals("West region")) p.setString(2, "Vesturland");
             else if (area.equals("East region")) p.setString(2, "Austurland");
             else if (area.equals("Capital area")) p.setString(2, "Höfuðborgarsvæðið");
-            // TODO: Vantar all areas! Útfæra! - Eeeeeða bara sleppa...
-            p.setInt(3, guests);
-            p.setInt(4, guests);
+            if (guests > 1) {
+                p.setInt(3, guests);
+                p.setInt(4, guests);
+            }
+            // Ef þú velur 1 birtast öll möguleg herbergi (því ekkert fyrir bara eina manneskju).
+            else {
+                p.setInt(3, 10);
+                p.setInt(4, 1);
+            }
+
+
             r = p.executeQuery();
             // Fyrir hverja niðurstöðu í query er búið til nýtt "hótel" - því bætt á lista sem er svo skilað
             while (r.next()) {

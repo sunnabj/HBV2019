@@ -78,7 +78,7 @@ public class searchController implements Initializable {
 
     private ObservableList<String> priceList = FXCollections.observableArrayList("25000 ISK or less", "35000 ISK or less", "45000 ISK or less", "60000 ISK or less", "Doesn't matter");
 
-    private ObservableList<String> guestList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6");
+    private ObservableList<String> guestList = FXCollections.observableArrayList("1", "2", "3", "4", "More");
 
     private String areachoicevalue;    // Gildi fyrir valið svæði
     private int maxpricevalue = -1;         // Gildi fyrir hámarksverð
@@ -209,23 +209,18 @@ public class searchController implements Initializable {
                         return;
                     }
                     if (newValue.equals("25000 ISK or less")) {
-                        //minpricevalue = 15000;
                         maxpricevalue = 25000;
                     }
                     else if (newValue.equals("35000 ISK or less")) {
-                        //minpricevalue = 25000;
                         maxpricevalue = 35000;
                     }
                     else if (newValue.equals("45000 ISK or less")) {
-                        //minpricevalue = 35000;
                         maxpricevalue = 45000;
                     }
                     else if (newValue.equals("60000 ISK or less")) {
-                        //minpricevalue = 45000;
                         maxpricevalue = 60000;
                     }
                     else if (newValue.equals("Doesn't matter")) {
-                        //minpricevalue = 0;
                         maxpricevalue = Integer.MAX_VALUE;
                     }
                 });
@@ -240,9 +235,13 @@ public class searchController implements Initializable {
                     if (newValue == null) {
                         return;
                     }
-                    guestnumbervalue = Integer.parseInt(newValue);
+                    else if (newValue == "More") {
+                        guestnumbervalue = 5;
+                    }
+                    else{
+                        guestnumbervalue = Integer.parseInt(newValue);
+                    }
 
-                    System.out.println(guestnumbervalue);
                 });
     }
 

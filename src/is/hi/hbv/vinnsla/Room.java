@@ -30,6 +30,6 @@ public class Room {
     public String getRoomInfo() { return roomInfo; }
 
     public String toString() {
-        return "Room number " + roomNr + " - " + price + " ISK per night";
+        return "Room " + roomNr + " - " + price + " ISK per night - " + guestNumber + " guests";
     }
 }
