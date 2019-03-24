@@ -28,38 +28,29 @@ import java.util.logging.Logger;
 public class servicesController implements Initializable {
 
     @FXML
-    public TextArea roomInfoBox;    // Sýnir aukalegar upplýsingar um valið herbergi
+    public TextArea roomInfoBox;    // Shows additional information regarding the chosen room
     @FXML
-    public Label roomPriceLabel;    // Sýnir verð herbergis
+    public Label roomPriceLabel;    // Shows the price of the chosen room
     @FXML
-    public Label guestNumberLabel;  // Sýnir gestafjölda í herbergi
-
+    public Label guestNumberLabel;  // Shows the number of guests in the chosen room
     @FXML
-    private CheckBox swimming;      // Swim tjékk box
-
+    private CheckBox swimming;      // Checkbox to choose swimming service
     @FXML
-    private CheckBox spa;           // Spa tjékk box
-
+    private CheckBox spa;           // Checkbox to choose spa service
     @FXML
-    private Label totalslist;       // Heildalist label birta
-
+    private Label totalslist;       // The total list of chosen services
     @FXML
-    private CheckBox pickup;        // Pickup tjékk box
-
+    private CheckBox pickup;        // Checkbox to choose pickup service
     @FXML
-    private Label totalscost;       // Heildaverð label birta
-
+    private Label totalscost;       // Shows the total cost of room and services
     @FXML
-    private CheckBox breakfast;     // Breakfast tjékk box
-
+    private CheckBox breakfast;     // Checkbox to choose breakfast service
     @FXML
-    private CheckBox dinner;        // Dinner tjékk box
-
+    private CheckBox dinner;        // Checkbox to choose dinner service
     @FXML
-    private CheckBox rental;        // Rental car tjékk box
-
+    private CheckBox rental;        // Checbox to choose rental service
     @FXML
-    private Button nextButton;
+    private Button nextButton;      // A button to enter the next window
 
     private String firstname;
     private String lastname;
@@ -69,26 +60,23 @@ public class servicesController implements Initializable {
     private String kennitala;
     private String card;
 
-    private String a;       // String fyrir list
-    private String b;       // String fyrir heildakosta
+    //private String serviceCost;       // The cost of chosen services
+    private String serviceList;       // The list of chosen services
 
-    private Hotel chosenHotel;
-    private Room chosenRoom;
-    private long daycountvalue;
-    private LocalDate arrivalchoicevalue;
-    private LocalDate departurechoicevalue;
-    private int guestnumbervalue;
-    private int totalPrice;
-    private int servicePrice;
+    private Hotel chosenHotel;                  // The chosen hotel from the search
+    private Room chosenRoom;                    // The chosen room from last window
+    private long daycountvalue;                 // Duration of stay
+    private LocalDate arrivalchoicevalue;       // Arrival date
+    private LocalDate departurechoicevalue;     // Departure date
+    private int guestnumbervalue;               // Number of guests
+    private int totalPrice;                     // The total price - both room and services
+    private int servicePrice;                   // Price of chosen services
 
-    //
-    //
+
     @FXML
     void nextPage(ActionEvent actionEvent) {
         Stage stage123 = (Stage) nextButton.getScene().getWindow();
         stage123.close();
-        String list_text = b;
-        String cost_text = a;
 
         if (pickup.isSelected()) {
             totalPrice += 2500;
@@ -121,10 +109,9 @@ public class servicesController implements Initializable {
             Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
         }
         PaymentController display = Loader.getController();
-        // display.setChosenHotel(chosenHotel);
         display.setValues(chosenHotel, chosenRoom, totalPrice, servicePrice, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
         display.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
-        display.setText12(list_text, cost_text);
+        display.setText12(serviceList);
 
         Parent p = Loader.getRoot();
         Stage stage = new Stage();
@@ -133,34 +120,31 @@ public class servicesController implements Initializable {
     }
 
     // Setfall fyrir Count fall
-    public void setCount(String s) {
-        a = s;
-    }
+    //public void setCount(String s) { serviceCost = s; }
 
     // Getfall fyrir Count
-    public String getCount() {
-        return a;
-    }
+    //public String getCount() {return serviceCost;}
 
     // Setfall fyrir Choice
     public void setChoice(String s) {
-        b = s;
+        serviceList = s;
     }
 
     // Getfall fyrir choice
     public String getChoice() {
-        return b;
+        return serviceList;
     }
 
-    // Þetta checkbox leyfa notenda bæta við þjónustu sem þeir vilt
-    // virka einfalt eins og er xD
+    /*
+    * A function that checks what checkboxes are chosen and displays the chosen services and price values
+    * to the user
+     */
     void checkbox() {
         int count = 0;
         String choice = "";
 
         if (!pickup.isSelected() && !breakfast.isSelected() && !dinner.isSelected()
                 && !rental.isSelected() && !spa.isSelected() && !swimming.isSelected()) {
-            // count += 0;
             choice += " No service : 0 kr\n";
             totalscost.setText("Added cost : " + count + " ISK");
             totalslist.setText(choice);
@@ -196,16 +180,9 @@ public class servicesController implements Initializable {
         }
         totalscost.setText("Added cost : " + count + " ISK");
         totalslist.setText(choice);
-        setCount(String.valueOf(count));
+        //setCount(String.valueOf(count));
         setChoice(choice);
-        System.out.println("Count - kostnaður í services: " + count);
         servicePrice = count;
-        //totalPrice += count;
-        //System.out.println("Heildarkostnaður: " + totalPrice);
-    }
-
-    public void setHotel(Hotel hotel) {
-        chosenHotel = hotel;
     }
 
     public void setValues(Hotel hotel, Room room, long daycount, LocalDate arrival, LocalDate departure, int guests) {
@@ -222,8 +199,9 @@ public class servicesController implements Initializable {
         guestNumberLabel.setText(String.valueOf(guests) + " guests");
     }
 
-    // Kalla á aðferð checkbox
-    //
+    /*
+    * Handler for choosing a checkbox - calls the checkbox function
+     */
     @FXML
     void handleButtonAction(ActionEvent actionEvent) {
         checkbox();
@@ -244,7 +222,7 @@ public class servicesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         totalscost.setText("Additional cost : " + 0 + " ISK");
         totalslist.setText("No service : 0 ISK");
-        setCount(String.valueOf(0));
+        //setCount(String.valueOf(0));
         setChoice("No service : 0 ISK");
         pickup.setTooltip(new Tooltip("Pickup straight from airport"));
         breakfast.setTooltip(new Tooltip("Eat break in hotel"));
