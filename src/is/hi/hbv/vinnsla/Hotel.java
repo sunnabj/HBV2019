@@ -8,17 +8,18 @@ import java.util.ArrayList;
 
 public class Hotel {
 
-    private int stars;
-    private int minprice;
-    private int reviewNr;
-    private String name;
-    private int hotelID;
-    private String hotelInfo;
-    private String hotelAddress;
-    private String phoneNr;
+    private int stars;              // Number of stars of the hotel
+    private int minprice;           // The price of the cheapest room in the hotel
+    private int reviewNr;           // The number of reviews of the hotel
+    private String name;            // The name of the hotel
+    private int hotelID;            // A unique ID
+    private String hotelInfo;       // Information about the hotel
+    private String hotelAddress;    // The address of the hotel
+    private String phoneNr;         // The hotel's phone number
 
-    //Name, HotelID, Stars, ReviewID, minPrice
-
+    /*
+    * The constructor for hotel objects
+     */
     public Hotel(String namevalue, int hotelIdent, int starvalue, int reviews, int pricevalue, String address, String phone, String info) {
         name = namevalue;
         hotelID = hotelIdent;
@@ -29,7 +30,7 @@ public class Hotel {
         hotelAddress = address;
         phoneNr = phone;
     }
-
+    //Here come getters for all the instance variables
     public int getStars() {
         return stars;
     }
@@ -55,12 +56,12 @@ public class Hotel {
     public String getName() {
         return name;
     }
-
+    // Connects to the database and returns an object list of the rooms in this particular hotel
     public ArrayList<Object> getRooms() {
         HotelsDAO db = new HotelsDAO();
         return db.getRoomsInHotel(hotelID);
     }
-
+    // Connects to the database and returns a list of the reviews of this particular hotel
     public ArrayList<String> getReviews() {
         HotelsDAO db = new HotelsDAO();
         return db.getHotelReviews(hotelID);

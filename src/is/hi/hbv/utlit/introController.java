@@ -106,7 +106,7 @@ public class introController implements Initializable {
 
     public void aboutusHandle(javafx.event.ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
-        alert.setHeaderText("About us !!!");
+        alert.setHeaderText("About us");
         alert.initStyle(StageStyle.UNDECORATED);
         alert.setTitle("Iceland Hotel");
         alert.setContentText("This project is called Iceland Hotel\n"+
@@ -125,9 +125,9 @@ public class introController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        searchID.setTooltip(new Tooltip("Go to search"));
+        searchID.setTooltip(new Tooltip("Search for a hotel"));
         bookingID.setTooltip(new Tooltip("Go to manage your booking"));
-        locationID.setTooltip(new Tooltip("See our hotel location aroud Iceland"));
+        locationID.setTooltip(new Tooltip("See the locations of our hotels around Iceland"));
         aboutus.setTooltip(new Tooltip("About this application"));
         quitID.setTooltip(new Tooltip("Quit this application"));
     }

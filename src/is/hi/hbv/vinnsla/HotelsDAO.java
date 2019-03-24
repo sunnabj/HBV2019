@@ -14,9 +14,8 @@ public class HotelsDAO {
     public HotelsDAO() {
         try {
             Class.forName("org.sqlite.JDBC");
-            // db parameters
             String url = "jdbc:sqlite:hotels.db";
-            // create a connection to the database
+            // Connection to the database is created
             conn = DriverManager.getConnection(url);
 
             System.out.println("Connection to SQLite has been established.");
@@ -28,51 +27,9 @@ public class HotelsDAO {
         }
     }
 
-    // Hér koma get föll til að ná í hluti úr gagnagrunninum, með queries
-    // eða jafnvel til að update-a eitthvað í gagnagrunninum.
-    // Getum svo unnið með niðurstöðurnar einhvern veginn til að birta þær.
-
     /*
-    * Test
-     */
-    public ArrayList<String> getHotelNames() {
-        ArrayList<String> hotels = new ArrayList<String>();
-
-        try {
-            stmt = conn.createStatement();
-            r = stmt.executeQuery("select name from Hotel");
-
-            while (r.next()) {
-                hotels.add(r.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return hotels;
-    }
-
-    /*
-    * Test
-     */
-    public ArrayList<String> getHotelRooms() {
-        ArrayList<String> rooms = new ArrayList<String>();
-
-        try {
-            stmt = conn.createStatement();
-            r = stmt.executeQuery("select * from Room");
-
-            while (r.next()) {
-                rooms.add(r.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return rooms;
-    }
-
-    /*
-    * Fall sem leitar að hótelum eftir leitarskilyrðum - skilar object lista af hótel objects
-    * Þeir eru samt eiginlega herbergi, innihalda verð og Room number
+    * This function looks for hotels according to specific search conditions and returns a list of hotel objects.
+    * The parameters are high: the maximum room price chosen, area: the region chosen, and guests: Number of guests chosen
      */
     public ArrayList<Object> HotelSearch(int high, String area, int guests) {
         ArrayList<Object> hotels = new ArrayList<Object>();
@@ -92,7 +49,7 @@ public class HotelsDAO {
                 p.setInt(3, guests);
                 p.setInt(4, guests);
             }
-            // Ef þú velur 1 birtast öll möguleg herbergi (því ekkert fyrir bara eina manneskju).
+            // If 1 is chosen, all hotels are chosen (that fulfill other chosen conditions).
             else {
                 p.setInt(3, 10);
                 p.setInt(4, 1);
@@ -100,7 +57,7 @@ public class HotelsDAO {
 
 
             r = p.executeQuery();
-            // Fyrir hverja niðurstöðu í query er búið til nýtt "hótel" - því bætt á lista sem er svo skilað
+            // For each query result, a new hotel object is created and added to a list which is then returned.
             while (r.next()) {
                 Hotel hotel = new Hotel(r.getString(1), r.getInt(2), r.getInt(3),
                         r.getInt(4), r.getInt(5), r.getString(6), r.getString(7),
@@ -113,6 +70,10 @@ public class HotelsDAO {
         return hotels;
     }
 
+    /*
+    * This function takes in a unique hotelID and uses an SQL query to return
+    * a list of room objects matching the hotel
+     */
     public ArrayList<Object> getRoomsInHotel(int hotelID) {
         ArrayList<Object> rooms = new ArrayList<Object>();
         try {
@@ -130,6 +91,9 @@ public class HotelsDAO {
         return rooms;
     }
 
+    /*
+    * This function takes in a unique hotelID and returns a list of reviews corresponding to that hotel
+     */
     public ArrayList<String> getHotelReviews(int hotelID) {
         ArrayList<String> reviews = new ArrayList<String>();
         try {
@@ -146,14 +110,14 @@ public class HotelsDAO {
         return reviews;
     }
 
-
+    /*
+    * Database connection is closed
+     */
     protected void finalize() {
         try {
             if (r != null) r.close();
             if (stmt != null) stmt.close();
-            if (conn != null) {
-                conn.close();
-            }
+            if (conn != null) conn.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

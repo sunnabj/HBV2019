@@ -23,19 +23,16 @@ public class MailListController implements Initializable {
     }
 
     public void mailDialog(String mailID) {
-        // Innihald dialogs búið til
+        // The contents of the dialog are created
         DialogPane p = new DialogPane();
         nmailDialog.setVisible(true);
 
-        // Innihald sett sem Pane sem fengið er úr Scene builder
+        // The content is set as the pane from SceneBuilder
         p.setContent(nmailDialog);
-
-        // Umgjörðin búin til
         Dialog<ButtonType> d = new Dialog();
 
-        // og innihaldið sett í umgjörðina
+        // The content is put into the dialog
         d.setDialogPane(p);
-        // Haus og titill
         d.setTitle("Thank you for registering!");
 
         String sql = "INSERT INTO Mail(Maillist) VALUES(?)";
@@ -48,12 +45,11 @@ public class MailListController implements Initializable {
             System.out.println(e.getMessage()+" help me");
         }
 
-        // Hnappur til að loka glugga búinn til og bætt við
+        // Button to close the window is made
         ButtonType close = new ButtonType("Close",
                 ButtonBar.ButtonData.CANCEL_CLOSE);
         d.getDialogPane().getButtonTypes().add(close);
 
-        // Dialog birtur - svarið ekki notað
         d.showAndWait();
     }
 }
