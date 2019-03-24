@@ -14,7 +14,7 @@
        <fx:include fx:id="mailList" source="MailList.fxml" />
       <VBox layoutX="25.0" layoutY="79.0" prefHeight="413.0" prefWidth="381.0">
          <children>
-            <Label prefHeight="95.0" prefWidth="381.0" text="Find a hotel!" textAlignment="CENTER">
+            <Label prefHeight="95.0" prefWidth="381.0" text="Find a hotel" textAlignment="CENTER">
                <font>
                   <Font size="32.0" />
                </font>
@@ -58,12 +58,12 @@
       </VBox>
       <VBox layoutX="25.0" layoutY="527.0" prefHeight="137.0" prefWidth="362.0">
          <children>
-            <Label prefHeight="51.0" prefWidth="384.0" text="Sign up your email for our latest offers">
+            <Label prefHeight="51.0" prefWidth="384.0" text="Sign up for our latest offers">
                <font>
                   <Font size="19.0" />
                </font></Label>
-            <TextField fx:id="mailID" prefHeight="39.0" prefWidth="294.0" promptText="Something@example.com" />
-            <Button fx:id="mailListButton" mnemonicParsing="false" onAction="#mailListDialogHandler" prefHeight="36.0" prefWidth="149.0" text="Register!" />
+            <TextField fx:id="mailID" prefHeight="39.0" prefWidth="294.0" promptText="something@example.com" />
+            <Button fx:id="mailListButton" mnemonicParsing="false" onAction="#mailListDialogHandler" prefHeight="36.0" prefWidth="149.0" text="Register" />
          </children>
       </VBox>
       <Pane fx:id="resultPane" layoutX="524.0" layoutY="79.0" prefHeight="734.0" prefWidth="638.0">
