@@ -33,9 +33,9 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="morepicID" layoutX="470.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="More Picture" />
-      <Button fx:id="backID" layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Til baka" />
-      <Button fx:id="nextID" layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Áfram" />
+      <Button fx:id="morepicID" layoutX="470.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="View Room Photos" />
+      <Button fx:id="backID" layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Back" />
+      <Button fx:id="nextID" layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Continue" />
       <ListView fx:id="hotelRooms" layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
       <Pane fx:id="hotelImage" layoutX="437.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" />
       <Button layoutX="629.0" layoutY="307.0" mnemonicParsing="false" onAction="#hotelLocation" text="Hotel Location" />

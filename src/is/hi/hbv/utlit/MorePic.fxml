@@ -10,6 +10,6 @@
 <AnchorPane fx:id="myAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.MorePicController">
    <children>
       <ScrollPane fx:id="imageSlider" prefHeight="569.0" prefWidth="782.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
-      <Button layoutX="523.0" layoutY="710.0" mnemonicParsing="false" onAction="#tilBaka" prefHeight="36.0" prefWidth="123.0" text="Til baka" />
+      <Button layoutX="523.0" layoutY="710.0" mnemonicParsing="false" onAction="#tilBaka" prefHeight="36.0" prefWidth="123.0" text="Back" />
    </children>
 </AnchorPane>

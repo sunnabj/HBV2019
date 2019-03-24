@@ -166,9 +166,18 @@ public class HerbergiController implements Initializable{
         System.out.println("Hótel? " + chosenHotel);
         // Loadum nýrri glugga -> MorePic.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MorePic.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        try {
+            fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(MorePicController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        MorePicController morePicController = fxmlLoader.getController();
+        morePicController.setHotel(chosenHotel);
+        morePicController.drawImages();
+
+        Parent root1 = fxmlLoader.getRoot();
         Stage stage = new Stage();
-        stage.setTitle("More Picture");
+        stage.setTitle("More Pictures");
         stage.setScene(new Scene(root1));
         stage.show();
     }
