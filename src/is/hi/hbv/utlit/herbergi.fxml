@@ -36,7 +36,7 @@
       </Label>
       <Button fx:id="morepicID" layoutX="468.0" layoutY="304.0" mnemonicParsing="false" onAction="#morePic" text="More Pictures" />
       <Button fx:id="backID" layoutX="24.0" layoutY="604.0" mnemonicParsing="false" onAction="#returnToSearch" text="Back" />
-      <Button fx:id="nextID" layoutX="717.0" layoutY="604.0" mnemonicParsing="false" onAction="#selectRoom" text="Continue" />
+      <Button fx:id="nextID" layoutX="717.0" layoutY="604.0" mnemonicParsing="false" onAction="#selectRoom" text="Next" />
       <ListView fx:id="hotelRooms" layoutX="438.0" layoutY="358.0" prefHeight="219.0" prefWidth="383.0" />
       <Pane fx:id="hotelImage" layoutX="437.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" />
       <Button layoutX="629.0" layoutY="304.0" mnemonicParsing="false" onAction="#hotelLocation" text="Hotel Location" />
