@@ -83,10 +83,10 @@ public class HotelsDAO {
                      " FROM Hotel WHERE minPrice <= ? AND Area = ? AND minGuest <= ? AND maxGuest >= ?");
 
             p.setInt(1, high);
-            if (area.equals("North")) p.setString(2, "Norðurland");
-            else if (area.equals("South")) p.setString(2, "Suðurland");
-            else if (area.equals("West")) p.setString(2, "Vesturland");
-            else if (area.equals("East")) p.setString(2, "Austurland");
+            if (area.equals("North region")) p.setString(2, "Norðurland");
+            else if (area.equals("South region")) p.setString(2, "Suðurland");
+            else if (area.equals("West region")) p.setString(2, "Vesturland");
+            else if (area.equals("East region")) p.setString(2, "Austurland");
             else if (area.equals("Capital area")) p.setString(2, "Höfuðborgarsvæðið");
             // TODO: Vantar all areas! Útfæra! - Eeeeeða bara sleppa...
             p.setInt(3, guests);
@@ -126,7 +126,7 @@ public class HotelsDAO {
         ArrayList<String> reviews = new ArrayList<String>();
         try {
             stmt = conn.createStatement();
-            PreparedStatement p = conn.prepareStatement("SELECT Review FROM Room WHERE HotelID = ?");
+            PreparedStatement p = conn.prepareStatement("SELECT Review FROM Reviews WHERE HotelID = ?");
             p.setInt(1, hotelID);
             r = p.executeQuery();
             while (r.next()) {

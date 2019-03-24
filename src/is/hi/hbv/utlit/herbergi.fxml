@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -28,16 +29,29 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.hi.hbv.utlit.HerbergiController">
    <children>
       <TextArea fx:id="hotelInfo" editable="false" layoutX="24.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" wrapText="true" />
-      <Label fx:id="hotelname" alignment="CENTER" layoutX="24.0" layoutY="24.0" prefHeight="45.0" prefWidth="383.0" text="ION Adventure Hotel" textFill="#4d01ff">
+      <Label fx:id="hotelname" alignment="CENTER" layoutX="24.0" layoutY="24.0" prefHeight="45.0" prefWidth="383.0" textFill="#4d01ff">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
+<<<<<<< HEAD
       <Button fx:id="morepicID" layoutX="470.0" layoutY="307.0" mnemonicParsing="false" onAction="#morePic" text="View Room Photos" />
       <Button fx:id="backID" layoutX="437.0" layoutY="625.0" mnemonicParsing="false" onAction="#returnSearch" text="Back" />
       <Button fx:id="nextID" layoutX="740.0" layoutY="625.0" mnemonicParsing="false" onAction="#nextPage" text="Continue" />
       <ListView fx:id="hotelRooms" layoutX="24.0" layoutY="348.0" prefHeight="277.0" prefWidth="383.0" />
+=======
+      <Button fx:id="morepicID" layoutX="468.0" layoutY="304.0" mnemonicParsing="false" onAction="#morePic" text="More Pictures" />
+      <Button fx:id="backID" layoutX="24.0" layoutY="604.0" mnemonicParsing="false" onAction="#returnToSearch" text="Back" />
+      <Button fx:id="nextID" layoutX="717.0" layoutY="604.0" mnemonicParsing="false" onAction="#selectRoom" text="Advance" />
+      <ListView fx:id="hotelRooms" layoutX="438.0" layoutY="358.0" prefHeight="219.0" prefWidth="383.0" />
+>>>>>>> 20a4e0e4be5b5e08a00b6fa2c48edfd0adfeae71
       <Pane fx:id="hotelImage" layoutX="437.0" layoutY="85.0" prefHeight="212.0" prefWidth="383.0" />
-      <Button layoutX="629.0" layoutY="307.0" mnemonicParsing="false" onAction="#hotelLocation" text="Hotel Location" />
+      <Button layoutX="629.0" layoutY="304.0" mnemonicParsing="false" onAction="#hotelLocation" text="Hotel Location" />
+      <TextArea fx:id="reviewBox" editable="false" layoutX="24.0" layoutY="358.0" prefHeight="234.0" prefWidth="383.0" wrapText="true" />
+      <Label layoutX="24.0" layoutY="310.0" prefHeight="39.0" prefWidth="202.0" text="User reviews" textFill="#4d01ff">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -98,6 +98,7 @@ public class confirmController implements Initializable {
     public void setText123 (String Firstname,String Lastname,String Email,String Phone,
                             String Address,String Kennitala,String Card, int price, int addedPrice) {
         int roomPrice = price - addedPrice;
+        if (Address == null) {Address = "";}
         resultInfo.setText( "-------------------Total Cost----------------\n\n" +
                             "Room : " + roomPrice + " ISK" + "\n" +
                             "Additional services : " + addedPrice + " ISK" + "\n" +

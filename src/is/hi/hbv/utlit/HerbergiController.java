@@ -46,6 +46,8 @@ import java.util.logging.Logger;
 
 public class HerbergiController implements Initializable{
     @FXML
+    public TextArea reviewBox;
+    @FXML
     private Button outID;
 
     @FXML
@@ -199,7 +201,7 @@ public class HerbergiController implements Initializable{
 
     // Sækja search glugga
     @FXML
-    void returnSearch(ActionEvent actionEvent) throws IOException {
+    void returnToSearch(ActionEvent actionEvent) throws IOException {
         // Loadum nýrri scene -> Search.fxml
         Parent Search_parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
         Scene Search_scene = new Scene(Search_parent);
@@ -207,40 +209,37 @@ public class HerbergiController implements Initializable{
         main_stage.setScene(Search_scene);
         main_stage.show();
     }
-    // Sækja þjónusta glugga
+    // Farið í þjónustuglugga - ef ekkert herbergi valið kemur viðvörun.
     @FXML
-    void nextPage(ActionEvent actionEvent) throws IOException {
-        // Loadum nýrri scene -> payment.fxml
+    void selectRoom(ActionEvent actionEvent) throws IOException {
 
         if (roomindex != -1) {
             chosenRoom = (Room) hotelRooms.getItems().get(roomindex);
-            System.out.println("Valið herbergi: " + chosenRoom);
-            // System.out.println("Herbergi í völdu hóteli: " + chosenHotel.getRooms());
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("services.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            servicesController room = Loader.getController();
+            room.setValues(chosenHotel, chosenRoom, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
+            room.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
+            Parent payment_parent = Loader.getRoot();
+            Scene payment_scene = new Scene(payment_parent);
+            Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            main_stage.setTitle("Services");
+            main_stage.setScene(payment_scene);
+            main_stage.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No room chosen");
+            alert.setContentText("Please choose a room");
+            alert.showAndWait();
         }
 
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("services.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-        servicesController room = Loader.getController();
-        //room.setHotel(chosenHotel);
-        room.setValues(chosenHotel, chosenRoom, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
-        room.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
-        Parent payment_parent = Loader.getRoot();
-
-        //Parent payment_parent = FXMLLoader.load(getClass().getResource("services.fxml"));
-        Scene payment_scene = new Scene(payment_parent);
-        Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setTitle("Services");
-        main_stage.setScene(payment_scene);
-        main_stage.show();
     }
-
 
     // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
     private void zoom(double scaleValue) {
@@ -296,6 +295,12 @@ public class HerbergiController implements Initializable{
         arrivalchoicevalue = arrival;
         departurechoicevalue = departure;
         guestnumbervalue = guests;
+        ArrayList<String> reviews = chosenHotel.getReviews();
+        int count = 1;
+        for (String review : reviews) {
+            reviewBox.setText(reviewBox.getText() + "Review number " + count + "\n" + review + "\n\n");
+            count++;
+        }
         showRooms();
         showHotel(hotel);
     }
