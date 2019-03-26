@@ -120,66 +120,76 @@ public class searchController implements Initializable {
         });
     }
     /*
-    * The chain of events happening when the search button is pushed.
+     * The chain of events happening when the search button is pushed.
      */
     public void hotelsearchHandler(ActionEvent actionEvent) throws SQLException {
 
-        // Chosen dates are fetched
-        arrivalchoicevalue = arrivalchoice.getValue();
-        departurechoicevalue = departurechoice.getValue();
-        // Warning appears if some of the search conditions have not been chosen
-        if (arrivalchoicevalue == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Arrival date missing");
-            alert.setContentText("Please choose an arrival date");
-            alert.showAndWait();
-        }
-        if (departurechoicevalue == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Departure date missing");
-            alert.setContentText("Please choose a departure date");
-            alert.showAndWait();
-        }
-        if (areachoicevalue == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Area missing");
-            alert.setContentText("Please choose a preferred area");
-            alert.showAndWait();
-        }
-        if (maxpricevalue == -1) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Price range missing");
-            alert.setContentText("Please choose a price range");
-            alert.showAndWait();
-        }
-        if (guestnumbervalue == -1) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Number of guests missing");
-            alert.setContentText("Please choose number of guests");
-            alert.showAndWait();
-        }
-        // If everything is all right, values from the comboboxes used to determine the search results
-        // Hotels are fetched based on the conditions chosen in the search
-        else {
+        try {
+            // Chosen dates are fetched and duration of stay calculated.
+            // If nothing is chosen, nullpointerexception arises, and the function goes to catch
+            arrivalchoicevalue = arrivalchoice.getValue();
+            departurechoicevalue = departurechoice.getValue();
             daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
-            HotelsDAO database = new HotelsDAO();
-            hotelResults = FXCollections.observableArrayList(database.HotelSearch(maxpricevalue, areachoicevalue, guestnumbervalue));
-            // A string version of the hotel object is shown
-            for (Object hotel : hotelResults) {
-                hotel.toString();
+            // Other warnings appear if other conditions are not fulfilled
+            if (areachoicevalue == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Area missing");
+                alert.setContentText("Please choose a preferred area");
+                alert.showAndWait();
             }
-            // The result list is updated
-            resultList.setItems(hotelResults);
-            // If search returns nothing, the user is told through the result window
-            if (hotelResults.isEmpty()) {
-                ArrayList<String> noResults = new ArrayList<String>();
-                noResults.add("No hotels found");
-                resultList.setItems(FXCollections.observableArrayList(noResults));
+            if (maxpricevalue == -1) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Price range missing");
+                alert.setContentText("Please choose a price range");
+                alert.showAndWait();
+            }
+            if (guestnumbervalue == -1) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Number of guests missing");
+                alert.setContentText("Please choose number of guests");
+                alert.showAndWait();
+            }
+            if (daycountvalue <= 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Do you travel backwards in time?");
+                alert.setContentText("Please select a departure date that is not before the arrival date");
+                alert.showAndWait();
+            }
+            // If everything is all right, values from the comboboxes used to determine the search results
+            // Hotels are fetched based on the conditions chosen in the search
+            else {
+                HotelsDAO database = new HotelsDAO();
+                hotelResults = FXCollections.observableArrayList(database.HotelSearch(maxpricevalue, areachoicevalue, guestnumbervalue));
+                // A string version of the hotel object is shown
+                for (Object hotel : hotelResults) {
+                    hotel.toString();
+                }
+                // The result list is updated
+                resultList.setItems(hotelResults);
+                // If search returns nothing, the user is told through the result window
+                if (hotelResults.isEmpty()) {
+                    ArrayList<String> noResults = new ArrayList<String>();
+                    noResults.add("No hotels found");
+                    resultList.setItems(FXCollections.observableArrayList(noResults));
+                }
+            }
+        } catch (Exception e) {
+            // Warning appears for nullpointerexception considering length of stay
+            if (arrivalchoicevalue == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Arrival date missing");
+                alert.setContentText("Please choose an arrival date");
+                alert.showAndWait();
+            }
+            if (departurechoicevalue == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Departure date missing");
+                alert.setContentText("Please choose a departure date");
+                alert.showAndWait();
             }
         }
-
-
     }
+
     // Shows a window where the user can register for a postlist
     public void mailListDialogHandler(ActionEvent actionEvent) {
         mailListController.mailDialog(mailID.getText());

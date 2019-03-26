@@ -128,7 +128,6 @@ public class PaymentController<fxmlLoader> implements  Initializable{
             Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
         }
         HerbergiController herbergi = Loader.getController();
-
         herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
 
         Parent herbergi_parent = Loader.getRoot();
