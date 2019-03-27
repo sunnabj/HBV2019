@@ -119,6 +119,7 @@ public class searchController implements Initializable {
             }
         });
     }
+
     /*
      * The chain of events happening when the search button is pushed.
      */
@@ -130,6 +131,10 @@ public class searchController implements Initializable {
             arrivalchoicevalue = arrivalchoice.getValue();
             departurechoicevalue = departurechoice.getValue();
             daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
+            // Daycount return 1 day if arrival and departure at same day
+            if (daycountvalue == 0) {
+                daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue.plusDays(1));
+            }
             // Other warnings appear if other conditions are not fulfilled
             if (areachoicevalue == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -149,7 +154,7 @@ public class searchController implements Initializable {
                 alert.setContentText("Please choose number of guests");
                 alert.showAndWait();
             }
-            if (daycountvalue <= 0) {
+            if (daycountvalue < 0) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Do you travel backwards in time?");
                 alert.setContentText("Please select a departure date that is not before the arrival date");
@@ -209,6 +214,7 @@ public class searchController implements Initializable {
                     System.out.println(areachoicevalue);
                 });
     }
+
     /*
      * Observes changed values of the maximum price - updates the maxpricevalue instance variable accordingly
      */
@@ -221,21 +227,18 @@ public class searchController implements Initializable {
                     }
                     if (newValue.equals("25000 ISK or less")) {
                         maxpricevalue = 25000;
-                    }
-                    else if (newValue.equals("35000 ISK or less")) {
+                    } else if (newValue.equals("35000 ISK or less")) {
                         maxpricevalue = 35000;
-                    }
-                    else if (newValue.equals("45000 ISK or less")) {
+                    } else if (newValue.equals("45000 ISK or less")) {
                         maxpricevalue = 45000;
-                    }
-                    else if (newValue.equals("60000 ISK or less")) {
+                    } else if (newValue.equals("60000 ISK or less")) {
                         maxpricevalue = 60000;
-                    }
-                    else if (newValue.equals("Doesn't matter")) {
+                    } else if (newValue.equals("Doesn't matter")) {
                         maxpricevalue = Integer.MAX_VALUE;
                     }
                 });
     }
+
     /*
      * Observes changed values of guest number - updates the guestnumbervalue instance variable accordingly
      */
@@ -245,11 +248,9 @@ public class searchController implements Initializable {
                 .addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
                     if (newValue == null) {
                         return;
-                    }
-                    else if (newValue == "More") {
+                    } else if (newValue == "More") {
                         guestnumbervalue = 5;
-                    }
-                    else{
+                    } else {
                         guestnumbervalue = Integer.parseInt(newValue);
                     }
 
@@ -257,9 +258,9 @@ public class searchController implements Initializable {
     }
 
     /*
-    * Handler for choosing a certain hotel from the search results.
-    * The hotel chosen is "saved" and the next window shown.
-    * If no hotel is chosen, a warning appears.
+     * Handler for choosing a certain hotel from the search results.
+     * The hotel chosen is "saved" and the next window shown.
+     * If no hotel is chosen, a warning appears.
      */
     public void chooseHotelHandler(ActionEvent actionEvent) throws IOException {
         if (hotelindex != -1) {
@@ -280,8 +281,7 @@ public class searchController implements Initializable {
             Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             main_stage.setScene(herbergi_scene);
             main_stage.show();
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("No hotel chosen");
             alert.setContentText("Please choose a hotel");
@@ -291,28 +291,35 @@ public class searchController implements Initializable {
     }
 
     /*
-    * A function that determines how the result list should be sorted based on the choice of radiobutton
+     * A function that determines how the result list should be sorted based on the choice of radiobutton
      */
     public void sortingHandler(ActionEvent actionEvent) {
-        RadioButton r = (RadioButton)actionEvent.getSource();
-        if (Integer.parseInt(r.getId()) == 1) {
-            sortByPrice();
-        }
-        else if (Integer.parseInt(r.getId()) == 2) {
-            sortByReviews();
-        }
-        else if (Integer.parseInt(r.getId()) == 3) {
-            sortByStars();
+        RadioButton r = (RadioButton) actionEvent.getSource();
+        if (hotelResults == null) {
+            //System.out.println("Hello Villa");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            //alert.setTitle("No hotel found");
+            alert.setHeaderText("No hotel found");
+            alert.setContentText("Please search for a hotel");
+            alert.showAndWait();
+        } else if (hotelResults != null) {
+            if (Integer.parseInt(r.getId()) == 1) {
+                sortByPrice();
+            } else if (Integer.parseInt(r.getId()) == 2) {
+                sortByReviews();
+            } else if (Integer.parseInt(r.getId()) == 3) {
+                sortByStars();
+            }
         }
     }
 
     /*
-    * A function that sorts the result list based on the minimum room price of each hotel
+     * A function that sorts the result list based on the minimum room price of each hotel
      */
     public void sortByPrice() {
 
         ArrayList<Object> hotelsPriceSorted = new ArrayList<Object>();
-        int [] hotelPriceSort = new int[hotelResults.size()];
+        int[] hotelPriceSort = new int[hotelResults.size()];
         // All price values are inserted into a normal int array, hotelPriceSort
         int index = 0;
         for (Object hotel : hotelResults) {
@@ -324,10 +331,10 @@ public class searchController implements Initializable {
         int tmp;
         for (int count = 1; count < hotelPriceSort.length; count++) {
             for (int i = 0; i < hotelPriceSort.length - 1; i++) {
-                if (hotelPriceSort[i] > hotelPriceSort[i+1]) {
+                if (hotelPriceSort[i] > hotelPriceSort[i + 1]) {
                     tmp = hotelPriceSort[i];
-                    hotelPriceSort[i] = hotelPriceSort[i+1];
-                    hotelPriceSort[i+1] = tmp;
+                    hotelPriceSort[i] = hotelPriceSort[i + 1];
+                    hotelPriceSort[i + 1] = tmp;
                 }
             }
         }
@@ -356,7 +363,7 @@ public class searchController implements Initializable {
      */
     public void sortByReviews() {
         ArrayList<Object> hotelsReviewsSorted = new ArrayList<Object>();
-        int [] hotelReviewsSort = new int[hotelResults.size()];
+        int[] hotelReviewsSort = new int[hotelResults.size()];
         // All review number values are inserted into a normal int array, hotelReviewsSort
         int index = 0;
         for (Object hotel : hotelResults) {
@@ -371,10 +378,10 @@ public class searchController implements Initializable {
         int tmp;
         for (int count = 1; count < hotelReviewsSort.length; count++) {
             for (int i = 0; i < hotelReviewsSort.length - 1; i++) {
-                if (hotelReviewsSort[i] > hotelReviewsSort[i+1]) {
+                if (hotelReviewsSort[i] > hotelReviewsSort[i + 1]) {
                     tmp = hotelReviewsSort[i];
-                    hotelReviewsSort[i] = hotelReviewsSort[i+1];
-                    hotelReviewsSort[i+1] = tmp;
+                    hotelReviewsSort[i] = hotelReviewsSort[i + 1];
+                    hotelReviewsSort[i + 1] = tmp;
                 }
             }
         }
@@ -404,7 +411,7 @@ public class searchController implements Initializable {
     public void sortByStars() {
 
         ArrayList<Object> hotelsStarSorted = new ArrayList<Object>();
-        int [] hotelStarSort = new int[hotelResults.size()];
+        int[] hotelStarSort = new int[hotelResults.size()];
         // All star number values are inserted into a normal int array, hotelStarsSort
         int index = 0;
         for (Object hotel : hotelResults) {
@@ -419,10 +426,10 @@ public class searchController implements Initializable {
         int tmp;
         for (int count = 1; count < hotelStarSort.length; count++) {
             for (int i = 0; i < hotelStarSort.length - 1; i++) {
-                if (hotelStarSort[i] > hotelStarSort[i+1]) {
+                if (hotelStarSort[i] > hotelStarSort[i + 1]) {
                     tmp = hotelStarSort[i];
-                    hotelStarSort[i] = hotelStarSort[i+1];
-                    hotelStarSort[i+1] = tmp;
+                    hotelStarSort[i] = hotelStarSort[i + 1];
+                    hotelStarSort[i + 1] = tmp;
                 }
             }
         }
