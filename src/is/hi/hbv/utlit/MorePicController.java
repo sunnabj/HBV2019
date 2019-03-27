@@ -50,7 +50,7 @@ public class MorePicController implements Initializable {
             ImageView imageView = new ImageView(img);
             imageView.setFitHeight(400);
             imageView.setFitWidth(560);
-            imageView.setPreserveRatio(true);
+            //imageView.setPreserveRatio(true);
             tilePane.getChildren().addAll(imageView);
         }
         imageSlider.setContent(tilePane);

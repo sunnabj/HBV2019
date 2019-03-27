@@ -79,7 +79,7 @@ public class confirmController implements Initializable {
                             "Phone number : (+354) " + chosenHotel.getPhoneNr() + "\n"
         );
         resultBooking.setText("-------------Booking Information--------------\n\n" +
-                            "Number of nights : " + daycountvalue + " day/s" + "\n" +
+                            "Number of night(s) : " + daycountvalue + " day(s)" + "\n" +
                             "Arrival : " + arrivalchoicevalue + "\n" +
                             "Departure : " + departurechoicevalue + "\n" +
                             "Booking number : " + book + "\n" +

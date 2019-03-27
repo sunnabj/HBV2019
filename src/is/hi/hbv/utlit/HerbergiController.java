@@ -46,43 +46,29 @@ import java.util.logging.Logger;
 
 public class HerbergiController implements Initializable{
     @FXML
-    public TextArea reviewBox;
-    @FXML
-    private Button outID;
+    public TextArea reviewBox;  // Show reviews for selected hotel
 
     @FXML
     private Button backID;
-
-    @FXML
-    private Slider zoom_slider;
-
-    @FXML
-    private ScrollPane map_scrollpane;
 
     @FXML
 
     private ListView hotelRooms; // var <String>
 
     @FXML
-    private Label hotelname;
+    private Label hotelname;    // Show selected hotel name
 
     @FXML
-    private Button inID;
+    private TextArea hotelInfo; // Show hotel-info for selected hotel
 
     @FXML
-    private TextArea hotelInfo;
+    private Button nextID;      // Go to next scene
 
     @FXML
-    private Button nextID;
+    private Pane hotelImage;    // Display image for selected hotel
 
     @FXML
-    private WebView mapID;
-
-    @FXML
-    private Pane hotelImage;
-
-    @FXML
-    private Button morepicID;
+    private Button morepicID;   // Go to morepic scene
 
     private String firstname;
     private String lastname;
@@ -92,27 +78,21 @@ public class HerbergiController implements Initializable{
     private String kennitala;
     private String card;
 
-    Group zoomGroup;
-
     int roomindex = -1;
 
-    private Hotel chosenHotel;
-    private Room chosenRoom;
-    private long daycountvalue;
-    private LocalDate arrivalchoicevalue;
-    private LocalDate departurechoicevalue;
-    private int guestnumbervalue;
+    private Hotel chosenHotel;                  // The chosen hotel from the search
+    private Room chosenRoom;                    // The chosen room from last window
+    private long daycountvalue;                 // Duration of stay
+    private LocalDate arrivalchoicevalue;       // Arrival date
+    private LocalDate departurechoicevalue;     // Departure date
+    private int guestnumbervalue;               // Number of guests
 
     private ObservableList<Object> roomResults;
 
 
-    //ObservableList<String> items = FXCollections.observableArrayList("test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2","test1", "test2");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //test.setItems(items);
-        //outID.setTooltip(new Tooltip("Zoom-out"));
-        //inID.setTooltip(new Tooltip("Zoom-in."));
         nextID.setTooltip(new Tooltip("Go to services"));
         backID.setTooltip(new Tooltip("Go back to search"));
 
@@ -128,45 +108,12 @@ public class HerbergiController implements Initializable{
         });
 
     }
-/*
-    @FXML
-    public void initialize() {
-        zoom_slider.setMin(0.5);
-        zoom_slider.setMax(1.5);
-        // sitja default 1.0 í stillingar svo notenda getur auðvelt að zoomin og OUT
-        zoom_slider.setValue(1.0);
-        zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
 
-        // Wrap scroll content in a Group so ScrollPane re-computes scroll bars
-        Group contentGroup = new Group();
-        zoomGroup = new Group();
-        contentGroup.getChildren().add(zoomGroup);
-        zoomGroup.getChildren().add(map_scrollpane.getContent());
-        map_scrollpane.setContent(contentGroup);
-        mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
-                    Parent root = (Parent) loader.load();
-                    Stage stage = new Stage();
-                    //stage.initStyle(StageStyle.DECORATED);
-                    stage.setTitle("Hotel Map");
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                } catch (Exception e) {
-                    System.out.println("Can't open !!!");
-                }
-            }
-        });
-
-    }
-    */
-    // Sækja morepic glugga
+    // Display morePic.fxml
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
         System.out.println("Hótel? " + chosenHotel);
-        // Loadum nýrri glugga -> MorePic.fxml
+        // Load new scene -> MorePic.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MorePic.fxml"));
         try {
             fxmlLoader.load();
@@ -184,25 +131,11 @@ public class HerbergiController implements Initializable{
         stage.show();
     }
 
-
-    // ZoomIn aðferð
-    @FXML
-    void zoomIn(ActionEvent event) {
-        double sliderVal = zoom_slider.getValue();
-        zoom_slider.setValue(sliderVal += 0.1);
-    }
-
-    // ZoomOut aðferð
-    @FXML
-    void zoomOut(ActionEvent event) {
-        double sliderVal = zoom_slider.getValue();
-        zoom_slider.setValue(sliderVal + -0.1);
-    }
-
-    // Sækja search glugga
+    // get search scene
     @FXML
     void returnToSearch(ActionEvent actionEvent) throws IOException {
-        // Loadum nýrri scene -> Search.fxml
+        // Load new scene -> Search.fxml
+        // this will remove everything from last input
         Parent Search_parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
         Scene Search_scene = new Scene(Search_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -239,16 +172,6 @@ public class HerbergiController implements Initializable{
             alert.showAndWait();
         }
 
-    }
-
-    // Sækja X og Y value í pane til að sitja nýja gildi í zoomið
-    private void zoom(double scaleValue) {
-        double scrollH = map_scrollpane.getHvalue();
-        double scrollV = map_scrollpane.getVvalue();
-        zoomGroup.setScaleX(scaleValue);
-        zoomGroup.setScaleY(scaleValue);
-        map_scrollpane.setHvalue(scrollH);
-        map_scrollpane.setVvalue(scrollV);
     }
 
     public void showHotel(Hotel hotel) {

@@ -58,7 +58,7 @@ public class booking2Controller implements Initializable {
         alert.setHeaderText("Warning !");
         alert.setContentText("Are you sure you want to cancel this reversation ?");
 
-        String text = "Booking has cancelled \u2122";
+        String text = "Please restart application.";
         File input = new File("src/is/hi/hbv/utlit/img/Roomimage/booking/" + booking + ".png");
         File output = new File("src/is/hi/hbv/utlit/img/Roomimage/booking/" + booking + ".png");
         Optional<ButtonType> result = alert.showAndWait();
@@ -75,13 +75,18 @@ public class booking2Controller implements Initializable {
         //}
         // adding text as overlay to an image
         alert();
+
+        //Display new image that say restart application
+        Image image = new Image("is/hi/hbv/utlit/img/Roomimage/booking/cancelled.png");
+        imageID.setImage(image);
     }
 
-    //  Þetta aðferð eyða selected myndum !!!
+    //  Delete file method that work but i decide to use add watermark instead.
     public static boolean deleteDir(File dir) {
         return dir.delete();
     }
 
+    // Watermark method that can draw in image
     private static void addTextWatermark(String text, String type, File source, File destination) throws IOException {
         BufferedImage image = ImageIO.read(source);
 
@@ -109,6 +114,7 @@ public class booking2Controller implements Initializable {
         w.dispose();
     }
 
+    // Close current window
     public void closeAction(ActionEvent actionEvent) {
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         main_stage.close();
