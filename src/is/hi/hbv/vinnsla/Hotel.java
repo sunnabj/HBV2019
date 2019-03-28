@@ -57,7 +57,7 @@ public class Hotel {
         return name;
     }
     // Connects to the database and returns an object list of the rooms in this particular hotel
-    public ArrayList<Object> getRooms() {
+    public ArrayList<Room> getRooms() {
         HotelsDAO db = new HotelsDAO();
         return db.getRoomsInHotel(hotelID);
     }
@@ -71,4 +71,17 @@ public class Hotel {
         return name + " - Price from: " + minprice + " - Stars: " + stars + " - " + reviewNr + " reviews";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Hotel)) {
+            return false;
+        }
+        Hotel anotherHotel = (Hotel)o;
+        return anotherHotel.getHotelID() == this.getHotelID() &&
+                anotherHotel.getName().equals(this.getName()) &&
+                anotherHotel.getHotelAddress().equals(this.getHotelAddress()) &&
+                anotherHotel.getPhoneNr().equals(this.getPhoneNr()) &&
+                anotherHotel.getHotelInfo().equals(this.getHotelInfo()) &&
+                anotherHotel.getStars() == this.getStars();
+    }
 }

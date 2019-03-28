@@ -31,8 +31,8 @@ public class HotelsDAO {
     * This function looks for hotels according to specific search conditions and returns a list of hotel objects.
     * The parameters are high: the maximum room price chosen, area: the region chosen, and guests: Number of guests chosen
      */
-    public ArrayList<Object> HotelSearch(int high, String area, int guests) {
-        ArrayList<Object> hotels = new ArrayList<Object>();
+    public ArrayList<Hotel> HotelSearch(int high, String area, int guests) {
+        ArrayList<Hotel> hotels = new ArrayList<>();
 
         try {
             stmt = conn.createStatement();
@@ -74,8 +74,8 @@ public class HotelsDAO {
     * This function takes in a unique hotelID and uses an SQL query to return
     * a list of room objects matching the hotel
      */
-    public ArrayList<Object> getRoomsInHotel(int hotelID) {
-        ArrayList<Object> rooms = new ArrayList<Object>();
+    public ArrayList<Room> getRoomsInHotel(int hotelID) {
+        ArrayList<Room> rooms = new ArrayList<Room>();
         try {
             stmt = conn.createStatement();
             PreparedStatement p = conn.prepareStatement("SELECT RoomID, RoomNumber, Rate, GuestNumber, RoomInfo FROM Room WHERE HotelID = ?");

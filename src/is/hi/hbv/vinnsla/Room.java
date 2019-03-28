@@ -35,7 +35,21 @@ public class Room {
         return roomInfo;
     }
 
+    @Override
     public String toString() {
         return "Room " + roomNr + " - " + price + " ISK per night - " + guestNumber + " guests";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Room)) {
+            return false;
+        }
+        Room anotherRoom = (Room)o;
+        return anotherRoom.getPrice() == this.getPrice() &&
+                anotherRoom.getRoomInfo().equals(this.getRoomInfo()) &&
+                anotherRoom.getRoomNr() == this.getRoomNr() &&
+                anotherRoom.getGuests() == this.getGuests() &&
+                anotherRoom.getRoomID() == this.getRoomID();
     }
 }

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class searchActivity {
 
-    public static ArrayList<Object> hotelSearch(String area, int guests, int maxprice) {
+    public static ArrayList<Hotel> hotelSearch(String area, int guests, int maxprice) {
         HotelsDAO database = new HotelsDAO();
-        ArrayList<Object> hotelResults = database.HotelSearch(maxprice, area, guests);
+        ArrayList<Hotel> hotelResults = database.HotelSearch(maxprice, area, guests);
         // A string version of the hotel object is shown
         for (Object hotel : hotelResults) {
             hotel.toString();
