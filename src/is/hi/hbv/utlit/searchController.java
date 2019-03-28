@@ -1,30 +1,28 @@
 package is.hi.hbv.utlit;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import is.hi.hbv.vinnsla.Hotel;
 import is.hi.hbv.vinnsla.HotelsDAO;
+import is.hi.hbv.vinnsla.searchActivity;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
-import javafx.beans.value.ChangeListener;
-import javafx.scene.layout.VBox;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-
-import java.sql.SQLException;
-import java.time.temporal.ChronoUnit;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -32,6 +30,7 @@ import java.util.logging.Logger;
 
 
 public class searchController implements Initializable {
+
     @FXML
     public DatePicker arrivalchoice; //Selection of arrival dates
     @FXML
@@ -66,6 +65,8 @@ public class searchController implements Initializable {
     private MailListController mailListController; // Instance fot he postlist dialog controller
     @FXML
     public TextField mailID; // Reads email text
+    @FXML
+    private searchActivity search;
 
     Hotel chosenHotel; // Chosen hotel object in the reults
 
@@ -133,7 +134,7 @@ public class searchController implements Initializable {
             daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue);
             // Daycount return 1 day if arrival and departure at same day
             if (daycountvalue == 0) {
-                daycountvalue = ChronoUnit.DAYS.between(arrivalchoicevalue, departurechoicevalue.plusDays(1));
+                daycountvalue = 1;
             }
             // Other warnings appear if other conditions are not fulfilled
             if (areachoicevalue == null) {
@@ -163,20 +164,8 @@ public class searchController implements Initializable {
             // If everything is all right, values from the comboboxes used to determine the search results
             // Hotels are fetched based on the conditions chosen in the search
             else {
-                HotelsDAO database = new HotelsDAO();
-                hotelResults = FXCollections.observableArrayList(database.HotelSearch(maxpricevalue, areachoicevalue, guestnumbervalue));
-                // A string version of the hotel object is shown
-                for (Object hotel : hotelResults) {
-                    hotel.toString();
-                }
-                // The result list is updated
+                hotelResults = FXCollections.observableArrayList(search.hotelSearch(areachoicevalue, guestnumbervalue, maxpricevalue));
                 resultList.setItems(hotelResults);
-                // If search returns nothing, the user is told through the result window
-                if (hotelResults.isEmpty()) {
-                    ArrayList<String> noResults = new ArrayList<String>();
-                    noResults.add("No hotels found");
-                    resultList.setItems(FXCollections.observableArrayList(noResults));
-                }
             }
         } catch (Exception e) {
             // Warning appears for nullpointerexception considering length of stay
@@ -294,15 +283,16 @@ public class searchController implements Initializable {
      * A function that determines how the result list should be sorted based on the choice of radiobutton
      */
     public void sortingHandler(ActionEvent actionEvent) {
+        System.out.println("sorting handler hotel results:" + hotelResults);
         RadioButton r = (RadioButton) actionEvent.getSource();
+
         if (hotelResults == null) {
-            //System.out.println("Hello Villa");
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            //alert.setTitle("No hotel found");
             alert.setHeaderText("No hotel found");
             alert.setContentText("Please search for a hotel");
             alert.showAndWait();
-        } else if (hotelResults != null) {
+        } else {
+
             if (Integer.parseInt(r.getId()) == 1) {
                 sortByPrice();
             } else if (Integer.parseInt(r.getId()) == 2) {
@@ -318,88 +308,20 @@ public class searchController implements Initializable {
      */
     public void sortByPrice() {
 
-        ArrayList<Object> hotelsPriceSorted = new ArrayList<Object>();
-        int[] hotelPriceSort = new int[hotelResults.size()];
-        // All price values are inserted into a normal int array, hotelPriceSort
-        int index = 0;
-        for (Object hotel : hotelResults) {
-            Hotel nHotel = (Hotel) hotel;
-            hotelPriceSort[index] = nHotel.getPrice();
-            index++;
-        }
-        // Now, hotelPriceSort is sorted
-        int tmp;
-        for (int count = 1; count < hotelPriceSort.length; count++) {
-            for (int i = 0; i < hotelPriceSort.length - 1; i++) {
-                if (hotelPriceSort[i] > hotelPriceSort[i + 1]) {
-                    tmp = hotelPriceSort[i];
-                    hotelPriceSort[i] = hotelPriceSort[i + 1];
-                    hotelPriceSort[i + 1] = tmp;
-                }
-            }
-        }
-        // Hotels with corresponding price values in the hotelResult list are found and added to hotelsPriceSorted sequentially
-        for (int j = 0; j < hotelPriceSort.length; j++) {
-            for (Object hotel : hotelResults) {
-                Hotel aHotel = (Hotel) hotel;
-                if (aHotel.getPrice() == hotelPriceSort[j]) {
-                    hotelsPriceSorted.add(aHotel);
-                }
-            }
-        }
-        // The sorted list is transformed to the right form and shown
-        hotelResults = FXCollections.observableArrayList(hotelsPriceSorted);
+        hotelResults = FXCollections.observableArrayList(search.priceSort(hotelResults));
 
         for (Object hotel : hotelResults) {
             hotel.toString();
         }
-
         resultList.setItems(hotelResults);
-
     }
 
     /*
      * A function that sorts the result list based on the number of reviews for each hotel
      */
     public void sortByReviews() {
-        ArrayList<Object> hotelsReviewsSorted = new ArrayList<Object>();
-        int[] hotelReviewsSort = new int[hotelResults.size()];
-        // All review number values are inserted into a normal int array, hotelReviewsSort
-        int index = 0;
-        for (Object hotel : hotelResults) {
-            Hotel nHotel = (Hotel) hotel;
-            int reviews = nHotel.getReviewNr();
-            System.out.println(reviews);
-            hotelReviewsSort[index] = reviews;
-            index++;
-        }
 
-        // hotelReviewsSort is sorted
-        int tmp;
-        for (int count = 1; count < hotelReviewsSort.length; count++) {
-            for (int i = 0; i < hotelReviewsSort.length - 1; i++) {
-                if (hotelReviewsSort[i] > hotelReviewsSort[i + 1]) {
-                    tmp = hotelReviewsSort[i];
-                    hotelReviewsSort[i] = hotelReviewsSort[i + 1];
-                    hotelReviewsSort[i + 1] = tmp;
-                }
-            }
-        }
-        for (int i = 0; i < hotelReviewsSort.length; i++) {
-            System.out.println(hotelReviewsSort[i]);
-        }
-
-        // Hotels with corresponding number of reviews are found in the results and added sequentially into hotelsReviewsSorted
-        for (int j = 0; j < hotelReviewsSort.length; j++) {
-            for (Object hotel : hotelResults) {
-                Hotel aHotel = (Hotel) hotel;
-                if (aHotel.getReviewNr() == hotelReviewsSort[j] && !hotelsReviewsSorted.contains(hotel)) {
-                    hotelsReviewsSorted.add(aHotel);
-                }
-            }
-        }
-        // The sorted list is updated to the relevant form and shown in the result window.
-        hotelResults = FXCollections.observableArrayList(hotelsReviewsSorted);
+        hotelResults = FXCollections.observableArrayList(search.reviewSort(hotelResults));
 
         resultList.setItems(hotelResults);
 
@@ -410,44 +332,7 @@ public class searchController implements Initializable {
      */
     public void sortByStars() {
 
-        ArrayList<Object> hotelsStarSorted = new ArrayList<Object>();
-        int[] hotelStarSort = new int[hotelResults.size()];
-        // All star number values are inserted into a normal int array, hotelStarsSort
-        int index = 0;
-        for (Object hotel : hotelResults) {
-            Hotel nHotel = (Hotel) hotel;
-            int stars = nHotel.getStars();
-            System.out.println(stars);
-            hotelStarSort[index] = stars;
-            index++;
-        }
-
-        // hotelStarsSort is sorted
-        int tmp;
-        for (int count = 1; count < hotelStarSort.length; count++) {
-            for (int i = 0; i < hotelStarSort.length - 1; i++) {
-                if (hotelStarSort[i] > hotelStarSort[i + 1]) {
-                    tmp = hotelStarSort[i];
-                    hotelStarSort[i] = hotelStarSort[i + 1];
-                    hotelStarSort[i + 1] = tmp;
-                }
-            }
-        }
-        for (int i = 0; i < hotelStarSort.length; i++) {
-            System.out.println(hotelStarSort[i]);
-        }
-
-        // Hotels with corresponding number of stars are found in the results and added sequentially into hotelsStarsSorted
-        for (int j = 0; j < hotelStarSort.length; j++) {
-            for (Object hotel : hotelResults) {
-                Hotel aHotel = (Hotel) hotel;
-                if (aHotel.getStars() == hotelStarSort[j] && !hotelsStarSorted.contains(hotel)) {
-                    hotelsStarSorted.add(aHotel);
-                }
-            }
-        }
-        // The sorted list is updated to the relevant form and shown in the result window.
-        hotelResults = FXCollections.observableArrayList(hotelsStarSorted);
+        hotelResults = FXCollections.observableArrayList(search.starSort(hotelResults));
 
         resultList.setItems(hotelResults);
 
