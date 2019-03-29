@@ -165,7 +165,7 @@
          </children>
       </VBox>
       <Button fx:id="nextButton" layoutX="788.0" layoutY="583.0" mnemonicParsing="false" onAction="#Next" text="Next" />
-      <Button fx:id="backButton" layoutX="675.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Back" />
+      <Button fx:id="backButton" layoutX="39.0" layoutY="583.0" mnemonicParsing="false" onAction="#Back" text="Back" />
       <Label fx:id="totallist" alignment="TOP_LEFT" layoutX="547.0" layoutY="100.0" lineSpacing="10.0" prefHeight="445.0" prefWidth="330.0" style="-fx-border-color: black;" wrapText="true">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

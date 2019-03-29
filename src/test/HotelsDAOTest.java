@@ -85,5 +85,16 @@ public class HotelsDAOTest {
 
     @Test
     public void getHotelReviews() {
+
+        hotelID = 22244;
+        ArrayList<String> expectedReviews = new ArrayList<>();
+        expectedReviews.add("Great location in downtown Reykjavik! Very nice hotel, would recommend!");
+        expectedReviews.add("Ljómandi fínt hótel á góðum stað og flottur morgunmatur.");
+        expectedReviews.add("Við hjónin eru ánægð með dvölina fínar móttökur bæði í móttöku og á SKÝ");
+
+        ArrayList<String> actualReviews = db.getHotelReviews(hotelID);
+
+        assertEquals(expectedReviews.size(), actualReviews.size());
+        assertEquals(expectedReviews, actualReviews);
     }
 }
