@@ -1,5 +1,7 @@
-package is.hi.hbv.vinnsla;
+package test;
 
+import is.hi.hbv.vinnsla.Hotel;
+import is.hi.hbv.vinnsla.searchActivity;
 import javafx.collections.FXCollections;
 import org.junit.After;
 import org.junit.Assert;
