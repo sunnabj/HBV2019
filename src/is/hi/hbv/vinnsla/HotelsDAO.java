@@ -3,8 +3,6 @@ package is.hi.hbv.vinnsla;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static java.sql.JDBCType.INTEGER;
-
 public class HotelsDAO {
 
     private Connection conn;
@@ -30,7 +28,7 @@ public class HotelsDAO {
     /*
     * This function looks for hotels according to specific search conditions and returns a list of hotel objects.
     * The parameters are high: the maximum room price chosen, area: the region chosen, and guests: Number of guests chosen
-     */
+    */
     public ArrayList<Hotel> HotelSearch(int high, String area, int guests) {
         ArrayList<Hotel> hotels = new ArrayList<>();
 
@@ -73,7 +71,7 @@ public class HotelsDAO {
     /*
     * This function takes in a unique hotelID and uses an SQL query to return
     * a list of room objects matching the hotel
-     */
+    */
     public ArrayList<Room> getRoomsInHotel(int hotelID) {
         ArrayList<Room> rooms = new ArrayList<Room>();
         try {

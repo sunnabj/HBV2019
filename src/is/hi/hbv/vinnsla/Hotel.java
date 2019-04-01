@@ -68,7 +68,7 @@ public class Hotel {
     }
 
     public String toString() {
-        return name + " - Price from: " + minprice + " - Stars: " + stars + " - " + reviewNr + " reviews";
+        return name + " - Price from: " + minprice + " - Stars: " + stars + " - " + reviewNr + " reviews" + " - HotelInfo: " + hotelInfo;
     }
 
     @Override
@@ -78,10 +78,12 @@ public class Hotel {
         }
         Hotel anotherHotel = (Hotel)o;
         return anotherHotel.getHotelID() == this.getHotelID() &&
-                anotherHotel.getName().equals(this.getName()) &&
-                anotherHotel.getHotelAddress().equals(this.getHotelAddress()) &&
-                anotherHotel.getPhoneNr().equals(this.getPhoneNr()) &&
+                anotherHotel.getPrice() == this.getPrice() &&
+                anotherHotel.getReviewNr() == this.getReviewNr() &&
+                anotherHotel.getStars() == this.getStars() &&
                 anotherHotel.getHotelInfo().equals(this.getHotelInfo()) &&
-                anotherHotel.getStars() == this.getStars();
+                anotherHotel.getPhoneNr().equals(this.getPhoneNr()) &&
+                anotherHotel.getHotelAddress().equals(this.getHotelAddress()) &&
+                anotherHotel.getName().equals(this.getName());
     }
 }

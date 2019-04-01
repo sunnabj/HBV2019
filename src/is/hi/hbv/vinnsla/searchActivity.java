@@ -5,17 +5,24 @@ import java.util.ArrayList;
 
 public class searchActivity {
 
+    /*
+    * This function connects to the database and returns an ArrayList of Hotels corresponding to search conditions
+    * that are taken in as arguments
+    */
     public static ArrayList<Hotel> hotelSearch(String area, int guests, int maxprice) {
         HotelsDAO database = new HotelsDAO();
         ArrayList<Hotel> hotelResults = database.HotelSearch(maxprice, area, guests);
         // A string version of the hotel object is shown
-        for (Object hotel : hotelResults) {
+        for (Hotel hotel : hotelResults) {
             hotel.toString();
         }
-        System.out.println(hotelResults);
         return hotelResults;
     }
 
+    /*
+    * This function sorts a list of hotels from a particular search based on the minimum room price
+    * of each hotel
+    */
     public static ArrayList<Object> priceSort(ObservableList<Object> hotelResults) {
         ArrayList<Object> hotelsPriceSorted = new ArrayList<Object>();
         int[] hotelPriceSort = new int[hotelResults.size()];
@@ -50,6 +57,9 @@ public class searchActivity {
         return hotelsPriceSorted;
     }
 
+    /*
+     * This function sorts a list of hotels from a particular search based on the number of reviews for each hotel
+     */
     public static ArrayList<Object> reviewSort(ObservableList<Object> hotelResults) {
         ArrayList<Object> hotelsReviewsSorted = new ArrayList<Object>();
         int[] hotelReviewsSort = new int[hotelResults.size()];
@@ -58,7 +68,6 @@ public class searchActivity {
         for (Object hotel : hotelResults) {
             Hotel nHotel = (Hotel) hotel;
             int reviews = nHotel.getReviewNr();
-            System.out.println(reviews);
             hotelReviewsSort[index] = reviews;
             index++;
         }
@@ -74,9 +83,6 @@ public class searchActivity {
                 }
             }
         }
-        for (int i = 0; i < hotelReviewsSort.length; i++) {
-            System.out.println(hotelReviewsSort[i]);
-        }
 
         // Hotels with corresponding number of reviews are found in the results and added sequentially into hotelsReviewsSorted
         for (int j = 0; j < hotelReviewsSort.length; j++) {
@@ -90,6 +96,9 @@ public class searchActivity {
         return hotelsReviewsSorted;
     }
 
+    /*
+     * This function sorts a list of hotels from a particular search based on the number of stars for each hotel
+     */
     public static ArrayList<Object> starSort(ObservableList<Object> hotelResults) {
         ArrayList<Object> hotelsStarSorted = new ArrayList<Object>();
         int[] hotelStarSort = new int[hotelResults.size()];
@@ -98,7 +107,6 @@ public class searchActivity {
         for (Object hotel : hotelResults) {
             Hotel nHotel = (Hotel) hotel;
             int stars = nHotel.getStars();
-            System.out.println(stars);
             hotelStarSort[index] = stars;
             index++;
         }
@@ -113,9 +121,6 @@ public class searchActivity {
                     hotelStarSort[i + 1] = tmp;
                 }
             }
-        }
-        for (int i = 0; i < hotelStarSort.length; i++) {
-            System.out.println(hotelStarSort[i]);
         }
 
         // Hotels with corresponding number of stars are found in the results and added sequentially into hotelsStarsSorted
