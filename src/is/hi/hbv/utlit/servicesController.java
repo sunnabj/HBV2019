@@ -214,7 +214,6 @@ public class servicesController implements Initializable {
         address = Address;
         kennitala = Kennitala;
         card = Card;
-        System.out.println(firstname + lastname + "services");
     }
 
     @Override

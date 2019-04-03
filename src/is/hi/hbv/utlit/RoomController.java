@@ -47,26 +47,18 @@ import java.util.logging.Logger;
 public class RoomController implements Initializable{
     @FXML
     public TextArea reviewBox;  // Show reviews for selected hotel
-
     @FXML
     private Button backID;
-
     @FXML
-
-    private ListView hotelRooms; // var <String>
-
+    private ListView hotelRooms; // Displays the rooms in the chosen hotel
     @FXML
     private Label hotelname;    // Show selected hotel name
-
     @FXML
     private TextArea hotelInfo; // Show hotel-info for selected hotel
-
     @FXML
     private Button nextID;      // Go to next scene
-
     @FXML
     private Pane hotelImage;    // Display image for selected hotel
-
     @FXML
     private Button morepicID;   // Go to morepic scene
 
@@ -96,23 +88,23 @@ public class RoomController implements Initializable{
         nextID.setTooltip(new Tooltip("Go to services"));
         backID.setTooltip(new Tooltip("Go back to search"));
 
-        // Fylgjumst með völdum gildum í niðurstöðuglugga
+        // The chosen values in the result window are observed
         MultipleSelectionModel<Object> lsm = hotelRooms.getSelectionModel();
         lsm.selectedItemProperty().addListener(new ChangeListener<Object>() {
             @Override
             public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
-                // Indexinn í listanum.
+                // The index in the list
                 roomindex = lsm.getSelectedIndex();
-                System.out.println("Room index: " + roomindex);
             }
         });
 
     }
 
-    // Display morePic.fxml
+    /*
+    * Displays more pictures of the particular hotel
+     */
     @FXML
     void morePic(ActionEvent actionEvent) throws IOException {
-        System.out.println("Hótel? " + chosenHotel);
         // Load new scene -> MorePic.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MorePic.fxml"));
         try {
@@ -131,7 +123,7 @@ public class RoomController implements Initializable{
         stage.show();
     }
 
-    // get search scene
+    // Go back to the search window
     @FXML
     void returnToSearch(ActionEvent actionEvent) throws IOException {
         // Load new scene -> Search.fxml
@@ -142,7 +134,9 @@ public class RoomController implements Initializable{
         main_stage.setScene(Search_scene);
         main_stage.show();
     }
-    // Farið í þjónustuglugga - ef ekkert herbergi valið kemur viðvörun.
+    /*
+    * Opens the service window - if no room is chosen a warning appears.
+     */
     @FXML
     void selectRoom(ActionEvent actionEvent) throws IOException {
 
@@ -174,14 +168,16 @@ public class RoomController implements Initializable{
 
     }
 
+    /*
+    * Shows information about and a figure of the chosen hotel.
+    * Chooses which figures to show when the "More pictures" button is pressed.
+     */
     public void showHotel(Hotel hotel) {
         chosenHotel = hotel;
         hotelname.setText(chosenHotel.getName());
         hotelInfo.setText(chosenHotel.getHotelInfo());
-        System.out.println("Hótelið er: " + chosenHotel);
-        //showRooms();
 
-        // Birtir mynd af völdu hóteli.
+        // Shows a figure of the chosen hotel
         hotelImage.getChildren().clear();
         Integer hotelID = chosenHotel.getHotelID();
         Image image = new Image("is/hi/hbv/utlit/img/Roomimage/hotel/" + hotelID + ".jpg");
@@ -190,28 +186,12 @@ public class RoomController implements Initializable{
         imageView.setFitHeight(212);
         hotelImage.getChildren().add(imageView);
         morepicID.setTooltip(new Tooltip("See more pictures of "+ chosenHotel.getName() + "."));
-
-        /*
-        mapID.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
-                    Parent root = (Parent) loader.load();
-                    Stage stage = new Stage();
-                    //stage.initStyle(StageStyle.DECORATED);
-                    stage.setTitle("Hotel Map");
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                } catch (Exception e) {
-                    System.out.println("Can't open !!!");
-                }
-            }
-        });
-        */
-
     }
 
+    /*
+    * Sets the values of the hotel chosen in the search, so they can be used here.
+    * Shows the reviews for this particular hotel in a window.
+     */
     public void setValues(Hotel hotel, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
         daycountvalue = daycount;
@@ -229,7 +209,7 @@ public class RoomController implements Initializable{
     }
 
     /*
-     * Birtir herbergin í völdu hóteli í ListView glugga
+     * Shows the rooms of the chosen hotel in a listview window
      */
     public void showRooms() {
         roomResults = FXCollections.observableArrayList(chosenHotel.getRooms());
@@ -240,6 +220,9 @@ public class RoomController implements Initializable{
 
     }
 
+    /*
+    * Payment information if the user has saved them after some earlier booking
+     */
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
         firstname = Firstname;
         lastname = Lastname;
@@ -251,6 +234,9 @@ public class RoomController implements Initializable{
     }
 
 
+    /*
+    * Shows the location of the hotel on a map
+     */
     public void hotelLocation(ActionEvent actionEvent) {
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("hotelplace.fxml"));
