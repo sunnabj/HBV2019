@@ -70,8 +70,9 @@ public class confirmController implements Initializable {
     String book = bookingNumber();
     String pin = pinNumber();
 
-    // Þetta sækja gögnum af herbergi sem notenda hefur valið og birta á
-    // þarf samt biða eftir gögnum og helst ekki vinna strax því getur árekstur á Search.fxml eða HotelDAO....
+    /*
+    * Shows hotel and booking information on the screen
+     */
     public void setText12 (Hotel chosenHotel, long daycountvalue, LocalDate arrivalchoicevalue,
                            LocalDate departurechoicevalue, int guestnumbervalue) {
         getName.setText(chosenHotel.getName() + " , "+ chosenHotel.getStars() + " stars."+"\n" +
@@ -87,14 +88,15 @@ public class confirmController implements Initializable {
                             "Number of guests : " + guestnumbervalue + "\n"
                 );
 
-        // Birtir mynd af völdu hóteli.
+        // Shows a figure of the chosen hotel
         Integer hotelID = chosenHotel.getHotelID();
         Image image = new Image("is/hi/hbv/utlit/img/Roomimage/hotel/" + hotelID + ".jpg");
         hotelImage1.setImage(image);
     }
 
-    // Þetta er að ferð kalla allar upplýsingar frá Paymentglugga og prenta það út ...
-    // Ef getur, getur sameina aðferð uppí í þetta það sé snyrtilega xD.
+    /*
+    * Shows information about the cost of room and services and the customer
+     */
     public void setText123 (String Firstname,String Lastname,String Email,String Phone,
                             String Address,String Kennitala,String Card, int price, int addedPrice) {
         int roomPrice = price - addedPrice;
@@ -124,39 +126,44 @@ public class confirmController implements Initializable {
         kennitala = Kennitala;
         card = Card;
     }
-    // Save button action control kalla Snapshot af glugga sem er í (confirm glugga) og vista
-    // í hvar sem er inn á tölva notenda. Kalla Continue aðferð dialog
+    /*
+    * This saves a snapshot of the window, i.e. the order, and saves to a chosen directory in the
+    * customer's computer. Saves the booking order to the database.
+     */
     @FXML
     void nextPage(ActionEvent actionEvent) throws IOException, SQLException {
         saveImage();
         Continue(actionEvent);
         savetoSQL(book,pin);
     }
-    // Vista snapshot af Confirm glugga og vista á notenda tölvar.
+    /*
+    * Saves the booking confirmation to the user's computer
+     */
     private void saveImage() throws IOException {
         Stage stage123 = (Stage) saveButton.getScene().getWindow();
         Image i = Reservation.snapshot(null, null);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(stage123);
-        // vista fyrir notenda tolvu
+
         if (file != null) {
                 ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png", file);
         }
 
-        //vista í resource mappa til að forrit geta sækja seinna bóoking og afbóka :D
         ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png",
                 new File("src/is/hi/hbv/utlit/img/Roomimage/booking/"+book+".png"));
 
     }
 
-    // Continue dialog staðfest til láta notenda velur valmöguleika Yes þá til baka á search ...
-    // No þá hætta við forrit ....
+    /*
+    * A dialog that checks if the user wants to book another hotel or wants to quit.
+    * If yes is pressed, the introductory window is shown, otherwise the program is closed.
+     */
     private void Continue(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
         alert.setHeaderText("Your booking has been confirmed!");
         alert.setContentText("Thank you for booking with Hotels of Iceland.\n"+
-                "Do you want to book another one ?");
+                "Would you like to book another one ?");
         alert.resultProperty().addListener((observable, previous, current) -> {
             if (current == ButtonType.YES) {
                 try {
@@ -172,17 +179,18 @@ public class confirmController implements Initializable {
     }
 
 
-    // Þetta þarf laga betra til að virka
-    // hugmynd að kalla á textfield eins og sækja gildi frá payment í confirm ... þarf tíma ...
+    /*
+    * Checks if the user wants to save card information before next booking.
+    * Loads the introductory window.
+     */
     public void saveInfo(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText("Save Card-infomation !!!");
+        alert.setHeaderText("Save Card-information");
         alert.setContentText("Do you want to save your\n"+
-                "Card-infomation for next booking ?");
+                "Card-information for next booking ?");
         alert.resultProperty().addListener((observable, previous, current) -> {
             if (current == ButtonType.YES) {
-                // Loadum nýrri senu -> Seach.fxml
-
+                // A new scene is loaded, intro.fxml
                 FXMLLoader Loader = new FXMLLoader();
                 Loader.setLocation(getClass().getResource("Intro.fxml"));
                 try {
@@ -190,25 +198,23 @@ public class confirmController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //searchController search = Loader.getController();
-                //search.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
                 introController intro = Loader.getController();
                 intro.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
-                Parent herbergi_parent = Loader.getRoot();
-                Scene herbergi_scene = new Scene(herbergi_parent);
+                Parent intro_parent = Loader.getRoot();
+                Scene intro_scene = new Scene(intro_parent);
                 Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                main_stage.setScene(herbergi_scene);
+                main_stage.setScene(intro_scene);
                 main_stage.show();
             } else if (current == ButtonType.NO) {
-                Parent herbergi_parent = null;
+                Parent intro_parent = null;
                 try {
-                    herbergi_parent = FXMLLoader.load(getClass().getResource("Intro.fxml"));
+                    intro_parent = FXMLLoader.load(getClass().getResource("Intro.fxml"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Scene herbergi_scene = new Scene(herbergi_parent);
+                Scene intro_scene = new Scene(intro_parent);
                 Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                main_stage.setScene(herbergi_scene);
+                main_stage.setScene(intro_scene);
                 main_stage.show();
             }
         });
@@ -216,7 +222,7 @@ public class confirmController implements Initializable {
     }
 
 
-    // Generate 10 random number fyrir booking numer
+    // Generates 10 random integers that make up the booking number
     public String bookingNumber() {
         Random book1 = new Random();
         int random;
@@ -228,7 +234,7 @@ public class confirmController implements Initializable {
         return m[0]+m[1]+m[2]+m[3]+m[4]+m[5]+m[6]+m[7]+m[8]+m[9];
     }
 
-    // Generate 4 random number fyrir booking numer
+    // Generates 4 random integers that make up the pin number
     public String pinNumber() {
         Random book1 = new Random();
         int random;
@@ -240,7 +246,9 @@ public class confirmController implements Initializable {
         return m[0]+m[1]+m[2]+m[3];
     }
 
-
+    /*
+    * Saves the booking information to the database
+     */
     public void savetoSQL(String bookingID, String pinID) {
         String sql = "INSERT INTO Booking(BookingID,PinID) VALUES(?,?)";
         String url = "jdbc:sqlite:hotels.db";

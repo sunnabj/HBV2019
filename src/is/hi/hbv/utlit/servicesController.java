@@ -60,8 +60,7 @@ public class servicesController implements Initializable {
     private String kennitala;
     private String card;
 
-    //private String serviceCost;       // The cost of chosen services
-    private String serviceList;       // The list of chosen services
+    private String serviceList;                 // The list of chosen services
 
     private Hotel chosenHotel;                  // The chosen hotel from the search
     private Room chosenRoom;                    // The chosen room from last window
@@ -73,6 +72,9 @@ public class servicesController implements Initializable {
     private int servicePrice;                   // Price of chosen services
 
 
+    /*
+    * This function checks what services are chosen and loads the next page in the program
+     */
     @FXML
     void nextPage(ActionEvent actionEvent) {
         Stage stage123 = (Stage) nextButton.getScene().getWindow();
@@ -119,13 +121,7 @@ public class servicesController implements Initializable {
         stage.show();
     }
 
-    // Setfall fyrir Count fall
-    //public void setCount(String s) { serviceCost = s; }
-
-    // Getfall fyrir Count
-    //public String getCount() {return serviceCost;}
-
-    // Setfall fyrir Choice
+    // Sets the list of services
     public void setChoice(String s) {
         serviceList = s;
     }
@@ -185,6 +181,9 @@ public class servicesController implements Initializable {
         servicePrice = count;
     }
 
+    /*
+    * The values from the search are set
+     */
     public void setValues(Hotel hotel, Room room, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
         daycountvalue = daycount;

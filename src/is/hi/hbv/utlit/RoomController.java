@@ -44,7 +44,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class HerbergiController implements Initializable{
+public class RoomController implements Initializable{
     @FXML
     public TextArea reviewBox;  // Show reviews for selected hotel
 

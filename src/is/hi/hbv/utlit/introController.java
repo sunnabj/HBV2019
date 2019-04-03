@@ -46,6 +46,9 @@ public class introController implements Initializable {
     private Button quitID;
 
 
+    /*
+    * The payment information are set if the user has chosen to save it after having ordered a hotel before
+     */
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
         firstname = Firstname;
         lastname = Lastname;
@@ -56,8 +59,10 @@ public class introController implements Initializable {
         card = Card;
     }
 
+    /*
+    * Loads the search scene
+     */
     public void searchHandle(javafx.event.ActionEvent actionEvent) {
-        // Loadum nýrri senu -> Seach.fxml
 
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Search.fxml"));
@@ -68,20 +73,23 @@ public class introController implements Initializable {
         }
         searchController search = Loader.getController();
         search.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
-        Parent herbergi_parent = Loader.getRoot();
-        Scene herbergi_scene = new Scene(herbergi_parent);
+        Parent search_parent = Loader.getRoot();
+        Scene search_scene = new Scene(search_parent);
         Stage main_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        main_stage.setScene(herbergi_scene);
+        main_stage.setScene(search_scene);
         main_stage.setMaximized(true);
         main_stage.show();
     }
 
+    /*
+    * Loads a window where the user can take a look at a certain booking confirmation, based on
+    * its booking ID
+     */
     public void manageBooking(javafx.event.ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("booking.fxml"));
             Parent root = (Parent) loader.load();
             Stage stage = new Stage();
-            //stage.initStyle(StageStyle.DECORATED);
             stage.setTitle("Log-in with BookID");
             stage.setScene(new Scene(root));
             stage.show();
@@ -90,6 +98,9 @@ public class introController implements Initializable {
         }
     }
 
+    /*
+    * Loads a map of Iceland, showing main areas where hotels can be found
+     */
     public void hotelMaphandle(javafx.event.ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("maplist.fxml"));
@@ -104,12 +115,15 @@ public class introController implements Initializable {
         }
     }
 
+    /*
+    * Opens an information window about the project and authors
+     */
     public void aboutusHandle(javafx.event.ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
         alert.setHeaderText("About us");
         alert.initStyle(StageStyle.UNDECORATED);
         alert.setTitle("Iceland Hotel");
-        alert.setContentText("This project is called Iceland Hotel\n"+
+        alert.setContentText("This project is called Hotels of Iceland\n"+
                 "This is final project for HBV-401G\n" +
                 "Authors : Sunna Björnsdóttir - sub4@hi.is\n" +
                 "Þórdís Pétursdóttir - thp44@hi.is\n" +

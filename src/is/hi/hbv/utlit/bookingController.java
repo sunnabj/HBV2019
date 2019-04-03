@@ -74,7 +74,6 @@ public class bookingController implements Initializable {
     public void confirm(ActionEvent actionEvent) throws IOException {
         if (isValidCredentials())
         {
-            // Aðferð að kalla gögna frá annara scene, ekki saman við aðra aðferð.
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("booking2.fxml"));
             try {

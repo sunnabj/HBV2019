@@ -68,7 +68,7 @@ public class Hotel {
     }
 
     public String toString() {
-        return name + " - Price from: " + minprice + " - Stars: " + stars + " - " + reviewNr + " reviews" + " - HotelInfo: " + hotelInfo;
+        return name + " - Price from: " + minprice + " - Stars: " + stars + " - " + reviewNr + " reviews";
     }
 
     @Override

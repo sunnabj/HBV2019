@@ -25,44 +25,33 @@ import java.util.regex.Pattern;
 public class PaymentController<fxmlLoader> implements  Initializable{
 
     @FXML
-    private TextField getPhone;         // Textfield til að sækja gildi fyrir símanúmer
-
+    private TextField getPhone;         // User inserts a phone number
     @FXML
-    private TextField getCVC;           // Textfield til að sækja gildi fyrir CVC
-
+    private TextField getCVC;           // User inserts a CVC for his card
     @FXML
-    private TextField getFirstname;     // Textfield til að sækja gildi fyrir Nafn
-
+    private TextField getFirstname;     // User inserts his first name
     @FXML
-    private TextField getLastname;      // Textfield til að sækja gildi fyrir Last-nafn
-
+    private TextField getLastname;      // User inserts his last name
     @FXML
-    private TextField getKennitala;     // Textfield til að sækja gildi fyrir kennitölur
-
+    private TextField getKennitala;     // User inserts his kennitala
     @FXML
-    private TextField getExpirydate;    // Textfield til að sækja gildi fyrir rennurúttími á kort
-
+    private TextField getExpirydate;    // User inserts the expiry date of his card
     @FXML
-    private TextField getEmail;         // Textfield til að sækja gildi fyrir netfang
-
+    private TextField getEmail;         // User inserts his email
     @FXML
-    private TextField getAddress;
-
+    private TextField getAddress;       // User inserts his address
     @FXML
-    private Button nextButton;
-
+    private Button nextButton;          // The payment information is confirmed and next window shown
     @FXML
-    private Button backButton;
-
+    private Button backButton;          // Shows the last window (services) again
     @FXML
-    private Label totalscost;
-
+    private Label totalscost;           // Shows the totalcost of the payment
     @FXML
-    private Label totallist;
-
+    private Label totallist;            // Shows a list of the room and services ordered
     @FXML
-    private TextField getCardnumber;    // Textfield til að sækja gildi fyrir kortnúmer
+    private TextField getCardnumber;    // User inserts his cardnumber
 
+    // The values acquired from the search
     private Hotel chosenHotel;
     private long daycountvalue;
     private LocalDate arrivalchoicevalue;
@@ -72,22 +61,22 @@ public class PaymentController<fxmlLoader> implements  Initializable{
     private int totalPrice;
     private int servicePrice;
 
-    // Next button sækja nokkra hluta og athuga hvort það er satt eða ósatt
+    /*
+    * This function checks if the payment information are valid, and if so, loads the next window
+    * in the program
+     */
     @FXML
     void Next(ActionEvent actionEvent) {
-         if (validateTextfield() == false ){
+        if (validateTextfield() == false ){
             System.out.println("hello");
-        } else if (         validateFirstName() && validateLastName()                                                   // if-setning athuga fyrir hvert fall er
-                            && validateEmaill() && validatePhone()                                      // það satt eða ósatt ef satt halda áfram
-                            && validateKennitala((getKennitala.getText())) && validateCardNumber()
-                            && validateCardExpiryDate() && validateCVC() == true)
+        } else if (         validateFirstName() && validateLastName()
+                && validateEmaill() && validatePhone()
+                && validateKennitala((getKennitala.getText())) && validateCardNumber()
+                && validateCardExpiryDate() && validateCVC() == true)
         {
-            // Loadum nýrri scene -> paymentConfirmation.fxml
-            // Loka fyrst gamla glugga með nextButton til að sækja núverandi scene
+
             Stage stage123 = (Stage) nextButton.getScene().getWindow();
-            // Svo lokað gamla scene
             stage123.close();
-            // Sækja texta frá nokkra Textfield innan scene.
             String Firsname_text = getFirstname.getText();
             String Lastname_text = getLastname.getText();
             String Email_text = getEmail.getText();
@@ -97,7 +86,6 @@ public class PaymentController<fxmlLoader> implements  Initializable{
             String CardNumber_text = getCardnumber.getText();
             String List = totallist.getText();
 
-            // Aðferð að kalla gögna frá annara scene, ekki saman við aðra aðferð.
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("confirm.fxml"));
             try {
@@ -107,9 +95,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
             }
             confirmController display = Loader.getController();
             display.setText123(Firsname_text,Lastname_text,Email_text,Phone_text,Address_text,Kennitala_text,CardNumber_text,totalPrice, servicePrice);
-            //display.setTextHotel(chosenHotel);
             display.setText12(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
-            //display.setSaveInfo(Firstname, Lastname, Email, Phone, Address, Kennitala, Card);
             Parent p = Loader.getRoot();
             Stage stage = new Stage();
             stage.setScene(new Scene(p));
@@ -117,7 +103,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Farið til baka í að velja herbergi í völdu hóteli
+    // Goes back to choosing a room in a chosen hotel
     @FXML
     void Back (ActionEvent actionEvent) throws IOException {
         FXMLLoader Loader = new FXMLLoader();
@@ -127,7 +113,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         } catch (IOException ex) {
             Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        HerbergiController herbergi = Loader.getController();
+        RoomController herbergi = Loader.getController();
         herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
 
         Parent herbergi_parent = Loader.getRoot();
@@ -137,7 +123,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         main_stage.show();
     }
 
-    // bara eitthvað fall til að athuga hvort þetta er int eða ekki ... nota ekki núna
+    // Unused function
     private boolean isInt(TextField input, String message) {
         try {
             int number = Integer.parseInt(getCardnumber.getText());
@@ -149,14 +135,14 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Athuga Card hvort þetta legit eða ekki .... sækja ekki upplýsingar frá þeim :D
+    // Checks if the cardnumber is valid
     private boolean validateCardNumber(){
         Pattern p = Pattern.compile("^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
-                                            "(?<mastercard>5[1-5][0-9]{14})|" +
-                                            "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
-                                            "(?<amex>3[47][0-9]{13})|" +
-                                            "(?<diners>3(?:0[0-5]|[68][0-9])?[0-9]{11})|" +
-                                            "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$");
+                "(?<mastercard>5[1-5][0-9]{14})|" +
+                "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
+                "(?<amex>3[47][0-9]{13})|" +
+                "(?<diners>3(?:0[0-5]|[68][0-9])?[0-9]{11})|" +
+                "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$");
         Matcher m = p.matcher(getCardnumber.getText());
         if(m.find() && m.group().equals(getCardnumber.getText())){
             return true;
@@ -170,7 +156,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Athuga hvort úttrunni tíma er til ??
+    // Checks if the expiry date exists
     private boolean validateCardExpiryDate() {
         Pattern p = Pattern.compile("(?:0[1-9]|1[0-2])/[0-9]{2}");
         Matcher m = p.matcher(getExpirydate.getText());
@@ -186,7 +172,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Athuga CVC ....
+    // Checks if CVC is in the correct form
     private boolean validateCVC() {
         Pattern p = Pattern.compile("[1-9][1-9][1-9]");
         Matcher m = p.matcher(getCVC.getText());
@@ -202,7 +188,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Athuga Email ..... nota regex til að athuga
+    // Checks if email is in the correct form
     private boolean validateEmaill(){
         Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
         Matcher m = p.matcher(getEmail.getText());
@@ -218,7 +204,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Nota Regex til að athuga hvort það satt ??
+    // Checks if first name makes sens
     private boolean validateFirstName(){
         Pattern p = Pattern.compile("[a-zA-Z]+");
         Matcher m = p.matcher(getFirstname.getText());
@@ -234,7 +220,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    //  Athuga lastname ... en saman við first name ... bara má ekki hafa tölur inn á
+    //  Checks if last name makes sens
     private boolean validateLastName(){
         Pattern p = Pattern.compile("[a-zA-Z]+");
         Matcher m = p.matcher(getLastname.getText());
@@ -251,7 +237,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Athuga kennitala sé rétt eða ekki .... þetta hefur lærð á Tölvunarfræði 1
+    // Checks if kennitala is valid
     private boolean validateKennitala(final String a){
         if (a == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -299,7 +285,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         return a.replaceAll("[^0-9]", "");
     }
 
-    // Athuga hvort símanúmer sé rétt á íslenska síma
+    // checks if phone number is valid
     private boolean validatePhone(){
         Pattern p = Pattern.compile("(00354|354)?[5-8][0-9][0-9][0-9][0-9][0-9][0-9]");
         Matcher m = p.matcher(getPhone.getText());
@@ -315,7 +301,7 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         }
     }
 
-    // Athuga hvort allar tharf textfield eru fillar
+    // checks if all text fields have been filled
     private boolean validateTextfield(){
         if(     getFirstname.getText() == null | getLastname.getText() == null|
                 getEmail.getText() == null | getPhone.getText() == null |
@@ -334,21 +320,25 @@ public class PaymentController<fxmlLoader> implements  Initializable{
     }
 
 
-    // TODO : þetta þarf að laga/breyta því þarf að sækja gögnum á gagnasafn
-    // og þetta á að sækja herbergi upplýsingar !!!
+    /*
+    * Shows the total cost of the order together with room cost and service cost separated
+    * and the main information about the hotel
+     */
     public void setText12 (String totalslist) {
         int roomPrice = totalPrice - servicePrice;
         totalscost.setText("Total cost : " + totalPrice +" ISK");
         totallist.setText("----Order details----\n"
-                        + chosenHotel.getName() + "\n"
-                        + chosenHotel.getStars() + " stars" + "\n"
-                        + chosenHotel.getHotelAddress() + "\n"
-                        + "Room number " + chosenRoom.getRoomNr() + "\n"
-                        + String.valueOf(roomPrice) + " ISK for " + daycountvalue + " night(s)" + "\n"
-                        //+ chosenRoom.getRoomInfo() + "\n"
-                        + "----Additional Services----\n"+ totalslist + "\n");
+                + chosenHotel.getName() + "\n"
+                + chosenHotel.getStars() + " stars" + "\n"
+                + chosenHotel.getHotelAddress() + "\n"
+                + "Room number " + chosenRoom.getRoomNr() + "\n"
+                + String.valueOf(roomPrice) + " ISK for " + daycountvalue + " night(s)" + "\n"
+                + "----Additional Services----\n"+ totalslist + "\n");
     }
 
+    /*
+    * Sets the values of the chosen hotel from search
+     */
     public void setValues(Hotel hotel, Room room, int price, int addedPrice, long daycount, LocalDate arrival, LocalDate departure, int guests) {
         chosenHotel = hotel;
         daycountvalue = daycount;
@@ -360,6 +350,9 @@ public class PaymentController<fxmlLoader> implements  Initializable{
         servicePrice = addedPrice;
     }
 
+    /*
+    * Sets the payment information if the user has chosen to save it after having ordered a hotel before
+     */
     public void setSaveInfo(String Firstname, String Lastname, String Email, String Phone, String Address, String Kennitala, String Card) {
         this.getFirstname.setText(Firstname);
         this.getLastname.setText(Lastname);

@@ -1,7 +1,6 @@
 package is.hi.hbv.utlit;
 
 import is.hi.hbv.vinnsla.Hotel;
-import is.hi.hbv.vinnsla.HotelsDAO;
 import is.hi.hbv.vinnsla.searchActivity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,7 +22,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -200,7 +198,6 @@ public class searchController implements Initializable {
                         return;
                     }
                     areachoicevalue = newValue;
-                    System.out.println(areachoicevalue);
                 });
     }
 
@@ -254,15 +251,15 @@ public class searchController implements Initializable {
     public void chooseHotelHandler(ActionEvent actionEvent) throws IOException {
         if (hotelindex != -1) {
             chosenHotel = (Hotel) resultList.getItems().get(hotelindex);
-            // New scene is loaded - herbergi.fxml
+            // New scene is loaded - room.fxml
             FXMLLoader Loader = new FXMLLoader();
-            Loader.setLocation(getClass().getResource("herbergi.fxml"));
+            Loader.setLocation(getClass().getResource("room.fxml"));
             try {
                 Loader.load();
             } catch (IOException ex) {
                 Logger.getLogger(servicesController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            HerbergiController herbergi = Loader.getController();
+            RoomController herbergi = Loader.getController();
             herbergi.setValues(chosenHotel, daycountvalue, arrivalchoicevalue, departurechoicevalue, guestnumbervalue);
             herbergi.setSaveInfo(firstname, lastname, email, phone, address, kennitala, card);
             Parent herbergi_parent = Loader.getRoot();
@@ -280,10 +277,10 @@ public class searchController implements Initializable {
     }
 
     /*
-     * A function that determines how the result list should be sorted based on the choice of radiobutton
+     * A function that determines how the result list should be sorted based on the choice of radiobutton.
+     * If search has not taken place, a warning alert appears.
      */
     public void sortingHandler(ActionEvent actionEvent) {
-        System.out.println("sorting handler hotel results:" + hotelResults);
         RadioButton r = (RadioButton) actionEvent.getSource();
 
         if (hotelResults == null) {
